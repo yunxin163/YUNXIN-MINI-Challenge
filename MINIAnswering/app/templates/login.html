@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block resources %}
+<link href="/static/css/login.css" rel="stylesheet"/>
+<script>
+$(document).ready(function(){
+	$("#reset-pwd-btn").on('click', function(){
+		window.location.href = '/account/reset_pwd'
+	});
+	$('#login-submit-btn').on('click', function(){
+		$('#login-error').hide();
+		$(this).addClass('loading');
+		$(this).attr('disabled', 'disabled');
+		var requestData = {
+			username: $('#login-form-username').val(),
+			password: $('#login-form-password').val(),
+		};
+	    $.ajax({
+	        url: '/user/login/',
+	        type: 'POST',
+	        data: requestData,
+	        dataType: 'json',          
+	        success: function (data) {
+				if(data.states == 200){
+					// login success
+					$('#login-error').hide();
+					$.cookie('token', data.token, {expires: 1, path: '/'});
+					$.cookie('user_id', data.data.id, {expires: 1, path: '/'});
+					window.location.href = '/user/';
+				}else if(data.states == 800){
+					$('#login-error').text('您已登录');
+					window.location.href = '/user/';
+				}else if(data.states == 801){
+					$('#login-error').text('用户名或邮箱不存在');
+					$('#login-error').show();
+				}else if(data.states == 802){
+					$('#login-error').text('密码输入错误');
+					$('#login-error').show();
+				}else{
+					$('#login-error').text('ERROR: ' + data.message);
+					$('#login-error').show();
+				}
+				$('#login-submit-btn').removeClass('loading');
+				$('#login-submit-btn').removeAttr('disabled');
+	        },
+	        error: function (jqXHR, textStatus, errorThrown) {
+				$('#login-error').text('无法发送请求');
+				$('#login-error').show();
+				$('#login-submit-btn').removeClass('loading');
+				$('#login-submit-btn').removeAttr('disabled');
+	        }
+	    });
+	});
+});
+</script>
+{% endblock %}
+{% block main %}
+<section id="home-intro">
+	<div class="intro-text content-wrap section-content">
+		<div id="home-intro-header">
+			<h1>登录到 Mini 答疑</h1>
+		</div>
+		<div id="login-main-form" class="white-center-box main-box">
+			<form>
+				<div class="row">
+      				<div class="col-25">
+						<label for="login-form-username">用户名/邮箱</label>
+					</div>
+					<div class="col-75">
+						<input type="text" id="login-form-username" class="basic-input" />
+					</div>
+				</div>
+				<div class="row">
+      				<div class="col-25">
+						<label for="login-form-password">密  码</label>
+					</div>
+					<div class="col-75">
+						<input type="password" id="login-form-password" class="basic-input" />
+					</div>
+				</div>
+				<div class="row">
+					<div id="login-error" class="error-box"></div>
+					<button class="submit-btn" type="button" id="login-submit-btn"><a>立即登录</a></button>
+					<button class="second-btn" type="button" style="margin-left: 20px" id="reset-pwd-btn">无法登陆</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+<div style="height: 100px"></div>
+{% endblock %}

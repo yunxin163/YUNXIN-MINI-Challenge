@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+	<title>{{title}}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link href="/static/css/global.css" rel="stylesheet" />
+	<link rel="shortcut icon" href="/static/img/favicon.ico"/>
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/jquery.cookie.min.js"></script>
+	<script src="/static/js/global.js"></script>
+	<script src="/static/js/vue.min.js"></script>
+	{% block resources %}{% endblock %}
+</head>
+<body>
+	<nav id="home-top-nav">
+		<div class="content-wrap">
+			<ul style="float: left;margin: 1em;padding: 0">
+				<a href="/">
+					<li id="home-top-logo-container">
+						<img id="home-top-logo" src="{{ url_for('static', filename='img/favicon.png') }}">
+						<span id="home-top-logo-text">迷你答疑</span>
+					</li>
+				</a>
+			</ul>
+			<div id="home-top-signup-container">
+				<ul style="margin: 0;padding: 8px">
+					<a href="/signup/"><li class="signup-btn">注册</li></a>
+					<a href="/login/"><li class="login-btn">登录</li></a>
+				</ul>
+			</div>
+			<div style="float: clear"></div>
+		</div>
+	</nav>
+	<main>
+		{% block main %}{% endblock %}
+	</main>
+	<footer>
+		<div class="content-wrap">
+			<p>© 2019 Mini Answering. All rights reserved.</p>
+			<p>Terms of Service - Privacy Policy</p>
+			<p>安徽省马鞍山市马向路新城东区 安徽工业大学</p>
+		</div>
+	</footer>
+	{% block bottom_resources %}{% endblock %}
+</body>
+</html>

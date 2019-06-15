@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block resources %}
+<link href="/static/css/index.css" rel="stylesheet" />
+<style>
+.intro-text ul li{
+	color: #fff;
+}
+.intro-text ul li p{
+	margin: 0;
+	padding: 0;
+}
+</style>
+{% endblock %}
+{% block main %}
+<section id="home-intro">
+	<div class="intro-text content-wrap section-content">
+		<h1>使用迷你答疑，获得更优质的解答</h1>
+		<ul>		
+			<li><p>文字消息，视频聊天等互动环节</p></li>
+			<li><p>在线白板，语音连麦，屏幕共享，互动直播等教学方式</p></li>
+			<li><p>随时随地获取解答，让知识时刻与你同行</p></li>
+		</ul>
+		<br/>
+		<a class="get-started-btn" href="/login/">开始使用</a>
+		<a class="get-doc-btn">查看文档</a>
+		<img class="hero-intro-img" src="static/img/hero-intro-1.svg">
+	</div>
+</section>
+<section id="home-story">
+	<div class="content-wrap section-content story-wrap">
+		<div class="left">
+			<h2>随时提出问题</h2>
+			<p>无论是在何时何地，你都可以提出你的疑问，不懂就问，让你再也没有问题的烦扰。</p>
+		</div>
+		<div class="right">
+			<img src="/static/img/index-story/0.png" height="200">
+		</div>
+		<div style="clear: both"></div>
+	</div>
+	<div class="content-wrap section-content story-wrap">
+		<div class="right">
+			<h2>全面为你解答</h2>
+			<p>无论你提出什么问题，上至天文地理，下到生活点滴，我们都能帮你找到优质解答。</p>
+		</div>
+		<div class="left">
+			<img src="/static/img/index-story/1.png" height="200">
+		</div>
+		<div style="clear: both"></div>
+	</div>
+	<div class="content-wrap section-content story-wrap">
+		<div class="left">
+			<h2>多样解答方式</h2>
+			<p>语音连麦，互动直播，让你与专家名师面对面互动交流，为你解锁全新的在线答疑方式。</p>
+		</div>
+		<div class="right">
+			<img src="/static/img/index-story/2.png" height="200">
+		</div>
+		<div style="clear: both"></div>
+	</div>
+	<div class="content-wrap section-content story-wrap">
+		<div class="right">
+			<h2>高效获得指导</h2>
+			<p>高效快速地为你解疑答惑，让你感受知识的熏陶，帮你寻根问底地追究问题。</p>
+		</div>
+		<div class="left">
+			<img src="/static/img/index-story/3.png" height="200">
+		</div>
+		<div style="clear: both"></div>
+	</div>
+</section>
+<section id="home-join-now">
+	<div class="content-wrap section-content join-now-wrap">
+		<h2>立即注册</h2>
+		<h2>探索全新在线答疑方式</h2>
+		<a class="join-now-btn" href="/signup/">免费注册</a>
+	</div>
+</section>
+{% endblock %}

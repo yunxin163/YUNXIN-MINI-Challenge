@@ -1,0 +1,272 @@
+{% extends "base.html" %}
+{% block resources %}
+<link href="/static/css/signup.css" rel="stylesheet"/>
+<style>
+#email-check-img{
+    width: 50px;
+    height: 50px;
+    margin: 20px 0;
+}
+#signup-form-captcha{
+    min-width: 0;
+    width: 90px;
+    margin-right: 10px;
+}
+#signup-error{
+	display: none;
+	margin-top: 20px;
+}
+#signup-form-captcha-img{
+    position: relative;
+    top: 14px;
+}
+</style>
+<script>
+function check_email(email){
+　　var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+	if(!reg.test(email.toLowerCase())){
+　　　　return false;
+　　}else{
+　　　　return true;
+　　}
+}
+function check_special_char(val){ 
+	var regEn = /[`~!@#$%^&*()+<>?:"{},.\/;'[\]]/im,
+	    regCn = /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im;
+	if(regEn.test(val) || regCn.test(val)) {
+	    return false;
+	}
+	return true;
+}
+function check_password(el, sp){
+    var pw = el.val(),
+     	sp = sp,
+     	spInitText = '<a>密码建议: 字母 + 数字 + 符号</a>';
+    if(pw.length == 0){
+    	sp.innerHTML = spInitText;
+    	basic_input_wrong($(el), '密码不能为空');
+    	return false;
+    }else if(pw.length < 6){
+    	sp.innerHTML = spInitText;
+    	basic_input_wrong($(el), '密码不能小于6个字符');
+    	return false;
+    }else if(pw.length >= 6 && pw.length < 16){
+        sp.innerHTML = spInitText;
+        var mmzz1 = /^[0-9]{6,16}$|^[a-zA-Z]{6,16}$/,
+        	mmzz2 = /^[A-Za-z0-9]{6,16}$/,
+        	mmzz3 = /^\w{6,20}$/;
+        if(pw.match(mmzz1)) {
+            sp.innerHTML = '<a style="color: #f44336">较弱, 建议字母 + 数字</a>';
+            basic_input_wrong($(el), '密码不能为纯数字或字母');
+            return false;
+        }else if(pw.match(mmzz2)){
+            sp.innerHTML = '<a style="color: #ff9800">中等, 建议字母 + 数字 + 符号</a>';
+            return true;
+        }else if(pw.match(mmzz3)){
+            sp.innerHTML = '<a style="color: #4caf50">较强</a>';
+            return true;
+        }
+     }else if(pw.length >= 20) {
+     	sp.innerHTML = spInitText;
+     	basic_input_wrong($(el), '长度大于 20 个字符, 请重新输入');
+     	return false;
+    }
+    return true;
+}
+function step_2_btn_check(){
+	var is_validated_all = true;
+	$('#signup-step-1 input').each(function(){
+		if(!$(this).hasClass('validated')){
+			is_validated_all = false;
+		}
+	});
+	if(is_validated_all){
+		$('#signup-form-submit-btn').removeAttr('disabled');
+	}else{
+		$('#signup-form-submit-btn').attr('disabled', 'disabled');
+	}
+}
+$(document).ready(function(){
+	$('#signup-aggree-terms').on('change', function(){
+		if($(this).prop('checked')){
+			$('#signup-aggree-terms-btn').removeAttr('disabled');
+			$(this).removeClass('validated');
+		}else{
+			$('#signup-aggree-terms-btn').attr('disabled', 'disabled');
+		}
+	});
+	$('#signup-form-password').on('change', function(){
+		if(check_password($(this), document.getElementById('signup-form-password-tip'))){
+			$(this).addClass('validated');
+		}else{
+			$(this).removeClass('validated');
+		}
+		step_2_btn_check();
+	});
+	$('#signup-form-username').on('change', function(){
+		if(!check_special_char($(this).val())){
+			basic_input_wrong($(this), '用户名不得包含特殊字符');
+			$(this).removeClass('validated');
+		}else{
+			$(this).addClass('validated');
+		}
+		step_2_btn_check();
+	});
+	$('#signup-form-password-confirm').on('change', function(){
+		if($(this).val() != $('#signup-form-password').val()){
+			basic_input_wrong($(this), '两次密码输入不相符');
+			$(this).removeClass('validated');
+		}else{
+			$(this).addClass('validated');
+		}
+		step_2_btn_check();
+	});
+	$('#signup-form-email').on('change', function(){
+		if(!check_email($(this).val())){
+			basic_input_wrong($(this), '邮箱格式不正确');
+			$(this).removeClass('validated');
+		}else{
+			$(this).addClass('validated');
+		}
+		step_2_btn_check();
+	});
+});
+var current_step = 0;
+function signup_step_forward(){
+	$('html,body').animate({
+		scrollTop: 0
+	}, 250);
+	$('#signup-step-'+current_step).animate({
+		opacity: 0
+	}, 250, function(){
+		$(this).hide();
+		current_step++;
+		$('#signup-tube-map li:eq('+current_step+')').addClass('active');
+		$('#signup-step-'+current_step).show();
+		$('#signup-step-'+current_step).animate({
+			opacity: 1
+		}, 250);
+	});
+	$('#signup-tube-map li:eq('+current_step+')').removeClass('active');
+}
+$(document).ready(function(){
+	$('#signup-aggree-terms-btn').on('click', function(){
+		signup_step_forward();
+	});
+	$('#signup-form-submit-btn').on('click', function(){
+		$('#signup-error').hide();
+		$(this).addClass('loading');
+		$(this).attr('disabled', 'disabled');
+	    $.ajax({
+	        url: '/user/signup/',
+	        type: 'POST',
+	        data: {
+	        	username: $('#signup-form-username').val(),
+	        	password: $('#signup-form-password').val(),
+	        	confirmPassword: $('#signup-form-password-confirm').val(),
+	        	email: $('#signup-form-email').val(),
+	        },
+	        dataType: 'json',          
+	        success: function (data) {
+				if(data.states == 200){
+					// signup success
+					$('#signup-error').hide();
+					signup_step_forward();
+				}else{
+					$('#signup-error').text('ERROR: ' + data.message);
+					$('#signup-error').show();
+				}
+				$('#signup-form-submit-btn').removeClass('loading');
+				$('#signup-form-submit-btn').removeAttr('disabled');
+	        },
+	        error: function (jqXHR, textStatus, errorThrown) {
+				$('#signup-error').text('无法发送请求');
+				$('#signup-error').show();
+				$('#signup-form-submit-btn').removeClass('loading');
+				$('#signup-form-submit-btn').removeAttr('disabled');
+	        }
+	    });
+	});
+});
+</script>
+{% endblock %}
+{% block main %}
+<section id="home-intro">
+	<div class="content-wrap section-content">
+		<div id="home-intro-header" class="intro-text">
+			<h1>注册到 Mini 答疑</h1>
+			<div id="signup-tube-map">
+				<nav class="tube">
+					<ul>
+					    <li class="active"><a>服务条款</a></li>
+					    <li><a>注册信息</a></li>
+					    <li><a>激活帐号</a></li>
+					    <li><a>完成注册</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div id="signup-main-form" class="white-center-box main-box">
+			<form id="signup-step-0">
+				<div id="signup-terms-of-service">
+					{% include "policy/tou.html" %}
+				</div>
+				<div>
+					<input type="checkbox" id="signup-aggree-terms" />
+					<label for="signup-aggree-terms">我已阅读并同意相关服务条款和隐私政策</label>
+					<br/>
+					<button type="button" class="submit-btn" id="signup-aggree-terms-btn" disabled="disabled">下一步</button>
+				</div>
+			</form>
+			<form id="signup-step-1" style="display: none;opacity: 0">
+				<div class="row">
+      				<div class="col-25">
+						<label for="signup-form-username">用&nbsp;&nbsp;户&nbsp;&nbsp;名</label>
+					</div>
+					<div class="col-75">
+						<input type="text" id="signup-form-username" class="basic-input" />
+					</div>
+				</div>
+				<div class="row">
+      				<div class="col-25">
+						<label for="signup-form-password">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+					</div>
+					<div class="col-75">
+						<input type="password" id="signup-form-password" class="basic-input" />
+						<div id="signup-form-password-tip"><a>密码建议: 字母 + 数字 + 符号</a></div>
+					</div>
+				</div>
+				<div class="row">
+      				<div class="col-25">
+						<label for="signup-form-password-confirm">确认密码</label>
+					</div>
+					<div class="col-75">
+						<input type="password" id="signup-form-password-confirm" class="basic-input" />
+					</div>
+				</div>
+				<div class="row">
+      				<div class="col-25">
+						<label for="signup-form-email">电子邮箱</label>
+					</div>
+					<div class="col-75">
+						<input type="email" id="signup-form-email" class="basic-input" />
+					</div>
+				</div>
+				<div class="row">
+					<div id="signup-error" class="error-box"></div>
+					<label for="signup-form-submit-btn"></label>
+					<div style="width: 250px; display: inline-block; text-align: left">
+						<button type="button" class="submit-btn" id="signup-form-submit-btn" disabled="disabled"><a>下一步</a></button>
+					</div>
+				</div>
+			</form>
+			<form id="signup-step-2" style="display: none; opacity: 0">
+				<img id="email-check-img" src="/static/img/email-check.png" />
+				<h1>还差最后一步</h1>
+				<p>登录您所填的邮箱，根据邮件激活帐号</p>
+			</form>
+		</div>
+	</div>
+</section>
+<div style="height: 100px"></div>
+{% endblock %}

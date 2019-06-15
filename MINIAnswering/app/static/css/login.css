@@ -1,0 +1,18 @@
+#login-main-form{
+	margin-top: 60px;
+}
+#login-main-form input{
+	display: inline-block;
+}
+#login-main-form form{
+	max-width: 400px;
+	margin: 60px auto;
+	text-align: center;
+}
+#login-main-form form button{
+    margin-top: 50px;
+}
+#login-error{
+	display: none;
+	margin-top: 30px;
+}

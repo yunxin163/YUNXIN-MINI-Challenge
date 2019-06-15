@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block resources %}
+    <!-- 网易云信 IM & Whiteboard SDK -->
+    <script src="{{ url_for('static', filename='js/sdk/NIM_Web_NIM_v6.5.0.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sdk/NIM_Web_WhiteBoard_v6.5.0.js') }}"></script>
+
+    <script>NIM.use(WhiteBoard);</script>
+    <script src="{{ url_for('static', filename='js/nim.js') }}"></script>
+{% autoescape false %}
+    {{meta_data}}
+{% endautoescape %}
+<style>
+
+</style>
+<script>
+
+</script>
+{% endblock %}
+{% block main %}
+<section id="home-intro">
+	<div class="content-wrap section-content">
+		<div id="home-intro-header" class="intro-text">
+			<h1>Whiteboard</h1>
+		</div>
+		<div id="ask-container" class="white-center-box main-box">
+			
+		</div>
+	</div>
+</section>
+<div style="height: 50px"></div>
+{% endblock %}
+{% block bottom_resources %}
+<script>
+// Init Whiteboard
+const whiteboard = WhiteBoard.getInstance({
+    nim: nim,
+    debug: true,
+});
+// Init account status
+
+// 是否被叫中
+let beCalling = false
+// 呼叫类型
+let type = null
+// 被叫信息
+let beCalledInfo = null
+// 是否正忙
+let busy = false
+
+// Bind Whiteboard events
+whiteboard.on('beCalling', function(obj) {
+    console.log('on beCalling', obj)
+    const channelId = obj.channelId
+    // 被叫回应主叫自己已经收到了通话请求
+    whiteboard.control({
+        channelId,
+        command: WhiteBoard.NETCALL_CONTROL_COMMAND_START_NOTIFY_RECEIVED
+    })
+    // 只有在没有通话并且没有被叫的时候才记录被叫信息, 否则通知对方忙并拒绝通话
+    if (!whiteboard.calling && !beCalling) {
+        type = obj.type
+        beCalling = true
+        beCalledInfo = obj
+    } else {
+        if (whiteboard.calling) {
+            busy = whiteboard.notCurrentChannelId(obj)
+        } else if (beCalling) {
+            busy = beCalledInfo.channelId !== channelId
+        }
+        if (busy) {
+            whiteboard.control({
+                channelId,
+                command: WhiteBoard.NETCALL_CONTROL_COMMAND_BUSY
+            })
+            // 拒绝通话
+            whiteboard.response({
+                accepted: false,
+                beCalledInfo: obj
+            })
+        }
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,47 @@
+body,html {
+    background: linear-gradient(to top,#9ede53,#5bab00);
+}
+.header{
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.07);
+	background-color: transparent!important;
+	color: #fff;
+	fill: #fff;
+	transition: all 0.218s;
+}
+.header:hover{
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.5);
+    background-color: white!important;
+    color: #000;
+    fill: #000;
+}
+#user-logo-text, .user-info{
+	color: #ffffff;
+}
+.menu_button{
+	fill: #ffffff;
+}
+.main .left-row .ul .a2 a{
+	color: rgba(255, 255, 255, 0.98);
+}
+.ul-svg-ico svg{
+    fill: white;
+    opacity: .98;
+}
+.main .left-row .dom-tip {
+    color: rgba(255, 255, 255, 0.68);
+}
+.menu_button{
+	fill: inherit;
+}
+#user-logo-text, .user-info{
+	color: inherit;
+}
+#showcase .sub-title{
+    color: rgba(255, 255, 255, 0.68);
+}
+.main .left-row .action .ul-svg-ico svg{
+	fill: #fff;
+}
+.main .left-row .a1 svg{
+	fill: #fff;
+}
