@@ -1,0 +1,3 @@
+[submodule "homeedu"]
+	path = homeedu
+	url = https://github.com/Melon-Seeds/homeedu.git
