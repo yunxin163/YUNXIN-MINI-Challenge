@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/me_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/loginPageBackgroundColor">
+
+    <!-- 标题栏 -->
+    <!--<include layout="@layout/me_titile"/>-->
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        app:title="个人界面"
+        app:titleMarginStart="165dp"
+        app:titleTextColor="@color/colorPrimary"
+        >
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:text="头像："
+            android:textSize="15sp"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/head_pic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/defult"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="昵称："
+            android:textSize="15sp"
+            android:textColor="@color/colorAccent"
+            android:gravity="start"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/me_username"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="昵称长度不超过10位"
+            android:inputType="textNoSuggestions"
+            android:maxLength="10"
+            android:focusable="false"
+            android:textSize="15sp"
+            android:padding="10dp"
+            android:maxLines="1"
+            android:background="#fff"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="个性签名："
+            android:textSize="15sp"
+            android:textColor="@color/colorAccent"
+            android:gravity="start"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/me_auto"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="字数不超过30字"
+            android:inputType="textNoSuggestions"
+            android:focusable="false"
+            android:textSize="15sp"
+            android:padding="10dp"
+            android:maxLength="30"
+            android:maxLines="2"
+            android:background="#fff"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="人物选择:"
+            android:textSize="15sp"
+            android:textColor="@color/colorAccent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="4dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF">
+            <Spinner
+                android:id="@+id/sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/tv_year"
+                android:spinnerMode="dialog"
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/preserve_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="修改信息"
+        android:textColor="@color/colorPrimary"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="@color/colorAccent"
+        android:textSize="18dp"/>
+
+</LinearLayout>
