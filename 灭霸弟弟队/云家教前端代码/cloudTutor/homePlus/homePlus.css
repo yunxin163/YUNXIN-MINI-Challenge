@@ -1,0 +1,162 @@
+.bottom{
+    width: 1280px;
+    margin: 0 auto;
+    position: relative;
+    z-index:-10;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+
+
+.fontTitle{
+    top:10px;
+    left:73px;
+    width: 129px;
+    height: 59px;
+    position: absolute;
+    color: rgba(15, 136, 235, 1);
+    font-size: 32px;
+    font-weight:bold;
+    text-align: left;
+    font-family: 方正汉真广标-标准;
+   
+}
+
+    
+
+.button {
+    top:2px;
+    position: absolute;
+    background-color: rgb(255, 255, 255); /* Green */
+    border: none;
+    color: rgb(61, 59, 59);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    /* box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19); */
+}
+
+#fontSmall1{
+    left:568px;
+    padding: 6px 14px;
+}
+
+#fontSmall2{
+    left: 652px;
+    padding: 6px 14px;
+}
+
+#fontSmall3{
+    left: 797px;
+    padding: 6px 14px;
+}
+
+#fontSmall4{
+    left: 921px;
+    padding: 6px 14px;
+}
+
+#fontSmall5{
+    left: 1044px;
+    padding: 6px 14px;
+}
+
+#fontSmall6{
+    left: 1122px;
+    padding: 6px 14px;
+}
+
+
+.imageMain{
+    top:53px;
+    left:67px;
+    width:1146px; 
+    height: 707px;
+    position: absolute;
+    z-index:-9;
+}
+
+
+
+.fontBottom{
+    width:200px;
+    height: 20px;
+    position:absolute;
+    line-height: 23px;
+    color: rgba(255, 255, 255, 1);
+    font-size: 16px;
+    text-align: left;
+    font-family: Roboto;
+}
+
+#fontBottom1{
+    left:228px;
+    top:644px;
+}
+
+#fontBottom2{
+    left:228px;
+    top:665px;
+}
+
+#fontBottom3{
+    left:570px;
+    top:644px;
+}
+
+#fontBottom4{
+    left:570px;
+    top:665px;
+}
+
+#fontBottom5{
+    left:937px;
+    top:644px;
+}
+
+#fontBottom6{
+    left:937px;
+    top:665px;
+}
+
+
+
+
+
+
+.imageBottom{
+    top: 604px;
+    left: 67px;
+    width: 1146px;
+    height: 156px;
+    position: absolute;
+    line-height: 20px;
+    background-color: rgba(15, 136, 235, 1);
+    border: 1px solid rgba(187, 187, 187, 1);
+    z-index:-8;
+}
+
+
+.icon{
+    top: 635px;
+    width: 63px;
+    height: 63px;
+    position: absolute;
+    z-index:-7;
+}
+
+#icon1{
+    left:147px;
+}
+
+#icon2{
+    left:489px;
+}
+
+#icon3{
+    left:864px;
+}

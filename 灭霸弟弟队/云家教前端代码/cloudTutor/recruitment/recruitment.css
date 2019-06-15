@@ -1,0 +1,293 @@
+.bottom{
+    width: 1280px;
+    height: 0px;
+    margin:0 auto;
+    position: relative;
+    z-index:-10;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+
+
+.fontTitle{
+    left: 73px;
+    top: 10px;
+    width: 129px;
+    height: 59px;
+    position: absolute;
+    color: rgba(15, 136, 235, 1);
+    font-size: 32px;
+    font-weight:bold;
+    text-align: left;
+    font-family: 方正汉真广标-标准;
+}
+
+
+.button {
+    top: 8px;
+    background-color: rgb(255, 255, 255); /* Green */
+    border: none;
+    color: rgb(61, 59, 59);
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    /* box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19); */
+}
+
+#fontSmall1{
+    left: 568px;
+    padding: 6px 14px;
+
+}
+
+#fontSmall2{
+    left: 652px;
+    padding: 6px 14px;
+}
+
+#fontSmall3{
+    left: 797px;
+    padding: 6px 14px;
+}
+
+#fontSmall4{
+    left: 921px;
+    padding: 6px 14px;
+}
+
+#fontSmall5{
+    left: 1044px;
+    padding: 6px 14px;
+}
+
+#fontSmall6{
+    left: 1122px;
+    padding: 6px 14px;
+}
+
+
+.borderLine{
+    left: 73px;
+    top:60px;
+    width: 1094px;
+    height: 2px;
+    position:absolute;
+    background: rgba(15, 136, 235, 1);
+}
+
+
+.topBlock{
+    /* left: 85px;
+    top: 80px; */
+    width: 1070px;
+    height: 120px;
+    position:relative;
+    line-height: 20px;
+    background-color: rgba(247, 247, 247, 1);
+    text-align: center;
+    border: 1px solid rgba(247, 247, 247, 1);
+}
+
+
+
+.topFontTitle{
+    left: 20px;
+    width: 104px;
+    height: 26px;
+    position:absolute;
+    color: rgba(36, 3, 3, 1);
+    font-size: 26px;
+    text-align: left;
+    font-weight:bold;
+    font-family: Roboto-regular;
+}
+
+#topFontTitle1{
+    top:25px;
+}
+
+#topFontTitle2{
+    top:75px;
+}
+
+
+
+
+.button1 {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 2px 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button11 {
+    background-color: rgba(247, 247, 247, 1); 
+    color: black; 
+}
+
+.button11:hover {
+    background-color: #409eff;
+    color: white;
+}
+
+.button11:active {
+    background-color: #409eff;
+    color: white;
+}
+
+.button11:focus {
+    background-color: #409eff;
+    color: white;
+}
+
+
+.topFontChoice{
+    top:18px;
+    position: absolute;
+    white-space:pre;
+}
+
+
+.topInput{
+    left: 160px;
+    top: 65px;
+    width: 260px;
+    height: 35px;
+    position:absolute;
+    line-height: 20px;
+    padding-left:10px;
+    border: 1px solid rgba(187, 187, 187, 1);
+}
+
+
+
+.searchFont{
+    left:430px;
+    top: 61px;
+    position:absolute;
+    color: rgba(15, 136, 235, 1);
+    font-family: Roboto-regular;
+    width:70px;
+    height:39px;
+    background-color: white;
+}
+
+
+.job{
+    left: 90px;
+    top: 20px;
+    width: 198px;
+    height: 22px;
+    position:absolute;
+    color: rgba(36, 3, 3, 1);
+    font-size: 22px;
+    font-weight:bold;
+    text-align: left;
+    font-family: Roboto-regular;
+}
+
+
+.jobTitle{
+    left: 90px;
+    width: 90px;
+    height: 16px;
+    position:absolute;
+    color: rgba(36, 3, 3, 1);
+    font-size: 16px;
+    font-weight:bold;
+    text-align: left;
+    font-family: Roboto-regular;
+}
+
+#jobTitle1{
+    top:65px;
+}
+
+#jobTitle2{
+    top:90px;
+}
+
+#jobTitle3{
+    top:115px;
+}
+
+#jobTitle4{
+    top:140px;
+}
+
+#jobTitle5{
+    top:165px;
+}
+
+
+
+.jobContent{
+    left: 180px;
+    width: 800px;
+    height: 16px;
+    position:absolute;
+    color: rgba(36, 3, 3, 1);
+    font-size: 16px;
+    text-align: left;
+    font-family: Roboto-regular;
+}
+
+#jobContent1{
+    top:65px;
+}
+
+#jobContent2{
+    top:90px;
+}
+
+#jobContent3{
+    top:115px;
+}
+
+#jobContent4{
+    top:140px;
+}
+
+#jobContent5{
+    top:165px;
+}
+
+
+
+.jobFont{
+    left: 900px;
+    top: 130px;
+    position: absolute;
+    color: rgba(15, 136, 235, 1);
+    font-family: SourceHanSansSC-regular;
+    width:120px;
+    height:50px;
+}
+
+
+.time{
+    left: 900px;
+    top: 20px;
+    width: 150px;
+    height: 36px;
+    position: absolute;
+    color: rgba(16, 16, 16, 1);
+    font-size: 14px;
+    text-align: left;
+    font-family: SourceHanSansSC-regular;
+}
+
+

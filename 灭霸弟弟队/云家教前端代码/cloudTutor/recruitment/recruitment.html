@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type=text/javascript src="../vueMinJs/vue.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="recruitment.css" />
+    <script src="../vueMinJs/vue.min.js"></script>
+    <title>家教招聘</title>
+</head>
+
+<body>
+    <div class="bottom">
+
+        <div style="margin:0px auto; width:1280px; height:80px; position:relative">
+            <div class="fontTitle">云家教</div>
+            <button class="button" id="fontSmall1" style="vertical-align:middle" onclick="window.location.href='../homePlus/homePlus.html'">首页 </button>
+            <button class="button" id="fontSmall2" style="vertical-align:middle" onclick="window.location.href='../tutorInformation/tutorinformation.html'">大学生家教 </button>
+            <button class="button" id="fontSmall3" style="vertical-align:middle" onclick="window.location.href='../recruitment/recruitment.html'">家教招聘 </button>
+            <button class="button" id="fontSmall4" style="vertical-align:middle" onclick="window.location.href='https://122.237.100.158:8888/#/login'">在线教学</button>
+            <button class="button" id="fontSmall5" style="vertical-align:middle" onclick="alert('服务暂未开放');">登录 </button>
+            <button class="button" id="fontSmall6" style="vertical-align:middle" onclick="alert('服务暂未开放');">注册 </button>
+    
+            <div class="borderLine"></div>
+        </div>
+        
+
+        <div class="topBlock" style="margin:0px 85px; width:1070px; height:120px; position:relative">
+            <span class="topFontTitle" id="topFontTitle1">求教学科</span>
+            <span class="topFontTitle" id="topFontTitle2">关键词</span>
+
+            
+            <button class="button1 button11 topFontChoice" style="left:160px" @click="all">不限</button>
+            <button class="button1 button11 topFontChoice" style="left:220px" @click="filterMath">数学</button>
+            <button class="button1 button11 topFontChoice" style="left:280px" @click="filterEnglish">英语</button>
+            <button class="button1 button11 topFontChoice" style="left:340px" @click="filterChinese">语文</button>
+            
+           
+            <input v-model="searchContent" type="text" class="topInput" placeholder="搜索大学、授课次数、性别等要求">
+    
+            <button class="button1 button11 searchFont" @click="search" style="border:1px solid rgba(187, 187, 187, 1);">搜索</button>
+        </div>
+
+
+        <div v-for="item in items" style="margin:0px 40px; width:1070px; height:220px; position:relative">
+            <div class="job">招{{item.subject}}家教</div>
+            <div class="jobTitle" id="jobTitle1">身份要求：</div>
+            <div class="jobTitle" id="jobTitle2">授课次数：</div>
+            <div class="jobTitle" id="jobTitle3">具体要求：</div>
+            <div class="jobTitle" id="jobTitle4">性别要求：</div>
+            <div class="jobTitle" id="jobTitle5">课时费：</div>
+
+            <div class="jobContent" style="top:65px">{{item.school}}</div>
+            <div class="jobContent" style="top:90px">{{item.frequency}}次/每周</div>
+            <div class="jobContent" style="top:115px">{{item.claim}}</div>
+            <div class="jobContent" style="top:140px">{{item.gender}}</div> 
+            <div class="jobContent" style="top:165px">{{item.classFee}}/每小时</div>
+
+            <div class="jobBlock"></div>
+            <button class="button1 button11 jobFont" style="border:1px solid rgba(187, 187, 187, 1);border-radius:10px;" @click="alert('服务暂未开放');">点击应聘</button>
+
+            <div class="time" id="jobInformation7">{{item.time}}</div>
+
+            <div class="borderLine" style="left: 30px; top:205px;background: rgba(187, 187, 187, 1);"></div>
+
+        </div>
+
+
+        
+
+    </div>
+  <script>
+      let items=[{
+                 subject:'小学英语',
+                 school:'师范院校学生',
+                 frequency:'3',
+                 claim:'英语基础扎实，有较强英语思维',
+                 gender:'不限',
+                 classFee:'50-60'
+             },
+             {
+                 subject:'小学数学',
+                 school:'985/211',
+                 frequency:'2',
+                 claim:'数学基础牢固，耐心细心，有责任感',
+                 gender:'女',
+                 classFee:'50'
+             },
+             {
+                 subject:'小学语文',
+                 school:'211',
+                 frequency:'2',
+                 claim:'语文水平较高，阅读理解能力要强',
+                 gender:'女',
+                 classFee:'70'
+             }
+            ]
+            let items1=items.slice(0);
+            let items2=items.slice(0);
+     var app=new Vue({
+         el:'.bottom',
+         data:{
+             items:items,
+             searchContent:''
+         },
+         methods:{
+          all(){
+              this.items=items1;
+              console.log(this.items);
+          },
+          filterMath(){
+              let items3=items2.slice(0);
+              this.items=items3.filter((item)=>{
+                  return (item.subject==='小学数学')
+              })
+          },
+          filterChinese(){
+            let items3=items2.slice(0);
+            this.items=items3.filter((item)=>{
+                  return (item.subject==='小学语文')
+              })
+          },
+          filterEnglish(){
+            let items3=items2.slice(0);
+            this.items=items3.filter((item)=>{
+                  return (item.subject==='小学英语')
+              })
+          },
+          search(){
+              let searchContent=this.searchContent;
+              let items=items2.slice(0);
+              this.items=items.filter((value,index,array)=>{
+                  let sumString='';
+                  console.log(value);
+                  for(let i in value){
+                      sumString+=value[i];
+                  }
+                  console.log(sumString);
+                  return sumString.includes(searchContent);
+              })
+          }
+         }
+     })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type=text/javascript src="../vueMinJs/vue.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="tutorinformation.css" />
+    <script src='../vueMinJs/vue.min.js'></script>
+
+    <title>大学家教信息库</title>
+</head>
+
+<body>
+    <div class="bottom">
+        <div style="margin:0px auto; width:1280px; height:25px; position:relative">
+            <div class="fontTitle">云家教</div>
+            <button class="button" id="fontSmall1" style="vertical-align:middle" onclick="window.location.href='../homePlus/homePlus.html'">首页 </button>
+            <button class="button" id="fontSmall2" style="vertical-align:middle" onclick="window.location.href='../tutorInformation/tutorinformation.html'">大学生家教 </button>
+            <button class="button" id="fontSmall3" style="vertical-align:middle" onclick="window.location.href='../recruitment/recruitment.html'">家教招聘 </button>
+            <button class="button" id="fontSmall4" style="vertical-align:middle" onclick="window.location.href='https://122.237.100.158:8888/#/login' ">在线教学</button>
+            <button class="button" id="fontSmall5" style="vertical-align:middle" onclick="alert('服务暂未开放');">登录 </button>
+            <button class="button" id="fontSmall6" style="vertical-align:middle" onclick="alert('服务暂未开放');">注册 </button>
+        </div>
+       
+        
+        <div style="margin:0px auto; width:1280px; height:300px; position:relative">
+            <div class="topBg"></div>
+
+            <div class="topCondition"></div>
+            <span class="topFontTitle" id="topFontTitle1">求教学科</span>
+            <span class="topFontTitle" id="topFontTitle2">性别要求</span>
+            <span class="topFontTitle" id="topFontTitle3">身份要求</span>
+    
+            <button class="button1 button11 topFontChoice topFontChoice1" @click="all">不限</button>
+            <button class="button1 button11 topFontChoice topFontChoice2" @click="filterMath">数学</button>
+            <button class="button1 button11 topFontChoice topFontChoice3" @click="filterEnglish">英语</button>
+            <button class="button1 button11 topFontChoice topFontChoice4" @click="filterChinese">语文</button>
+            <button class="button1 button11 topFontChoice topFontChoice5" @click="all">不限</button>
+            <button class="button1 button11 topFontChoice topFontChoice6" @click="filterMan">男</button>
+            <button class="button1 button11 topFontChoice topFontChoice7" @click="filterGirl">女</button>
+            <button class="button1 button11 topFontChoice topFontChoice8" @click="all">不限</button>
+            <button class="button1 button11 topFontChoice topFontChoice9" @click="all">热门大学</button>
+            <button class="button1 button11 topFontChoice topFontChoice10" @click="filter985">985</button>
+            <button class="button1 button11 topFontChoice topFontChoice11" @click="filter211">211</button>
+            <button class="button1 button11 topFontChoice topFontChoice12" @click="all">一本</button>
+            <button class="button1 button11 topFontChoice topFontChoice13" @click="filterTeach">师范学院</button>
+            
+            
+            <button class="button1 button11 topBlock" style="left:94px;" @click="all">全部家教</button>
+            <button class="button1 button11 topBlock" style="left:252px;" @click="sortByExperience">按经验排序</button>
+            <button class="button1 button11 topBlock" style="left:410px;" @click="sortByClassCount">按费用排序</button>
+        </div>
+        
+
+        
+        <div v-for="item in items" style="margin:0px 40px; height:200px; position:relative">
+            <div class="borderLine"></div>
+            <img class="imageTeacher" v-bind:src="item.picture">
+            
+            <div class="name">{{item.name}}</div>
+            <div class="nameTitle" id="nameTitle1">学校：</div>
+            <div class="nameTitle" id="nameTitle2">授课次数：</div>
+            <div class="nameTitle" id="nameTitle3">教授科目：</div>
+            <div class="nameTitle" id="nameTitle4">课时费：</div>
+            <div class="nameTitle" id="nameTitle5">个人简介：</div>
+
+            <div class="nameContent" style="top:56px">{{item.school}}</div>
+            <div class="nameContent" style="top:80px" >{{item.total}}</div>
+            <div class="nameContent" style="top:102px" >{{item.subjects}}</div>
+            <div class="nameContent" style="top:124px" >50</div>
+            <div class="nameContent" style="top:146px">{{item.introduction}}</div>
+
+            <button class="button1 button11 contactBlock" @click="toDetail" :id="item.id">立即联系</button>
+        </div>
+
+
+
+    
+    </div>    
+ 
+    
+  
+
+</body>
+<script type=text/javascript src="tutorInformation.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    let items;
+  
+     axios({
+    method: 'get',
+    url: 'http://122.237.100.158:8081/homeedu-0.0.1-SNAPSHOT/teacher/getTeachers'
+  })
+    .then(function (response) {
+      console.log(response);
+      let map=new Map([['Chinese','小学语文'],['math','小学数学'],['English','小学英语']]);
+      response.data.forEach((value,index,array)=>{
+          console.log(value.subjects);
+             value.subjects=value.subjects.split(',').map((value,index,array)=>{
+                 console.log(value);
+                 return map.get(value)
+             }).join(',');
+      })
+      console.log(response.data);
+      items=response.data;
+      let items1=response.data.slice(0);
+      let items2=response.data.slice(0);
+      var app=new Vue({
+      el:'.bottom',
+      data:{
+         items:items
+      },
+      methods:{
+          sortByExperience(){
+              this.items.sort((a,b)=>{
+                  return b.total-a.total
+              })
+              console.log(this.items);
+          },
+          all(){
+              this.items=items1;
+              console.log(this.items);
+          },
+          sortByClassCount(){
+            this.items.sort((a,b)=>{
+                  return a.total-b.total
+              })
+              console.log(this.items);
+          },
+          filterMath(){
+              let items3=items2.slice(0);
+              this.items=items3.filter((item)=>{
+                  return (item.subjects.split(',').indexOf('小学数学')>=0)
+              })
+          },
+          filterChinese(){
+            let items3=items2.slice(0);
+            this.items=items3.filter((item)=>{
+                  return (item.subjects.split(',').indexOf('小学语文')>=0)
+              })
+          },
+          filterEnglish(){
+            let items3=items2.slice(0);
+            this.items=items3.filter((item)=>{
+                  return (item.subjects.split(',').indexOf('小学英语')>=0)
+              })
+          },
+          filterMan(){
+            let items3=items2.slice(0);
+            this.items=items3.filter((item)=>{
+                  return (item.gender==='male')
+              })
+          },
+          filterGirl(){
+            let items3=items2.slice(0);
+            this.items=items3.filter((item)=>{
+                  return (item.gender==='femal')
+              })
+          },
+          toDetail(e){
+              console.log(e.currentTarget);
+              let id=e.currentTarget.id;
+              window.location.href=`../details/details.html?id=${id}`
+          },
+          filter985(){
+            let items3=items2.slice(0);
+            this.items=items3.filter((item)=>{
+                  return (item.school==='985')
+              })
+          },
+          filter211(){
+            let items3=items2.slice(0);
+            this.items=items3.filter((item)=>{
+                  return (item.school==='211')
+              })
+          },
+          filterTeach(){
+            let items3=items2.slice(0);
+            this.items=items3.filter((item)=>{
+                  return (item.school==='师范院校')
+              })
+          }
+      }
+    })
+  
+    }).catch(function(res){
+      console.log(res);
+    });
+  
+  </script>
+</html>
