@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/mycommon.css" />
+    <style>
+        body {
+            background-color: #ffffff;
+
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 12px;
+            color: #000;
+        }
+
+        a {
+            color: #000000;
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+        a:hover {
+            color: #000;
+        }
+
+        .aui-btn-row {
+            position: relative;
+            text-align: center;
+            padding: 15px;
+            margin-top: 140px;
+        }
+
+        .aui-btn-row:after {
+            border-bottom: 0px solid #c8c7cc;
+            display: block;
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            -webkit-transform-origin: 0 0;
+            -webkit-transform: scale(1);
+            pointer-events: none;
+        }
+
+        .aui-btn-block {
+            display: block;
+            width: 100%;
+            padding: 15px 15px;
+            margin-bottom: 0;
+            font-size: 18px;
+            border-radius: 80px;
+        }
+
+        .aui-bar {
+            position: relative;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 10;
+            width: 100%;
+            background-color: #ffffff;
+            color: #ffffff;
+            display: table;
+            line-height: 150px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .aui-bar .aui-btn .aui-iconfont {
+            font-size: 22px;
+            line-height: 45px;
+            padding: 0;
+            margin: 0;
+            color: #000000;
+        }
+
+        .logins {
+            width: 100%;
+            height: 30%;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            box-sizing: border-box;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        .login nav {
+            overflow: hidden;
+            width: 300px;
+            margin: 0px auto;
+            padding-top: 20px;
+        }
+
+        .login nav p {
+            width: 33%;
+            float: left;
+            text-align: center;
+        }
+
+        .login nav p img {
+            width: 38%;
+        }
+
+        .login-sns-title {
+            height: 1.25em;
+            border-top: 0px;
+            text-align: center;
+            margin: 0 0.9375em
+        }
+
+        .reg-bot-link {
+            margin: 0 0.9375em;
+            border-bottom: 0px solid #c8c7cc;
+        }
+
+        .reg-bot-link span {
+            float: right
+        }
+
+        .reg-bot-link a {
+            color: #666666;
+            display: inline-block;
+            padding: 0.9375em 0
+        }
+
+        .aui-form {
+            position: relative;
+            background: #ffffff;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="aui-bar aui-bar-dark">
+        <a class="aui-btn aui-bar-dark aui-pull-left" style="padding-top:15px;background-color: #ffffff;" tapmode onclick="api.openWin({name : 'index',url : '../../index.html'})">
+            <span class="aui-iconfont aui-icon-close"></span>
+        </a>
+    </header>
+    <div class="aui-form">
+        <div align="center"><img src="../../icon/icon150x150.png" / style="width:100px;height:100px;border-radius:15px;margin-top:80px;margin-bottom:80px;box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);">
+            <div>
+                <div class="aui-btn-row">
+                    <button class="aui-btn aui-bar-dark aui-btn-block aui-btn-outlined aui-pull-left" tapmode="hover" onclick="authLoginInfo('wx');" style="margin-right: 10px;">
+							<span style="color:#ffffff;">微信登陆</span>
+						</button>
+                </div>
+            </div>
+
+            <div style="margin:20px;">
+                <a onclick="api.openWin({name : 'win_login1',url : './win_phone.html'})">
+                    <font style="color:#8f8f94;margin:5px;">手机登陆</font>
+                </a>|
+                <a onclick="api.openWin({name : 'win_register',url : './win_register.html'})">
+                    <font style="color:#8f8f94;margin:5px;">注册账号</font>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/winu-base.js"></script>
+<script type="text/javascript" src="../../script/hashes.min.js"></script>
+<script type="text/javascript" src="../../script/ajaxToRongCloud.js"></script>
+<script type="text/javascript" src="../../script/availdate-v1.0.2.js"></script>
+<script type="text/javascript">
+var sex;
+    apiready = function() {
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+            //alert('返回');
+        });
+        //优化点击事件
+        api.parseTapmode();
+    };
+
+    //去注册===============>>>>>>
+    function toRegister() {
+        api.openWin({
+            name: 'win_register',
+            url: './win_register.html'
+        });
+    }
+
+    /*微信、QQ、微博授权登录*/
+    function authLoginInfo(type) {
+        //api.showProgress();
+        if (type == 'wx') {
+            var wx = api.require('wx');
+            //判断是否安装微信
+            wx.isInstalled(function(ret, err) {
+                if (ret.installed) {
+                    //alert(JSON.stringify(ret));
+                    //微信授权
+                    wx.auth({
+                        apiKey: 'wx501944ed1331ecb3'
+                    }, function(ret, err) {
+                        if (ret.status) {
+                            //alert(JSON.stringify(ret));
+                            wx.getToken({
+                                apiKey: 'wx501944ed1331ecb3',
+                                apiSecret: '0a883c3a0152c4ed6a98b734b0252082',
+                                code: ret.code
+                            }, function(ret, err) {
+                                if (ret.status) {
+                                    //alert(JSON.stringify(ret));
+                                    wx.getUserInfo({
+                                        accessToken: ret.accessToken,
+                                        openId: ret.openId
+                                    }, function(ret, err) {
+                                        if (ret.status) {
+                                            //alert(JSON.stringify(ret.sex));
+                                            var nickname = ret.nickname;
+                                            if (ret.sex =="1") {
+                                                sex = "男";
+                                            } else {
+                                                sex = "女";
+                                            }
+
+                                            var photo = ret.headimgurl;
+                                            var unionid = ret.unionid;
+                                            //alert(unionid);
+                                            api.ajax({
+                                                url: 'http://125.124.148.148:81/App/usercheck1.php',
+                                                method: 'POST',
+                                                cache: 'false',
+                                                timeout: 30,
+                                                dataTpye: 'JSON',
+                                                data: {
+                                                    values: {
+                                                        unionid: ret.unionid,
+                                                    }
+                                                }
+                                            }, function(ret, err) {
+                                                api.hideProgress();
+                                                if (ret) {
+                                                    //alert(JSON.stringify(ret));
+                                                    $api.setStorage('id', ret.id); // 数据库id
+                                                    $api.setStorage('lastUser', ret.username); //最后登录用户名
+                                                    $api.setStorage('nickname', ret.nickname); //用户昵称
+                                                    $api.setStorage('sex', ret.sex); //用户昵称 userID targetID
+                                                    $api.setStorage('userIdIM', ret.userIdIM); //用户昵称 userID targetID
+                                                    $api.setStorage('phone', ret.username); //用户登录名 == 手机号
+                                                    $api.setStorage('photo', ret.avatar); //用户头像
+
+                                                    // 优化本地数据，简单加密
+                                                    _setPrefs(window.userKey, ret, function() {
+                                                        // 存储token到本地存储中
+                                                        _setStorage("rong_token", ret.imToken);
+                                                        // 存储用户信息到本地存储中
+                                                        _setStorage(window.userKey + "h5", ret);
+                                                    });
+
+                                                    api.sendEvent({
+                                                        name: 'login_success'
+                                                    });
+
+                                                    api.openWin({
+                                                        name: 'index',
+                                                        url: '../../index.html',
+                                                        bounces: false
+                                                    });
+
+                                                } else {
+
+                                                    //根据当前法律法规要求
+                                                    api.openWin({
+                                                        name: 'win_mobile',
+                                                        url: './win_mobile.html',
+                                                        pageParam: {
+                                                            nickname: nickname,
+                                                            weichatsex: sex,
+                                                            photourl: photo,
+                                                            unionid: unionid
+                                                        }
+                                                    });
+
+                                                }
+
+
+
+                                            });
+
+
+                                        } else {
+                                            alert(err.code);
+                                        }
+                                    });
+
+                                } else {
+                                    alert(err.code);
+                                }
+                            });
+
+                        } else {
+                            api.toast({
+                                msg: '授权失败！',
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                        }
+                    });
+                    //alert("当前设备已安装微信客户端");
+                } else {
+                    //alert('当前设备未安装微信客户端');
+                    api.toast({
+                        msg: '您暂未安装微信！',
+                        duration: 2000,
+                        location: 'bottom'
+                    });
+                }
+            });
+
+
+        }
+
+        //api.hideProgress();
+    }
+</script>
+
+</html>
