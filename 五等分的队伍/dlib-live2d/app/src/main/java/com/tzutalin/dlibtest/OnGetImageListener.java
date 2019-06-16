@@ -76,8 +76,8 @@ public class OnGetImageListener implements OnImageAvailableListener {
     private TrasparentTitleView mTransparentTitleView;
     private FloatingCameraWindow mWindow;
     private Paint mFaceLandmardkPaint;
-    private LandmarkProcessor processor = new LandmarkProcessor();
-
+    public static final LandmarkProcessor processor = new LandmarkProcessor();
+    private LandmarkManager manager;
     @SuppressLint("StaticFieldLeak")
     public void initialize(
             final Context context,
@@ -113,15 +113,16 @@ public class OnGetImageListener implements OnImageAvailableListener {
         }.execute();
         mFaceDet = null;
         mWindow = new FloatingCameraWindow(mContext);
-
+        manager = LandmarkManager.getInstance();
         processor.start(renderer);
-
         mFaceLandmardkPaint = new Paint();
         mFaceLandmardkPaint.setColor(Color.GREEN);
         mFaceLandmardkPaint.setStrokeWidth(2);
         mFaceLandmardkPaint.setStyle(Paint.Style.STROKE);
     }
-
+    public LandmarkProcessor getProcessor(){
+        return processor;
+    }
     public void deInitialize() {
         synchronized (OnGetImageListener.this) {
             if (mFaceDet != null) {

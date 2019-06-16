@@ -19,4 +19,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000"
-    tools:context="com.tzutalin.dlibtest.CameraActivity" />
+    tools:context="com.tzutalin.dlibtest.CameraActivity" >
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/back_image"
+            android:src="@drawable/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="挂断"
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:textColor="#77FFFFFF"/>
+    </LinearLayout>
+</FrameLayout>

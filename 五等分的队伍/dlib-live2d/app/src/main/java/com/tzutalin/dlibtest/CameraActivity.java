@@ -28,10 +28,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.view.View;
+
+import android.util.Log;
+
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.support.v4.content.ContextCompat;
 
+import com.netease.nimlib.sdk.Observer;
+import com.netease.nimlib.sdk.avchat.AVChatCallback;
+import com.netease.nimlib.sdk.avchat.AVChatManager;
+import com.netease.nimlib.sdk.avchat.model.AVChatCommonEvent;
 import com.tzutalin.dlib.Constants;
 
 import java.io.File;
@@ -42,16 +52,22 @@ import java.util.List;
  * Created by darrenl on 2016/5/20.
  */
 public class CameraActivity extends Activity {
-
+    private static final String TAG = "CameraActivity";
     private static int OVERLAY_PERMISSION_REQ_CODE = 1;
-
+    public static String PASSIVE = "yoyoko saiko!";
+    private String targetNumber;
+    private LandmarkManager manager;
+    private ImageView imageView;
     @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        manager = LandmarkManager.getInstance();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
         setContentView(R.layout.activity_camera);
+
+        imageView=findViewById(R.id.back_image);
+        imageView.setOnClickListener(v -> endChat());
         List<String> permissionList = new ArrayList<>();
         if(ContextCompat.checkSelfPermission(CameraActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED){
@@ -84,6 +100,7 @@ public class CameraActivity extends Activity {
                 }
             }.execute();*/
         }
+        registerAVChatHandUpObserver(true);
     }
 
     private void startCamera(){
@@ -108,6 +125,44 @@ public class CameraActivity extends Activity {
                 }
             }
         }
+    }
+    private void registerAVChatHandUpObserver(boolean register){
+
+        Observer<AVChatCommonEvent> callHangupObserver = (Observer<AVChatCommonEvent>) hangUpInfo -> {
+            // 结束通话
+            AVChatManager.getInstance().disableRtc();
+            CameraActivity.this.finish();
+        };
+        AVChatManager.getInstance().observeHangUpNotification(callHangupObserver, register);
+    }
+    private void endChat(){
+        AVChatManager avChatManager = AVChatManager.getInstance();
+        long chatId = avChatManager.getCurrentChatId();
+        avChatManager.hangUp2(chatId, new AVChatCallback<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                avChatManager.disableRtc();
+                Log.i(TAG, "onSuccess: endChat");
+            }
+
+            @Override
+            public void onFailed(int i) {
+                avChatManager.disableRtc();
+                Log.i(TAG, "onFailed: endChat");
+            }
+
+            @Override
+            public void onException(Throwable throwable) {
+                avChatManager.disableRtc();
+                Log.i(TAG, "onException: endChat");
+            }
+        });
+        this.finish();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        manager.reset();
     }
 
     @Override

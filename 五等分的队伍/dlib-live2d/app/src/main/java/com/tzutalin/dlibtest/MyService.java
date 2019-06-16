@@ -21,6 +21,7 @@ public class MyService extends Service {
     private PrintWriter out;
     private static String HOST =null;
     private static int PORT =0;
+    public static final int CALL2 = 0x233333;
     public static Role role=null;
     public static Handler handler= MainActivity.handler;
     public static final int NEW_FRIEND=1;

@@ -11,6 +11,10 @@ android {
         versionCode rootProject.ext.releaseVersionCode
         versionName "${rootProject.ext.releaseVersionName}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            //设置支持的SO库架构
+            abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+        }
     }
     buildTypes {
         release {
@@ -22,6 +26,7 @@ android {
     sourceSets {
         main {
             assets.srcDirs = ['src/main/res', 'src/main/res/raw', 'src/main/assets', 'src/main/assets/']
+            jniLibs.srcDirs(['libs'])
         }
     }
 

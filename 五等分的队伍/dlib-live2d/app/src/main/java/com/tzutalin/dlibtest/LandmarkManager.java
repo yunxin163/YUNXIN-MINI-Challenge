@@ -1,5 +1,7 @@
 package com.tzutalin.dlibtest;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.util.Pair;
 
@@ -32,10 +34,59 @@ public class LandmarkManager {
     private Method targetMethod;
     private Object methodArg;
     private LandmarkProcessor processor;
-    private boolean chatlock = true;
+    public boolean chatlock = true;
+    private String phoneNumber = null;
     private String chatTarget = null;
+    private Context context = null;
 
+    public void reset(){
+        chatlock = true;
+        setStatu(ManagerStatu.Unlogin);
+        Thread readThread = new Thread(()->{
+            while(statu!=ManagerStatu.Error&&statu!=ManagerStatu.End){
+                try {
+                    if(statu == ManagerStatu.Logined){
+                        forceReadChat();
+                    }else if(statu == ManagerStatu.Talking){
+                        receiveFrame();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            endChat();
+        });
+        Thread writeThread = new Thread(()->{
+            try {
+                init();
+                login(phoneNumber,null);
+                readThread.start();
+                while(chatlock){
+                    try {
+                        Thread.sleep(100);
+                    }catch (Exception e){}
+                }
+                while(statu!=ManagerStatu.Error&&statu!=ManagerStatu.End){
+                    synchronized (processor.localTarget){
+                        processor.localTarget.wait();
+                        sendFrame(processor.localTarget);
+                    }
+                }
+                endChat();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        readThread.setName("readThread");
+        writeThread.setName("writeThread");
+        writeThread.start();
+    }
     public void activeChat(String chatTarget){
+        if(!chatlock){
+            endChat();
+            reset();
+        }
         try{
             this.chatTarget = chatTarget;
             new Thread(()->{
@@ -43,8 +94,11 @@ public class LandmarkManager {
                 chatlock = false;
             }).start();
         }catch (Exception e){}
-    }
 
+    }
+    public void setContext(Context context){
+        this.context = context;
+    }
     private static LandmarkManager singleton;
     public static LandmarkManager getInstance(){
         if(singleton == null){
@@ -58,6 +112,7 @@ public class LandmarkManager {
     }
     public void circle(String phoneNumber,LandmarkProcessor processor){
         this.processor = processor;
+        this.phoneNumber = phoneNumber;
         setOnGetLandmarkListener(landmark ->{
             synchronized (processor.remoteTarget){
                 landmark.copy2(processor.remoteTarget);
@@ -79,7 +134,7 @@ public class LandmarkManager {
             }
             endChat();
         });
-        new Thread(()->{
+        Thread writeThread = new Thread(()->{
             try {
                 init();
                 login(phoneNumber,null);
@@ -99,7 +154,10 @@ public class LandmarkManager {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }).start();
+        });
+        readThread.setName("readThread");
+        writeThread.setName("writeThread");
+        writeThread.start();
     }
 
     public void pipeline(String phoneNumber,String targetAccount,LandmarkProcessor processor){
@@ -213,7 +271,7 @@ public class LandmarkManager {
                 e.printStackTrace();
             }
         }).start();
-
+        destroy();
     }
     public void chatWith(String target,Runnable callback){
         if(out == null){
@@ -257,6 +315,12 @@ public class LandmarkManager {
                 result = pair.second.toString();
                 setStatu(ManagerStatu.Talking);
                 chatlock = false;
+                /*if(context!=null){
+                    Intent intent = new Intent(context, CameraActivity.class);
+                    intent.putExtra("target",CameraActivity.PASSIVE);
+                    context.startActivity(intent);
+                }*/
+
             }
         }catch (Exception e){
             e.printStackTrace();

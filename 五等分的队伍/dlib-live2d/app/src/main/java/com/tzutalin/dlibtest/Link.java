@@ -153,6 +153,17 @@ public class Link  {
             okHttpClient.newCall(request).enqueue(editUserCallback);
         }).start();
     }
+    public static void getNimToken(final URL url,final String token,final Callback getNimTokenCallback){
+        new Thread(()->{
+            RequestBody requestBody = RequestBody.create(JSON,"");
+            Request request = new Request.Builder()
+                    .url(url)
+                    .addHeader("Authorization",token)
+                    .post(requestBody)
+                    .build();
+            okHttpClient.newCall(request).enqueue(getNimTokenCallback);
+        }).start();
+    }
     public static void rolePhonePush(final URL url,final String[] phones,final Callback rolePhoneCallback ){
 
         for(int i = 0;i<phones.length;i++){

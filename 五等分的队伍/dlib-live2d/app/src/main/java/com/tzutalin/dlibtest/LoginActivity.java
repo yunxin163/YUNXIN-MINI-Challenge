@@ -16,6 +16,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.auth.AuthService;
+import com.netease.nimlib.sdk.auth.LoginInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +41,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "Tag";
     private Button loginButton;
     private TextView registerButton,forgetButton;
     private EditText phoneEdit,passwordEidt;
@@ -62,8 +67,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         registerButton.setOnClickListener(this);
         forgetButton= (TextView) findViewById(R.id.forget_password);
         forgetButton.setOnClickListener(this);
-    }
 
+        //phoneEdit.setText("13777818621");
+        //passwordEidt.setText("12345678");
+        //phoneEdit.setText("19857119923");
+        //passwordEidt.setText("12345678");
+
+    }
+    private String tokenFromPassword(String password) {
+        String appKey = GlobalVar.appkey;
+        boolean isDemo = "45c6af3c98409b18a84451215d0bdd6e".equals(appKey) ||
+                "fe416640c8e8a72734219e1847ad2547".equals(appKey);
+
+        return isDemo ? MD5.getStringMD5(password) : password;
+    }
+    public void doNIMLogin(String account,String nimToken) {
+        LoginInfo info = new LoginInfo(account,nimToken); // config...
+        RequestCallback<LoginInfo> callback = new RequestCallback<LoginInfo>() {
+            @Override
+            public void onSuccess(LoginInfo loginInfo) {
+
+                Log.i(TAG, String.format("onSuccess: nim success,account:%s,token:%s,appkey:%s",
+                        loginInfo.getAccount(),loginInfo.getToken(),loginInfo.getAppKey()));
+            }
+
+            @Override
+            public void onFailed(int i) {
+                Log.i(TAG, "onSuccess: nim fail,error code:"+i);
+            }
+
+            @Override
+            public void onException(Throwable throwable) {
+                Log.i(TAG, "onSuccess: nim fail,exception:"+throwable.toString());
+            }
+        };
+
+        NIMClient.getService(AuthService.class).login(info).setCallback(callback);
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -79,6 +119,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if(matcher.matches()) {
                     URL url ;
                     try {
+                        GlobalVar.nimToken = tokenFromPassword(password);
+
+                        //doNIMLogin(phone,GlobalVar.nimToken);
+                        doNIMLogin(phone,GlobalVar.nimToken);
+
                         url = new URL("http://125.124.155.138:3000/user/login");
                         Link.login(url, phone, password, new Callback() {
                             @Override
@@ -189,16 +234,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                                     @Override
                                                                     public void onResponse(Call call, Response response) throws IOException {
                                                                         Link.downloadImage(LoginActivity.this,response,avatar);
-                                                                    }
-                                                                });
-                                                                runOnUiThread(new Runnable() {
-                                                                    @Override
-                                                                    public void run() {
+                                                                        runOnUiThread(new Runnable() {
+                                                                            @Override
+                                                                            public void run() {
 //                                                                        Intent intent = new Intent(LoginActivity.this, Service.class);
 //                                                                        startService(intent);
-                                                                        MainActivity.activityStart(LoginActivity.this,mine,roles);
+
+                                                                                LandmarkManager.getInstance().circle(phone_number,OnGetImageListener.processor);
+                                                                                MainActivity.activityStart(LoginActivity.this,mine,roles);
+                                                                            }
+                                                                        });
                                                                     }
                                                                 });
+
                                                             }
                                                         } catch(JSONException e){
                                                             e.printStackTrace();
@@ -245,8 +293,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent1);
                 break;
             case R.id.forget_password:
-                Intent intent2 = new Intent(LoginActivity.this, ForgetActivity.class);
-                startActivity(intent2);
+                Toast.makeText(LoginActivity.this,"功能尚未开通",Toast.LENGTH_SHORT).show();
+//                Intent intent2 = new Intent(LoginActivity.this, ForgetActivity.class);
+//                startActivity(intent2);
                 break;
             default:
                 break;

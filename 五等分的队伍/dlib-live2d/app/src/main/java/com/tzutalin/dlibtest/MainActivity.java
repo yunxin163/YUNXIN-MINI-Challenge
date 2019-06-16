@@ -23,12 +23,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +46,19 @@ import android.widget.Toast;
 
 //import com.tzutalin.chat2d.R;
 import com.google.gson.Gson;
+import com.netease.nimlib.sdk.Observer;
+import com.netease.nimlib.sdk.avchat.AVChatCallback;
+import com.netease.nimlib.sdk.avchat.AVChatManager;
+import com.netease.nimlib.sdk.avchat.constant.AVChatEventType;
+import com.netease.nimlib.sdk.avchat.constant.AVChatType;
+import com.netease.nimlib.sdk.avchat.model.AVChatAudioFrame;
+import com.netease.nimlib.sdk.avchat.model.AVChatCalleeAckEvent;
+import com.netease.nimlib.sdk.avchat.model.AVChatData;
+import com.netease.nimlib.sdk.avchat.model.AVChatNotifyOption;
+import com.netease.nimlib.sdk.avchat.model.AVChatParameters;
+import com.netease.nimlib.sdk.avchat.model.AVChatVideoFrame;
+import com.netease.nimlib.sdk.avchat.video.AVChatVideoCapturerFactory;
+import com.netease.nimlib.sdk.avchat.model.AVChatCommonEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,16 +75,23 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+import static com.netease.nimlib.sdk.avchat.constant.AVChatChannelProfile.CHANNEL_PROFILE_DEFAULT;
+import static com.netease.nimlib.sdk.avchat.model.AVChatParameters.KEY_AUDIO_FRAME_FILTER;
+import static com.netease.nrtc.sdk.NRtcConstants.VideoScalingType.SCALE_ASPECT_BALANCED;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "tag";
     public static List<Role> roleList=new ArrayList<>();
     public static Handler handler = new myHandler();
     public static URL url =null;
+    private static MainActivity thiz;
     private static Gson gson=new Gson();
     private static RecyclerView recyclerView;
     private static RoleAdapter adapter;
     private View view1,view2,view3,view4;
     private List<View> viewList;
     private ViewPager viewPager;
+    private AlertDialog.Builder dialog;
     private CircleImageView headPic;
     private EditText usernameEdit;
     private EditText autoEdit;
@@ -77,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private BottomNavigationView mBottomNavigationView;
     private MenuItem mMenuItem;
     private Spinner spinner;
+    private Handler interfaceHandler;
     public Mine mine =Mine.getInstance();
     public String imagePath = null;
     public static void activityStart(Context context, Mine mine,List<Role> roles){
@@ -97,6 +120,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(!GlobalVar.isIMLogin()){
+            Toast.makeText(this,"云信认证失败",Toast.LENGTH_LONG).show();
+        }
+        thiz = this;
+        interfaceHandler = new Handler(getMainLooper());
+        LandmarkManager.getInstance().setContext(this);
 
         List<String> permissionList = new ArrayList<>();
         if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -107,10 +136,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 != PackageManager.PERMISSION_GRANTED){
             permissionList.add(Manifest.permission.CAMERA);
         }
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.RECORD_AUDIO);
+        }
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAPTURE_AUDIO_OUTPUT)
+                != PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.CAPTURE_AUDIO_OUTPUT);
+        }
         if(!permissionList.isEmpty()){
             String[] permissions = permissionList.toArray(new String[permissionList.size()]);
             ActivityCompat.requestPermissions(MainActivity.this, permissions, 1);
         }
+
+        dialog=new AlertDialog.Builder(MainActivity.this);
+        dialog.setIcon(R.drawable.touxiang2);
+
+        Observer<AVChatCalleeAckEvent> callAckObserver = (Observer<AVChatCalleeAckEvent>) ackInfo -> {
+            if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_BUSY) {
+                // 对方正在忙
+                Toast.makeText(MainActivity.this,"对方正在忙",Toast.LENGTH_SHORT).show();
+            } else if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_REJECT) {
+                // 对方拒绝接听
+                Toast.makeText(MainActivity.this,"对方拒绝接听",Toast.LENGTH_SHORT).show();
+            } else if (ackInfo.getEvent() == AVChatEventType.CALLEE_ACK_AGREE) {
+                // 对方同意接听
+//                ChatActivity.activityStart(MainActivity.this);
+            }
+        };
+        AVChatManager.getInstance().observeCalleeAckNotification(callAckObserver, true);
+        enableAVChat();
+        tryt();
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
@@ -216,6 +272,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new RoleAdapter(MainActivity.this,roleList);
 //        adapter.setHandler(handler);
+        adapter.setHandler(handler);
         recyclerView.setAdapter(adapter);
     }
 //    private static void initRole(){
@@ -237,6 +294,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     adapter.notifyItemInserted(roleList.size()-1);
                     recyclerView.scrollToPosition(roleList.size()-1);
                     break;
+                case MyService.CALL2:
+                    MainActivity.getInstance().outGoingCalling(msg.obj.toString());
+                    break;
                 default:
                     break;
             }
@@ -244,10 +304,203 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    public static MainActivity getInstance(){
+        return thiz;
+    }
+    public CallStateEnum callingState;
+    public AVChatData avChatData;
+    public void outGoingCalling(String account) {
+        AVChatNotifyOption notifyOption = new AVChatNotifyOption();
+
+        //附加字段
+        notifyOption.extendMessage = "extra_data";
+        //默认forceKeepCalling为true，开发者如果不需要离线持续呼叫功能可以将forceKeepCalling设为false
+        notifyOption.forceKeepCalling = false;
+        //打开Rtc模块
+        AVChatManager.getInstance().enableRtc();
+
+        this.callingState = CallStateEnum.AUDIO;
+
+        AVChatParameters avChatParameters = new AVChatParameters();
+        //设置自己需要的可选参数
+//        AVChatManager.getInstance().setParameters(avChatParameters);
+        AVChatManager.getInstance().setChannelProfile(CHANNEL_PROFILE_DEFAULT);
+        AVChatManager.getInstance().setParameter(KEY_AUDIO_FRAME_FILTER,true);
+        //呼叫
+        AVChatManager.getInstance().call2(account, AVChatType.AUDIO, notifyOption, new AVChatCallback<AVChatData>() {
+            @Override
+            public void onSuccess(AVChatData data) {
+                avChatData = data;
+                //发起会话成功
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this,data.getAccount(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onFailed(int code) {
+
+                closeRtc();
+                closeSessions(CloseType.ERROR);
+            }
+
+            @Override
+            public void onException(Throwable exception) {
+                closeRtc();
+                closeSessions(CloseType.ERROR);
+            }
+        });
+    }
+    private void closeRtc(){
+        AVChatManager.getInstance().disableRtc();
+    }
+    private void enableAVChat() {
+        registerAVChatIncomingCallObserver(true);
+    }
+
+    private void registerAVChatIncomingCallObserver(boolean register) {
+        AVChatManager.getInstance().observeIncomingCall((Observer<AVChatData>) data -> {
+            String extra = data.getExtra();
+            Log.e("Extra", "Extra Message->" + extra);
+            //被叫收到通话请求回调
+            avChatData=data;
+            runOnUiThread(() -> {
+                dialog.setTitle(data.getAccount() + "向你发出视频请求");
+                dialog.setNegativeButton("拒绝", (dialog, which) -> {
+                    reject();
+                });
+                dialog.setPositiveButton("接受", (dialog, which) -> {
+                    receiveInComingCall();
+                    LandmarkManager manager = LandmarkManager.getInstance();
+                    if(manager.chatlock){
+                        manager.activeChat(data.getAccount());
+                    }
+                });
+                dialog.show();
+            });
+
+//                ChatActivity.activityStart(MainActivity.this);
+        }, register);
+    }
 
 
+    private void reject(){
+        AVChatManager.getInstance().hangUp2(avChatData.getChatId(), new AVChatCallback<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(MainActivity.this,"成功拒绝通话",Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onFailed(int i) {
 
+            }
+
+            @Override
+            public void onException(Throwable throwable) {
+
+            }
+        });
+    }
+    private void receiveInComingCall() {
+        //接听，告知服务器，以便通知其他端
+
+        AVChatManager.getInstance().enableRtc();
+        AVChatParameters avChatParameters = new AVChatParameters();
+//        AVChatManager.getInstance().setParameters(avChatParameters);
+        AVChatManager.getInstance().setParameter(KEY_AUDIO_FRAME_FILTER,true);
+        AVChatManager.getInstance().accept2(avChatData.getChatId(), new AVChatCallback<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+//                isCallEstablish.set(true);
+            }
+
+            @Override
+            public void onFailed(int code) {
+                if (code == -1) {
+                    Toast.makeText(MainActivity.this, "本地音视频启动失败", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "建立连接失败", Toast.LENGTH_SHORT).show();
+                }
+                Log.e(TAG, "accept onFailed->" + code);
+                handleAcceptFailed();
+            }
+
+            @Override
+            public void onException(Throwable exception) {
+                Log.d(TAG, "accept exception->" + exception);
+                handleAcceptFailed();
+            }
+        });
+    }
+
+    private boolean destroyRTC = false;
+    private void handleAcceptFailed() {
+        if (destroyRTC) {
+            return;
+        }
+        AVChatManager.getInstance().disableRtc();
+        destroyRTC = true;
+        closeSessions(CloseType.CANCEL);
+    }
+    private void closeSessions(CloseType type){
+        switch (type){
+            case ERROR:
+                interfaceHandler.post(()->Toast.makeText(this,"出错",Toast.LENGTH_SHORT).show());
+                break;
+            case CANCEL:
+                interfaceHandler.post(()->Toast.makeText(this,"对方已取消",Toast.LENGTH_SHORT).show());
+                break;
+        }
+    }
+    enum CallStateEnum{VIDEO,AUDIO,VIDEO_CONNECTING}
+    enum CloseType{ERROR,CANCEL}
+//    @Override
+//    public void onCallEstablished() {
+//
+//    }
+
+    public void tryt(){
+        AVChatManager.getInstance().observeAVChatState(new AVChatStateAdapter() {
+
+            @Override
+            public void onDisconnectServer(int i) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this,"与服务器断开连接",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onCallEstablished() {
+                startActivity(new Intent(MainActivity.this,CameraActivity.class));
+            }
+
+            @Override
+            public void onDeviceEvent(int i, String s) {
+                runOnUiThread(() -> Log.i(TAG, "device event: "+s));
+
+            }
+
+            @Override
+            public boolean onVideoFrameFilter(AVChatVideoFrame avChatVideoFrame, boolean b) {
+                return false;
+            }
+
+            @Override
+            public boolean onAudioFrameFilter(AVChatAudioFrame avChatAudioFrame) {
+
+                Log.d("AudioFrame",String.valueOf(avChatAudioFrame.getData().array().length));
+                return true;
+            }
+        },true);
+    }
     private void init(){
         headPic = view4.findViewById(R.id.head_pic);
         Bitmap bitmap = BitmapFactory.decodeFile(getExternalCacheDir()+"/"+"avatar/"+mine.getImage());
@@ -422,21 +675,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivityForResult(intent, 1);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch(requestCode){
-            case 1:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    openAlbum();
-                }else{
-                    Toast.makeText(this, "You denied the permission",
-                            Toast.LENGTH_SHORT).show();
-                }
-                break;
-            default:
-                break;
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+//        switch(requestCode){
+//            case 1:
+//                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//                    openAlbum();
+//                }else{
+//                    Toast.makeText(this, "You denied the permission",
+//                            Toast.LENGTH_SHORT).show();
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -47,8 +48,14 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder> {
                 /*
                 发送视频通话请求
                  */
-                Intent intent = new Intent(context, CameraActivity.class);
-                context.startActivity(intent);
+                //Intent intent = new Intent(context, CameraActivity.class);
+                Role role = roleList.get(holder.getAdapterPosition());
+                Message msg = new Message();
+                msg.what = MyService.CALL2;
+                msg.obj = role.getPhone();
+                handler.sendMessage(msg);
+                //intent.putExtra("target",role.getPhone());
+                //context.startActivity(intent);
             }
         });
         return holder;
