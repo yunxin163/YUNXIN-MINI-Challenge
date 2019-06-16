@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css" />
+    <style>
+    	html,body {
+            height: 100%;
+            background-color: #ffffff;
+        }
+        #content{
+        	position:relative;
+        	height:250px;
+        	width:100%;
+			    vertical-align: middle;
+					background-image: url('../../../image/backg.jpg');
+        }
+        .blank{
+        	margin-top: 0px;
+        	position:relative;
+        	width:100%;
+        	height:100%;
+        	background-color: #ffffff;
+        }
+
+				.hide{
+		    	display: none;
+		    }
+		    .show{
+		    	display: block;
+		    }
+		    html,body{
+		    	height: 100%;
+		    	background-color: #ffffff;
+		    }
+
+		    .head-tab{
+		    	height: 44px;
+		    	display: block;
+		    	overflow: hidden;
+		    	background-color: #FFF;
+		    }
+		    .head-tab li{
+		    	float: left;
+		    	width: 25%;
+		    	line-height: 41px;
+		      font-size: 0.7rem;
+		    	border-bottom: 3px solid #FFF;
+		    	text-align: center;
+		      color: #bdbdbb;
+		    }
+		    .head-tab .active{
+		      color: #039be5;
+		      border-bottom: 2px solid #039be5;
+		      font-size: 0.7rem;
+		    }
+
+
+				/*大层*/
+				.container{width:95%;margin: 0 auto;}
+				/*瀑布流层*/
+				.waterfall{
+				-moz-column-count:2; /* Firefox */
+				-webkit-column-count:2; /* Safari 和 Chrome */
+				column-count:2; /* 用整数值来定义列数。不允许负值 */
+				-moz-column-gap: 1em;
+				-webkit-column-gap: 1em;
+				column-gap: 1em; /*用长度值来定义列与列之间的间隙。不允许负值*/
+				}
+				/*一个内容层*/
+				.item{
+				padding: 0em;
+				margin: 0 0 1em 0;
+				-moz-page-break-inside: avoid;
+				-webkit-column-break-inside: avoid;
+				break-inside: avoid;
+				border: 0px solid #000;
+				box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+				}
+				.item img{
+				width: 100%;
+				margin-bottom:10px;
+				}
+				.item p{
+					padding: 0.5em;
+					width: 100%;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+
+
+    </style>
+</head>
+<body>
+	<div id="content">
+		<div style="padding-top:100px;padding-left:15px;color:#ffffff;font-size: 30px;">
+			每一场活动
+		</div>
+		<div style="padding-left:15px;color:#ffffff;font-size: 25px;">
+			都值得被留念
+		</div>
+	</div>
+
+	<div class="blank">
+		<div class="container">
+			<ul class="head-tab ui-border-b" style="left:0px;right:0px;z-index: 10;">
+					<li tapmode onclick="changeTab(0)" class="active">简介</li>
+					<li tapmode onclick="changeTab(1)">图库</li>
+					<li tapmode onclick="changeTab(2)">视频</li>
+			</ul>
+
+			<div class="dianliang" id="tab0" style="margin-top:25px;z-index: -10;">
+	      <h2>活动简介</h2>
+				<script id="interpolationTemp" type="text/x-dot-template">
+			  <div style="margin:13px;">{{=it.title}}</div>
+			    </script>
+
+			    	<div id="interpolation"></div>
+	    </div>
+
+	    <div class="shishi hide" id="tab1" style="margin-top:25px;z-index: -30;">
+	    <h2>图片直播</h2>
+
+					<div class="waterfall">
+						<div id="slide"></div>
+					</div>
+
+	    </div>
+
+	    <div class="baozhuang hide" id="tab2" style="margin-top:25px;z-index: -10;">
+       <h2>视频内容如下</h2>
+	    </div>
+
+
+	  </div>
+	</div>
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../../script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../../script/doT.min.js"></script>
+<script type="text/javascript">
+  apiready = function(){
+    init();
+      var dialogBox = api.require('dialogBox');
+  };
+    var changeTab = function(index){
+        var headTabDom = $api.domAll('.head-tab li');
+        for (var i = 0; i < headTabDom.length; i++) {
+            $api.removeCls(headTabDom[i], 'active');
+            $api.addCls($api.byId('tab' + i), 'hide');
+        };
+        $api.addCls(headTabDom[index], 'active');
+        $api.removeCls($api.byId('tab' + index), 'hide');
+        window.scrollTo(0,0);
+        $api.addCls($api.byId('res'), 'hide');
+
+        if (index=='0') {
+          console.log(0);
+					$api.addCls($api.byId('tab1'), 'hide');
+					$api.addCls($api.byId('tab2'), 'hide');
+          //status('未接单');
+        } else if(index=='1') {
+          console.log('1');
+					$api.addCls($api.byId('tab0'), 'hide');
+					$api.addCls($api.byId('tab2'), 'hide');
+          //status('进行中');
+
+        }else{
+          console.log('2');
+					$api.addCls($api.byId('tab0'), 'hide');
+					$api.addCls($api.byId('tab1'), 'hide');
+          //status('已完成');
+           //getData1()
+        }
+
+    }
+    var init = function(){
+        var opts = {
+            lines: 12, // The number of lines to draw
+            angle: 0, // The length of each line
+            lineWidth: 0.48, // The line thickness
+            pointer: {
+                length: 0.3, // The radius of the inner circle
+                strokeWidth: 0.03, // The rotation offset
+                color: '#00C8FF' // Fill color
+            },
+            limitMax: 'true', // If true, the pointer will not go past the end of the gauge
+            colorStart: '#0094FF',
+            colorStop: '#0094FF', // just experiment with them
+            strokeColor: '#E5E5E5',
+            generateGradient: true
+        };
+        var gauge = new Gauge($api.byId('chart-zdl')).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = 3000; // set max gauge value
+        gauge.animationSpeed = 32; // set animation speed (32 is default value)
+        gauge.set(1150);
+
+        var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+        var lineChartData = {
+            labels : ["01","02","03"],
+            datasets : [
+                {
+                    label: "01",
+                    fillColor : "rgba(5,159,178,1)",
+                    strokeColor : "rgba(5,159,178,1)",
+                    pointColor : "rgba(5,159,178,1)",
+                    pointStrokeColor : "rgba(5,159,178,1)",
+                    pointHighlightFill : "rgba(5,159,178,1)",
+                    pointHighlightStroke : "rgba(5,159,178,1)",
+                    data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                },
+                {
+                    label: "02",
+                    fillColor : "rgba(253,113,24,1)",
+                    strokeColor : "rgba(253,113,24,1)",
+                    pointColor : "rgba(253,113,24,1)",
+                    pointStrokeColor : "rgba(253,113,24,1)",
+                    pointHighlightFill : "rgba(253,113,24,1)",
+                    pointHighlightStroke : "rgba(253,113,24,1)",
+                    data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                },
+                {
+                    label: "03",
+                    fillColor : "rgba(31,91,162,1)",
+                    strokeColor : "rgba(31,91,162,1)",
+                    pointColor : "rgba(31,91,162,1)",
+                    pointStrokeColor : "rgba(31,91,162,1)",
+                    pointHighlightFill : "rgba(31,91,162,1)",
+                    pointHighlightStroke : "rgba(31,91,162,1)",
+                    data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                }
+            ]
+
+        }
+        var xxdl_ctx = $api.byId("xxdl-chart").getContext("2d");
+        window.xxdl_line = new Chart(xxdl_ctx).Line(lineChartData, {
+            scaleShowVerticalLines:false,
+            datasetStroke:false,
+            pointDot:false,
+            datasetStroke:false,
+        });
+        var ssqx_ctx = $api.byId("ssqx-chart").getContext("2d");
+        window.ssqx_line = new Chart(ssqx_ctx).Line(lineChartData, {
+            scaleShowVerticalLines:false,
+            datasetStroke:false,
+            pointDot:false,
+            datasetStroke:false,
+        });
+    }
+
+</script>
+
+<script type="text/javascript">
+  	var imageBrowser = null;
+    var id = "";
+	  var content = $api.byId("content");
+    var gradualChange = $api.offset(content).h-44;
+	apiready = function(){
+		// 引入图片浏览模块
+		imageBrowser = api.require('imageBrowser');
+
+		api.openFrame({
+            name: 'photo_header',
+            url: './photo_header.html',
+            bounces: false,
+            vScrollBarEnabled: false,
+            hScrollBarEnabled: false,
+						bgColor: "rgba(0,0,0,0)",
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 75
+            }
+        });
+
+        window.onscroll = function(e) {
+            var scrollTop = document.body.scrollTop;
+            if (scrollTop > gradualChange) {
+                scrollTop = gradualChange;
+            }
+            api.setFrameAttr({
+                name: 'header',
+                bgColor: 'rgba(66,177,255,' + scrollTop / gradualChange + ')'
+            });
+        };
+
+
+				api.addEventListener({
+			      name: 'pub_fresh'
+			  }, function(ret, err) {
+			    if (ret) {
+			      getData();
+			    } else {
+
+			    }
+			  });
+
+			getData();
+
+			//pull to refresh
+			api.setRefreshHeaderInfo({
+			    visible: true,
+			    // loadingImgae: 'wgt://image/refresh-white.png',
+			    bgColor: '#ffffff',
+			    textColor: '#4d4d4d',
+			    textDown: '下拉刷新...',
+			    textUp: '松开刷新...',
+			    showTime: true
+			}, function (ret, err) {
+			  api.showProgress({
+			      title: '加载中...',
+			      modal: false
+			  });
+
+			    if (ret) {
+
+			    getData();
+
+			    }
+
+			  api.hideProgress();
+			  api.refreshHeaderLoadDone();
+
+			});
+
+
+			    api.addEventListener({
+			            name: 'scrolltobottom'
+			        }, function (ret, err) {
+			          api.showProgress({
+			              title: '加载中...',
+			              modal: false
+			          });
+
+			          getData();
+
+			          api.hideProgress();
+			          api.refreshHeaderLoadDone();
+
+			        });
+
+	};
+
+/*
+	// 打开图片浏览
+	// imgs：需要预览的图片集合
+	function openImageBrowser(imgs, index) {
+		imageBrowser.openImages({
+			imageUrls: imgs,
+			showList: false,
+			activeIndex: index
+		});
+	}
+
+
+	Zepto(function($) {
+		// 点击显示图片预览
+		$("#content").on("tap", "img", function() {
+			var showImgsArr = [];
+			$("#content img").each(function() {
+				var srcPath = $(this).attr("src");
+				showImgsArr.push(srcPath);
+			});
+			var index = showImgsArr.indexOf($(this).attr("src"));
+			openImageBrowser(showImgsArr, index);
+		});
+
+	});
+
+
+
+*/
+	function getData() {
+	  api.ajax({
+	      url: 'http://106.14.137.42/App/photograph_info.php',
+				method: 'POST',
+				cache:'true',
+				timeout:30,
+				dataTpye:'JSON',
+				data:{
+					values:{
+						aid:api.pageParam.id
+					}
+				}
+	  },function(ret, err){
+	      if (ret) {
+	          //alert( JSON.stringify( ret) );
+						var interpolationData = {
+                'title': ret.title
+            };
+
+
+            var interpolation = doT.template($api.dom('#interpolationTemp').innerHTML);
+            $api.dom('#interpolation').innerHTML = interpolation(interpolationData);
+
+						var html='';
+            var obj = $api.byId('slide');
+
+            var pic=ret.img;
+            var picArr = pic.split(",");
+
+            for (var j = 0; j <picArr.length; j++) {
+              //alert( picArr[j]);
+            //  html += '<div style="padding:10px;border-radius:15px;"><img style="width:100%;" src="'+picArr[j]+'"/></div>';
+
+
+							  html += '<div class="item" >';
+							  html += '	<img style="background-image: url(../../../image/pic.png);" src="'+picArr[j]+'">';
+							  html += '</div>';
+            }
+
+            $api.html(obj, html);
+
+	      } else {
+	          alert( JSON.stringify( err ) );
+	      }
+	  });
+
+
+	}
+
+</script>
+</html>
