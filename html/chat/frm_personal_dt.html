@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/ZT/activity.css" />
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+
+        .empty {
+            padding-top: 50%;
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        .empty .logo img {
+            height: 100px;
+            margin: 0 auto;
+        }
+
+        .empty .msg {
+            height: 100px;
+            line-height: 50px;
+            opacity: 0.3;
+        }
+
+
+        .figure-list{
+    			  margin: 0;
+    			  padding: 0;
+    			}
+    			.figure-list:after{
+    			  content: "";
+    			  display: block;
+    			  clear: both;
+    			  height: 0;
+    			  overflow: hidden;
+    			  visibility: hidden;
+    			}
+    			.figure-list li{
+    			  list-style: none;
+    			  float: left;
+    			  width: 31.3%;
+    			  margin: 2px;
+    			}
+    			.figure-list figure{
+    			  border: 0px solid #000;
+    			  position: relative;
+    			  width: 100%;
+    			  height: 0;
+    			  overflow: hidden;
+    			  margin: 0;
+    			  padding-bottom: 100%; /* 关键就在这里 */
+    			  background-position: center;
+    			  background-repeat: no-repeat;
+    			  background-size: cover;
+    			  border-radius: 5px;
+    			}
+    			.figure-list figure a{
+    			  display: block;
+    			  position: absolute;
+    			  width: 100%;
+    			  top: 0;
+    			  bottom: 0;
+    			}
+    </style>
+</head>
+
+<body>
+    <div class="warp"></div>
+
+    <div class="empty" id="empty1">
+        <div class="logo"><img src="../../../image/empty_page_nothing.png"></div>
+        <div class="msg" style="etter-spacing:22px;">暂未发布动态</div>
+    </div>
+
+    <script type="text/javascript" src="../../../script/api.js"></script>
+    <script type="text/javascript" src="../../../script/doT.min.js"></script>
+    <script type="text/javascript" src="../../../script/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+        var page = 1;
+        /*初始化*/
+        apiready = function() {
+            setRefreshHeader();
+            api.addEventListener({
+                name: 'scrolltobottom'
+            }, function(ret, err) {
+                if (ret) {
+                    page = page + 1;
+                    selectPageInfo();
+                } else {}
+            });
+            funWinIni();
+        }
+
+        /*网络判断*/
+        function funWinIni() {
+            if (api.connectionType == 'none') {
+                api.toast({
+                    msg: '网络错误，请检查网络',
+                    duration: 20,
+                    location: 'bottom'
+                });
+            } else {
+                loadListInfo();
+            };
+        }
+
+        var listInfo;
+
+        function loadListInfo() {
+            api.ajax({
+                url: 'http://125.124.148.148:81/App/dtinfo.php',
+                method: 'POST',
+                cache: 'false',
+                timeout: 30,
+                dataTpye: 'JSON',
+                data: {
+                    values: {
+                        aid: $api.getStorage('id')
+                    }
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    //alert( JSON.stringify( ret ) );
+                    ee();
+                    listInfo = ret;
+                    selectPageInfo();
+                } else {
+                    //alert( JSON.stringify( err ) );
+
+                }
+            });
+
+        }
+
+        function selectPageInfo() {
+            var p = listInfo.length % 10;
+            var p_i = listInfo.length / 10;
+            var pages = 0;
+            if (p == 0) {
+                pages = p_i;
+            } else {
+                pages = p_i + 1;
+            }
+            if (pages < page) {
+                api.toast({
+                    msg: ('已经没有数据！')
+                });
+                page = page - 1;
+                return false;
+            }
+            for (var i = (page - 1) * 10; i < page * 10; i++) {
+                var lInfo = listInfo[i];
+                if (lInfo) {
+
+                    var id = lInfo.id,
+                        img = lInfo.img.split(",")[0],
+                        title = lInfo.title,
+                        createAt = lInfo.createAt;
+
+
+                    var html = '';
+
+                    html += '<ul class="figure-list" onclick="todt(\'' + id + '\')">';
+                    html += '<li style="width:100%;"><figure style="background-image:url(' + img+ ')"></figure></li>';
+                    html += '</ul>';
+                    html += '<div class="aui-card-list" style="box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.07);">' + '<div id="frm" class="aui-card-list-header aui-card-list-user aui-border-b"><div class="aui-card-list-user-name"><div style="width:70%;overflow:hidden;">' + title +
+                        '</div><small><img style="width:32px;height:32px;" src="../../../image/delete.png" onclick="toDelete(\'' + id + '\')"/></small></div><div class="aui-card-list-user-info">' + createAt + '</div></div>';
+                    $(".warp").append(html);
+                }
+            }
+        }
+
+        function toDelete(id) {
+
+            api.ajax({
+                url: 'http://125.124.148.148:81/App/dtdelete.php',  
+                method: 'POST',
+                cache: 'true',
+                timeout: 30,
+                dataTpye: 'JSON',
+                data: {
+                    values: {
+                        aid: id
+                    }
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    //alert( JSON.stringify( ret ) );
+
+                } else {
+                    //alert( JSON.stringify( err ) );
+                }
+
+                api.toast({
+                    msg: '删除成功',
+                    location: "middle"
+                })
+
+                api.sendEvent({
+                    name: 'pub_fresh'
+                });
+
+
+                $(".warp").html("");
+                page = 1;
+                loadListInfo();
+
+
+            });
+
+        };
+
+
+        /*打开详细页面*/
+        function todt(id) {
+            api.openWin({
+                name: 'win_dt' + id,
+                url: '../../index_group/bbs/win_dt.html',
+                rect: {
+                    x: 0,
+                    y: 0,
+                    w: api.winWidth,
+                    h: api.winHeight
+                },
+                pageParam: {
+                    id: id
+                },
+                animation: {
+                    type: "movein", //动画类型（详见动画类型常量）
+                    subType: "from_right", //动画子类型（详见动画子类型常量）
+                    duration: 300 //动画过渡时间，默认300毫秒
+                },
+                bounces: false,
+                delay: 200
+            });
+        }
+
+        /*下拉刷新方法*/
+        function setRefreshHeader() {
+            api.setRefreshHeaderInfo({
+                visible: false,
+                bgColor: '#ffffff',
+                textColor: '#fff',
+                textDown: '下拉刷新...',
+                textUp: '松开刷新...',
+                showTime: false
+            }, function(ret, err) {
+                $(".warp").html("");
+                page = 1;
+                loadListInfo();
+                api.refreshHeaderLoadDone();
+                // 主动下拉
+                api.refreshHeaderLoading();
+            });
+        }
+
+        function ee() {
+            document.getElementById('empty1').style.display = "none";
+        }
+    </script>
+</body>
+
+</html>
