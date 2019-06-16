@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css" />
+</head>
+<body>
+
+    <header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+        <a class="aui-btn aui-pull-left" tapmode onclick="api.closeWin({});">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title" style="color:#000;">岗位详情</div>
+    </header>
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item" tapmode style="width: 3rem;">
+            <i class="aui-iconfont aui-icon-star aui-text-warning"></i>
+            <div class="aui-bar-tab-label aui-text-warning">收藏</div>
+        </div>
+        <ul id="interpolation" class="aui-bar-tab-item aui-bg-success aui-text-white" style="width: auto;">
+        <script id="interpolationTemp" type="text/x-dot-template">
+        <ul class="aui-bar-tab-item aui-bg-success aui-text-white" style="width: auto;" tapmode="tap-active" data-id="{{=it.id}}"  data-targetId="{{=it.danweiID}}" data-avatar="{{=it.avatar}}"><span style="margin-left:100px;">立即沟通</span></ul>
+      </script>
+      <ul>
+    </footer>
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../../script/winu-base.js"></script>
+<script type="text/javascript" src="../../../script/mycommon.js"></script>
+<script type="text/javascript">
+var dialogBox;
+var userJson = null;
+var targetId;
+
+//屏蔽可容差错误
+window.onerror = function() {
+    return true;
+};
+
+// 1、 声明融云对象 new RongObject
+var rong = null,msgJson = null,msg = [];
+
+    apiready = function(){
+        id = api.pageParam.id;//活动id
+        api.parseTapmode();
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header);
+        var headerPos = $api.offset(header);
+        var body_h = $api.offset($api.dom('body')).h;
+        var footerH = $api.offset($api.byId('footer')).h;
+
+        api.openFrame({
+            name: 'frm_detail',
+            url: 'frm_detail.html',
+            bounces: false,
+            pageParam:{id: id},
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: api.winHeight-headerPos.h-footerH
+            }
+        })
+
+
+        api.ajax({
+            url: 'http://106.14.137.42/App/jobinfo.php',
+            method: 'POST',
+            cache:'false',
+            timeout:30,
+            dataTpye:'JSON',
+            data:{
+              values:{
+                aid:id
+              }
+            }
+        },function(ret, err){
+            if (ret) {
+              //alert( JSON.stringify( ret));
+              var interpolationData = {
+                  'danweiID':ret[0].danweiID
+              };
+              var interpolation = doT.template($api.dom('#interpolationTemp').innerHTML);
+              $api.dom('#interpolation').innerHTML = interpolation(interpolationData);
+              //targetId=ret.danweiID;
+            } else {
+                //alert( JSON.stringify( err ) );
+            }
+        });
+
+}
+
+
+
+</script>
+</html>
