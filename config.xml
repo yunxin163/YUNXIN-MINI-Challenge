@@ -1,0 +1,66 @@
+<widget id="A6003229160857" version="0.0.52">
+    <name>MIKO</name>
+    <description>米可生活，一款面向年轻人，分享你的美好生活</description>
+    <author email="1334799550@qq.com" href="http://www.apicloud.com"></author>
+    <content src="index.html"/>
+    <access origin="*"/>
+    <preference name="pageBounce" value="false"/>
+    <preference name="appBackground" value="#ffffff"/>
+    <preference name="windowBackground" value="#ffffff"/>
+    <preference name="frameBackgroundColor" value="#ffffff"/>
+    <preference name="hScrollBarEnabled" value="false"/>
+    <preference name="vScrollBarEnabled" value="false"/>
+    <preference name="autoLaunch" value="true"/>
+    <preference name="fullScreen" value="ture"/>
+    <preference name="autoUpdate" value="true"/>
+    <preference name="smartUpdate" value="true"/>
+    <preference name="debug" value="false"/>
+    <preference name="statusBarAppearance" value="true"/>
+    <permission name="readPhoneState"/>
+    <permission name="camera"/>
+    <permission name="record"/>
+    <permission name="location"/>
+    <permission name="fileSystem"/>
+    <permission name="internet"/>
+    <permission name="bootCompleted"/>
+    <permission name="hardware"/>
+    <preference name="customRefreshHeader" value="UIPullRefreshFlash"/>
+    <preference name="backgroundMode" value="audio"/>
+    <feature name="meiQia">
+        <param name="app_key" value="94c10814bde9124282b5a106758612b4"/>
+    </feature>
+    <feature name="aMapLBS">
+        <param name="android_api_key" value="8615502a89ea5dafa518d1a822749842"/>
+    </feature>
+    <feature name="smsVerify">
+        <param name="android_app_key" value="2b67447dad51e"/>
+        <param name="android_app_secret" value="09c498b9939f27fe15223e5772e574be"/>
+    </feature>
+    <feature name="qiniuUpfile">
+        <param name="bucket" value="mult"/>
+        <param name="SecretKey" value="J6gHa7nYZJAJ8wvSBYVuwWnYyZHc6DTWPHP8UseV"/>
+        <param name="AccessKey" value="i3_eKk5FP5W3y-o__qvsj4xwOjMdWFw_AZVQdXsu"/>
+    </feature>
+    <feature name="fs"/>
+    <feature name="imageBrowser"/>
+    <feature name="UIChatBox"/>
+    <feature name="db"/>
+    <feature name="UIMediaScanner"/>
+    <feature name="UISearchBar"/>
+    <feature name="imageClip"/>
+    <feature name="imageFilter"/>
+    <feature name="QQPlus">
+        <param name="urlScheme" value="tencent1105647934"/>
+        <param name="apiKey" value="1105647934"/>
+    </feature>
+    <feature name="wx">
+        <param name="urlScheme" value="wx501944ed1331ecb3"/>
+        <param name="apiKey" value="wx501944ed1331ecb3"/>
+        <param name="apiSecret" value="0a883c3a0152c4ed6a98b734b0252082"/>
+    </feature>
+    <preference name="customRefreshHeader" value="UIPullRefreshFlash"/>
+    <feature name="ajpush">
+    <param name="app_key" value="a15a6579a8a3e54e32f81cbf"/>
+    <param name="channel" value="apicloud"/>
+  </feature>
+</widget>
