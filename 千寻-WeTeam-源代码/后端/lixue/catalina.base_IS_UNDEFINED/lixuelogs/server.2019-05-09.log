@@ -1,0 +1,88 @@
+2019-05-09 21:52:22.130 [restartedMain] INFO  xyh.LixueApplication - Starting LixueApplication on DESKTOP-P1GCRLJ with PID 1236 (D:\lixue\target\classes started by XiangYida in D:\lixue)
+2019-05-09 21:52:22.134 [restartedMain] INFO  xyh.LixueApplication - No active profile set, falling back to default profiles: default
+2019-05-09 21:52:22.442 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-05-09 21:52:22.443 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-05-09 21:52:24.543 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-09 21:52:24.547 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-09 21:52:24.717 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 160ms. Found 1 repository interfaces.
+2019-05-09 21:52:24.860 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-09 21:52:24.861 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-09 21:52:24.889 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-05-09 21:52:24.890 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 28ms. Found 0 repository interfaces.
+2019-05-09 21:52:24.945 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-09 21:52:24.955 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-09 21:52:24.982 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-05-09 21:52:24.983 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 14ms. Found 0 repository interfaces.
+2019-05-09 21:52:25.947 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$585461d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-09 21:52:26.858 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2019-05-09 21:52:26.885 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2019-05-09 21:52:26.912 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2019-05-09 21:52:26.913 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-05-09 21:52:27.103 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring embedded WebApplicationContext
+2019-05-09 21:52:27.103 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 4660 ms
+2019-05-09 21:52:28.445 [restartedMain] INFO  org.mongodb.driver.cluster - Cluster created with settings {hosts=[127.0.0.1:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-05-09 21:52:28.446 [restartedMain] INFO  org.mongodb.driver.cluster - Adding discovered server 127.0.0.1:27017 to client view of cluster
+2019-05-09 21:52:28.508 [cluster-ClusterId{value='5cd4309c2b057b04d4518ee3', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:1, serverValue:1}] to 127.0.0.1:27017
+2019-05-09 21:52:28.513 [cluster-ClusterId{value='5cd4309c2b057b04d4518ee3', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=127.0.0.1:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 9]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=3882229}
+2019-05-09 21:52:28.558 [cluster-ClusterId{value='5cd4309c2b057b04d4518ee3', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Discovered cluster type of STANDALONE
+2019-05-09 21:52:28.862 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2019-05-09 21:52:29.746 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - no modules loaded
+2019-05-09 21:52:29.747 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+2019-05-09 21:52:29.747 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.join.ParentJoinPlugin]
+2019-05-09 21:52:29.747 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+2019-05-09 21:52:29.747 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+2019-05-09 21:52:29.747 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+2019-05-09 21:52:31.912 [restartedMain] INFO  o.s.d.e.client.TransportClientFactoryBean - Adding transport node : 123.207.11.229:9300
+2019-05-09 21:52:33.938 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2019-05-09 21:52:34.777 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2019-05-09 21:52:34.798 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/lixue'
+2019-05-09 21:52:34.801 [restartedMain] INFO  xyh.LixueApplication - Started LixueApplication in 13.945 seconds (JVM running for 17.4)
+2019-05-09 21:52:34.917 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2019-05-09 21:52:35.225 [restartedMain] INFO  xyh.LixueApplication - ------> has imported users from mysql to redis
+2019-05-09 21:52:50.958 [Thread-20] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-05-09 21:52:51.020 [Thread-20] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2019-05-09 21:57:11.729 [restartedMain] INFO  xyh.LixueApplication - Starting LixueApplication on DESKTOP-P1GCRLJ with PID 2368 (D:\lixue\target\classes started by XiangYida in D:\lixue)
+2019-05-09 21:57:11.733 [restartedMain] INFO  xyh.LixueApplication - No active profile set, falling back to default profiles: default
+2019-05-09 21:57:11.903 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-05-09 21:57:11.904 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-05-09 21:57:13.139 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-09 21:57:13.142 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-09 21:57:13.225 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 77ms. Found 1 repository interfaces.
+2019-05-09 21:57:13.250 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-09 21:57:13.250 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-09 21:57:13.265 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-05-09 21:57:13.265 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 15ms. Found 0 repository interfaces.
+2019-05-09 21:57:13.275 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-09 21:57:13.277 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-09 21:57:13.295 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-05-09 21:57:13.296 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13ms. Found 0 repository interfaces.
+2019-05-09 21:57:13.803 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$2cccaa7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-09 21:57:14.456 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2019-05-09 21:57:14.470 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2019-05-09 21:57:14.479 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2019-05-09 21:57:14.479 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-05-09 21:57:14.655 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring embedded WebApplicationContext
+2019-05-09 21:57:14.655 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2751 ms
+2019-05-09 21:57:15.788 [restartedMain] INFO  org.mongodb.driver.cluster - Cluster created with settings {hosts=[127.0.0.1:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-05-09 21:57:15.788 [restartedMain] INFO  org.mongodb.driver.cluster - Adding discovered server 127.0.0.1:27017 to client view of cluster
+2019-05-09 21:57:15.841 [cluster-ClusterId{value='5cd431bb2b057b09406c1418', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:1, serverValue:6}] to 127.0.0.1:27017
+2019-05-09 21:57:15.845 [cluster-ClusterId{value='5cd431bb2b057b09406c1418', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=127.0.0.1:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 9]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=3005420}
+2019-05-09 21:57:15.847 [cluster-ClusterId{value='5cd431bb2b057b09406c1418', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Discovered cluster type of STANDALONE
+2019-05-09 21:57:16.030 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2019-05-09 21:57:16.537 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - no modules loaded
+2019-05-09 21:57:16.538 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+2019-05-09 21:57:16.538 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.join.ParentJoinPlugin]
+2019-05-09 21:57:16.538 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+2019-05-09 21:57:16.538 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+2019-05-09 21:57:16.538 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+2019-05-09 21:57:17.589 [restartedMain] INFO  o.s.d.e.client.TransportClientFactoryBean - Adding transport node : 123.207.11.229:9300
+2019-05-09 21:57:19.226 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2019-05-09 21:57:19.762 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2019-05-09 21:57:19.777 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/lixue'
+2019-05-09 21:57:19.780 [restartedMain] INFO  xyh.LixueApplication - Started LixueApplication in 8.818 seconds (JVM running for 10.495)
+2019-05-09 21:57:19.823 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2019-05-09 21:57:19.944 [restartedMain] INFO  xyh.LixueApplication - ------> has imported users from mysql to redis
+2019-05-09 21:57:30.101 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-05-09 21:57:30.101 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2019-05-09 21:57:30.115 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 14 ms
+2019-05-09 21:57:30.265 [http-nio-8080-exec-1] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:2, serverValue:7}] to 127.0.0.1:27017

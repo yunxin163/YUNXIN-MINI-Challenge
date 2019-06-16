@@ -1,0 +1,50 @@
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: 
+      username: 
+      password: 
+  redis:
+    host: 
+  devtools:
+    restart:
+      enabled: false
+      additional-paths: src/main/java
+      poll-interval: 300ms
+      quiet-period: 299ms
+  data:
+    elasticsearch:
+      cluster-name: 
+      cluster-nodes: 
+      repositories:
+        enabled: true
+    mongodb:
+      host: 
+      port: 
+      database: 
+      username: 
+      password: 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      enabled: true
+server:
+  servlet:
+    context-path: /lixue
+  port: 8080
+mybatis:
+  type-aliases-package: xyh.lixue.searchProblem.entity
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    xyh.lixue.*: debug
+
+ocr:
+  api: 
+wechat:
+  url: 
+cos:
+  uri: 

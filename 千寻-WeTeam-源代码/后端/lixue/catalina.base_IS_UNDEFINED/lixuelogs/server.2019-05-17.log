@@ -1,0 +1,875 @@
+2019-05-17 00:49:11.162 [restartedMain] INFO  xyh.LixueApplication - Starting LixueApplication on DESKTOP-P1GCRLJ with PID 8528 (D:\lixue\target\classes started by XiangYida in D:\lixue)
+2019-05-17 00:49:11.170 [restartedMain] INFO  xyh.LixueApplication - No active profile set, falling back to default profiles: default
+2019-05-17 00:49:11.340 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-05-17 00:49:11.341 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-05-17 00:49:12.272 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-17 00:49:12.274 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-17 00:49:12.357 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 78ms. Found 1 repository interfaces.
+2019-05-17 00:49:12.378 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-17 00:49:12.379 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-17 00:49:12.393 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-05-17 00:49:12.393 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 14ms. Found 0 repository interfaces.
+2019-05-17 00:49:12.405 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-17 00:49:12.406 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-17 00:49:12.427 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-05-17 00:49:12.427 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13ms. Found 0 repository interfaces.
+2019-05-17 00:49:12.848 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$b19f7ed3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-17 00:49:13.523 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2019-05-17 00:49:13.537 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2019-05-17 00:49:13.546 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2019-05-17 00:49:13.546 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-05-17 00:49:13.710 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring embedded WebApplicationContext
+2019-05-17 00:49:13.711 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2370 ms
+2019-05-17 00:49:13.873 [MLog-Init-Reporter] INFO  com.mchange.v2.log.MLog - MLog clients using slf4j logging.
+2019-05-17 00:49:13.899 [restartedMain] INFO  com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.5.2 [built 08-December-2015 22:06:04 -0800; debug? true; trace: 10]
+2019-05-17 00:49:14.874 [restartedMain] INFO  org.mongodb.driver.cluster - Cluster created with settings {hosts=[127.0.0.1:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-05-17 00:49:14.875 [restartedMain] INFO  org.mongodb.driver.cluster - Adding discovered server 127.0.0.1:27017 to client view of cluster
+2019-05-17 00:49:14.928 [cluster-ClusterId{value='5cdd948a6fd5fe21509faeea', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:1, serverValue:29}] to 127.0.0.1:27017
+2019-05-17 00:49:14.932 [cluster-ClusterId{value='5cdd948a6fd5fe21509faeea', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=127.0.0.1:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 9]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=3520071}
+2019-05-17 00:49:14.934 [cluster-ClusterId{value='5cdd948a6fd5fe21509faeea', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Discovered cluster type of STANDALONE
+2019-05-17 00:49:15.125 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2019-05-17 00:49:15.617 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - no modules loaded
+2019-05-17 00:49:15.618 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+2019-05-17 00:49:15.618 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.join.ParentJoinPlugin]
+2019-05-17 00:49:15.618 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+2019-05-17 00:49:15.618 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+2019-05-17 00:49:15.619 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+2019-05-17 00:49:16.803 [restartedMain] INFO  o.s.d.e.client.TransportClientFactoryBean - Adding transport node : 123.207.11.229:9300
+2019-05-17 00:49:18.477 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2019-05-17 00:49:19.056 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2019-05-17 00:49:19.071 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/lixue'
+2019-05-17 00:49:19.073 [restartedMain] INFO  xyh.LixueApplication - Started LixueApplication in 8.677 seconds (JVM running for 10.379)
+2019-05-17 00:49:19.107 [restartedMain] INFO  c.m.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1hgery9a21hpalybyti7bu|5f77f0d3, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> null, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1hgery9a21hpalybyti7bu|5f77f0d3, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://118.89.21.225:3306/lixue?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 15, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 3, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+2019-05-17 00:49:49.135 [C3P0PooledConnectionPoolManager[identityToken->1hgery9a21hpalybyti7bu|5f77f0d3]-HelperThread-#2] WARN  com.mchange.v2.resourcepool.BasicResourcePool - com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask@2d621e09 -- Acquisition Attempt Failed!!! Clearing pending acquires. While trying to acquire a needed new resource, we failed to succeed more than the maximum number of allowed acquisition attempts (30). Last acquisition attempt exception: 
+java.sql.SQLException: No suitable driver
+	at java.sql.DriverManager.getDriver(DriverManager.java:315)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.driver(DriverManagerDataSource.java:285)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.getConnection(DriverManagerDataSource.java:175)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:220)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:206)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool$1PooledConnectionResourcePoolManager.acquireResource(C3P0PooledConnectionPool.java:203)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquire(BasicResourcePool.java:1138)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquireAndDecrementPendingAcquiresWithinLockOnSuccess(BasicResourcePool.java:1125)
+	at com.mchange.v2.resourcepool.BasicResourcePool.access$700(BasicResourcePool.java:44)
+	at com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask.run(BasicResourcePool.java:1870)
+	at com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:696)
+2019-05-17 00:49:49.135 [C3P0PooledConnectionPoolManager[identityToken->1hgery9a21hpalybyti7bu|5f77f0d3]-HelperThread-#1] WARN  com.mchange.v2.resourcepool.BasicResourcePool - com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask@69d6bc57 -- Acquisition Attempt Failed!!! Clearing pending acquires. While trying to acquire a needed new resource, we failed to succeed more than the maximum number of allowed acquisition attempts (30). Last acquisition attempt exception: 
+java.sql.SQLException: No suitable driver
+	at java.sql.DriverManager.getDriver(DriverManager.java:315)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.driver(DriverManagerDataSource.java:285)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.getConnection(DriverManagerDataSource.java:175)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:220)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:206)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool$1PooledConnectionResourcePoolManager.acquireResource(C3P0PooledConnectionPool.java:203)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquire(BasicResourcePool.java:1138)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquireAndDecrementPendingAcquiresWithinLockOnSuccess(BasicResourcePool.java:1125)
+	at com.mchange.v2.resourcepool.BasicResourcePool.access$700(BasicResourcePool.java:44)
+	at com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask.run(BasicResourcePool.java:1870)
+	at com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:696)
+2019-05-17 00:49:49.135 [C3P0PooledConnectionPoolManager[identityToken->1hgery9a21hpalybyti7bu|5f77f0d3]-HelperThread-#0] WARN  com.mchange.v2.resourcepool.BasicResourcePool - com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask@62063a14 -- Acquisition Attempt Failed!!! Clearing pending acquires. While trying to acquire a needed new resource, we failed to succeed more than the maximum number of allowed acquisition attempts (30). Last acquisition attempt exception: 
+java.sql.SQLException: No suitable driver
+	at java.sql.DriverManager.getDriver(DriverManager.java:315)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.driver(DriverManagerDataSource.java:285)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.getConnection(DriverManagerDataSource.java:175)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:220)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:206)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool$1PooledConnectionResourcePoolManager.acquireResource(C3P0PooledConnectionPool.java:203)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquire(BasicResourcePool.java:1138)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquireAndDecrementPendingAcquiresWithinLockOnSuccess(BasicResourcePool.java:1125)
+	at com.mchange.v2.resourcepool.BasicResourcePool.access$700(BasicResourcePool.java:44)
+	at com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask.run(BasicResourcePool.java:1870)
+	at com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:696)
+2019-05-17 00:49:49.135 [C3P0PooledConnectionPoolManager[identityToken->1hgery9a21hpalybyti7bu|5f77f0d3]-HelperThread-#2] WARN  com.mchange.v2.resourcepool.BasicResourcePool - Having failed to acquire a resource, com.mchange.v2.resourcepool.BasicResourcePool@72e8839d is interrupting all Threads waiting on a resource to check out. Will try again in response to new client requests.
+2019-05-17 00:49:49.137 [C3P0PooledConnectionPoolManager[identityToken->1hgery9a21hpalybyti7bu|5f77f0d3]-HelperThread-#1] WARN  com.mchange.v2.resourcepool.BasicResourcePool - Having failed to acquire a resource, com.mchange.v2.resourcepool.BasicResourcePool@72e8839d is interrupting all Threads waiting on a resource to check out. Will try again in response to new client requests.
+2019-05-17 00:49:49.137 [C3P0PooledConnectionPoolManager[identityToken->1hgery9a21hpalybyti7bu|5f77f0d3]-HelperThread-#0] WARN  com.mchange.v2.resourcepool.BasicResourcePool - Having failed to acquire a resource, com.mchange.v2.resourcepool.BasicResourcePool@72e8839d is interrupting all Threads waiting on a resource to check out. Will try again in response to new client requests.
+2019-05-17 00:49:49.143 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-05-17 00:49:49.149 [restartedMain] ERROR org.springframework.boot.SpringApplication - Application run failed
+java.lang.IllegalStateException: Failed to execute CommandLineRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:816)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:797)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:324)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
+	at xyh.LixueApplication.main(LixueApplication.java:27)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+### The error may exist in xyh/lixue/user/mapper/UserMapper.xml
+### The error may involve xyh.lixue.user.mapper.UserMapper.getAllUser
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:77)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)
+	at com.sun.proxy.$Proxy84.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:230)
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:58)
+	at com.sun.proxy.$Proxy85.getAllUser(Unknown Source)
+	at xyh.lixue.user.service.impl.UserServiceImpl.importUserToRedis(UserServiceImpl.java:87)
+	at xyh.LixueApplication.run(LixueApplication.java:41)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:813)
+	... 10 common frames omitted
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+### The error may exist in xyh/lixue/user/mapper/UserMapper.xml
+### The error may involve xyh.lixue.user.mapper.UserMapper.getAllUser
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:149)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	... 19 common frames omitted
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:81)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:82)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:68)
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:336)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:85)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	... 25 common frames omitted
+Caused by: java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at com.mchange.v2.sql.SqlUtils.toSQLException(SqlUtils.java:118)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:692)
+	at com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:140)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:157)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:115)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:78)
+	... 35 common frames omitted
+Caused by: com.mchange.v2.resourcepool.CannotAcquireResourceException: A ResourcePool could not acquire a resource from its primary factory or source.
+	at com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1469)
+	at com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:644)
+	at com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:554)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndMarkConnectionInUse(C3P0PooledConnectionPool.java:758)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:685)
+	... 39 common frames omitted
+Caused by: java.sql.SQLException: No suitable driver
+	at java.sql.DriverManager.getDriver(DriverManager.java:315)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.driver(DriverManagerDataSource.java:285)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.getConnection(DriverManagerDataSource.java:175)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:220)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:206)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool$1PooledConnectionResourcePoolManager.acquireResource(C3P0PooledConnectionPool.java:203)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquire(BasicResourcePool.java:1138)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquireAndDecrementPendingAcquiresWithinLockOnSuccess(BasicResourcePool.java:1125)
+	at com.mchange.v2.resourcepool.BasicResourcePool.access$700(BasicResourcePool.java:44)
+	at com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask.run(BasicResourcePool.java:1870)
+	at com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:696)
+2019-05-17 00:49:49.156 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-05-17 00:52:34.771 [restartedMain] INFO  xyh.LixueApplication - Starting LixueApplication on DESKTOP-P1GCRLJ with PID 14816 (D:\lixue\target\classes started by XiangYida in D:\lixue)
+2019-05-17 00:52:34.776 [restartedMain] INFO  xyh.LixueApplication - No active profile set, falling back to default profiles: default
+2019-05-17 00:52:34.921 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-05-17 00:52:34.921 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-05-17 00:52:36.324 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-17 00:52:36.326 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-17 00:52:36.422 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 91ms. Found 1 repository interfaces.
+2019-05-17 00:52:36.452 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-17 00:52:36.452 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-17 00:52:36.468 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-05-17 00:52:36.468 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16ms. Found 0 repository interfaces.
+2019-05-17 00:52:36.481 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-17 00:52:36.482 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-17 00:52:36.506 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-05-17 00:52:36.506 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 15ms. Found 0 repository interfaces.
+2019-05-17 00:52:37.004 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7b5a68ec] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-17 00:52:37.888 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2019-05-17 00:52:37.904 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2019-05-17 00:52:37.917 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2019-05-17 00:52:37.917 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-05-17 00:52:38.093 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring embedded WebApplicationContext
+2019-05-17 00:52:38.093 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3172 ms
+2019-05-17 00:52:38.284 [MLog-Init-Reporter] INFO  com.mchange.v2.log.MLog - MLog clients using slf4j logging.
+2019-05-17 00:52:38.320 [restartedMain] INFO  com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.5.2 [built 08-December-2015 22:06:04 -0800; debug? true; trace: 10]
+2019-05-17 00:52:39.648 [restartedMain] INFO  org.mongodb.driver.cluster - Cluster created with settings {hosts=[127.0.0.1:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-05-17 00:52:39.649 [restartedMain] INFO  org.mongodb.driver.cluster - Adding discovered server 127.0.0.1:27017 to client view of cluster
+2019-05-17 00:52:39.732 [cluster-ClusterId{value='5cdd95576fd5fe39e065a01e', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:1, serverValue:30}] to 127.0.0.1:27017
+2019-05-17 00:52:39.737 [cluster-ClusterId{value='5cdd95576fd5fe39e065a01e', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=127.0.0.1:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 9]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=3951878}
+2019-05-17 00:52:39.740 [cluster-ClusterId{value='5cdd95576fd5fe39e065a01e', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Discovered cluster type of STANDALONE
+2019-05-17 00:52:39.997 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2019-05-17 00:52:40.610 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - no modules loaded
+2019-05-17 00:52:40.612 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+2019-05-17 00:52:40.612 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.join.ParentJoinPlugin]
+2019-05-17 00:52:40.612 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+2019-05-17 00:52:40.612 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+2019-05-17 00:52:40.612 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+2019-05-17 00:52:41.928 [restartedMain] INFO  o.s.d.e.client.TransportClientFactoryBean - Adding transport node : 123.207.11.229:9300
+2019-05-17 00:52:45.194 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2019-05-17 00:52:46.750 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2019-05-17 00:52:46.782 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/lixue'
+2019-05-17 00:52:46.787 [restartedMain] INFO  xyh.LixueApplication - Started LixueApplication in 12.817 seconds (JVM running for 14.692)
+2019-05-17 00:52:46.853 [restartedMain] INFO  c.m.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1hgery9a21hpezom10678u|6bc9e10b, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> null, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1hgery9a21hpezom10678u|6bc9e10b, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://118.89.21.225:3306/lixue?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 15, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 3, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+2019-05-17 00:52:59.259 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-05-17 00:52:59.259 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2019-05-17 00:52:59.276 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 17 ms
+2019-05-17 00:52:59.312 [http-nio-8080-exec-1] INFO  xyh.lixue.common.aspect.WebAspect - URL----> http://127.0.0.1:8080/lixue/forum/posts
+2019-05-17 00:52:59.312 [http-nio-8080-exec-1] INFO  xyh.lixue.common.aspect.WebAspect - IP----> 127.0.0.1
+2019-05-17 00:52:59.354 [http-nio-8080-exec-1] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:2, serverValue:31}] to 127.0.0.1:27017
+2019-05-17 00:52:59.404 [http-nio-8080-exec-1] INFO  xyh.lixue.common.aspect.WebAspect - RequestTimeConsuming----> 93 ms
+2019-05-17 00:53:04.759 [http-nio-8080-exec-3] INFO  xyh.lixue.common.aspect.WebAspect - URL----> http://127.0.0.1:8080/lixue/forum/posts
+2019-05-17 00:53:04.759 [http-nio-8080-exec-3] INFO  xyh.lixue.common.aspect.WebAspect - IP----> 127.0.0.1
+2019-05-17 00:53:04.761 [http-nio-8080-exec-3] INFO  xyh.lixue.common.aspect.WebAspect - RequestTimeConsuming----> 2 ms
+2019-05-17 00:53:05.119 [http-nio-8080-exec-4] INFO  xyh.lixue.common.aspect.WebAspect - URL----> http://127.0.0.1:8080/lixue/forum/posts
+2019-05-17 00:53:05.119 [http-nio-8080-exec-4] INFO  xyh.lixue.common.aspect.WebAspect - IP----> 127.0.0.1
+2019-05-17 00:53:05.121 [http-nio-8080-exec-4] INFO  xyh.lixue.common.aspect.WebAspect - RequestTimeConsuming----> 2 ms
+2019-05-17 00:53:05.441 [http-nio-8080-exec-5] INFO  xyh.lixue.common.aspect.WebAspect - URL----> http://127.0.0.1:8080/lixue/forum/posts
+2019-05-17 00:53:05.441 [http-nio-8080-exec-5] INFO  xyh.lixue.common.aspect.WebAspect - IP----> 127.0.0.1
+2019-05-17 00:53:05.443 [http-nio-8080-exec-5] INFO  xyh.lixue.common.aspect.WebAspect - RequestTimeConsuming----> 2 ms
+2019-05-17 00:53:05.693 [http-nio-8080-exec-6] INFO  xyh.lixue.common.aspect.WebAspect - URL----> http://127.0.0.1:8080/lixue/forum/posts
+2019-05-17 00:53:05.693 [http-nio-8080-exec-6] INFO  xyh.lixue.common.aspect.WebAspect - IP----> 127.0.0.1
+2019-05-17 00:53:05.695 [http-nio-8080-exec-6] INFO  xyh.lixue.common.aspect.WebAspect - RequestTimeConsuming----> 2 ms
+2019-05-17 01:20:49.128 [restartedMain] INFO  xyh.LixueApplication - Starting LixueApplication on DESKTOP-P1GCRLJ with PID 14624 (D:\lixue\target\classes started by XiangYida in D:\lixue)
+2019-05-17 01:20:49.149 [restartedMain] INFO  xyh.LixueApplication - No active profile set, falling back to default profiles: default
+2019-05-17 01:20:49.472 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-05-17 01:20:49.473 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-05-17 01:20:51.711 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-17 01:20:51.713 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-17 01:20:51.812 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 95ms. Found 1 repository interfaces.
+2019-05-17 01:20:51.876 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-17 01:20:51.877 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-17 01:20:51.888 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-05-17 01:20:51.888 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11ms. Found 0 repository interfaces.
+2019-05-17 01:20:51.941 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-17 01:20:51.942 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-17 01:20:51.963 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-05-17 01:20:51.963 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13ms. Found 0 repository interfaces.
+2019-05-17 01:20:52.552 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$2a0b04ac] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-17 01:20:53.478 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2019-05-17 01:20:53.505 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2019-05-17 01:20:53.533 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2019-05-17 01:20:53.533 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-05-17 01:20:53.712 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring embedded WebApplicationContext
+2019-05-17 01:20:53.712 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 4239 ms
+2019-05-17 01:20:53.963 [MLog-Init-Reporter] INFO  com.mchange.v2.log.MLog - MLog clients using slf4j logging.
+2019-05-17 01:20:54.056 [restartedMain] INFO  com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.5.2 [built 08-December-2015 22:06:04 -0800; debug? true; trace: 10]
+2019-05-17 01:20:55.149 [restartedMain] INFO  org.mongodb.driver.cluster - Cluster created with settings {hosts=[127.0.0.1:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-05-17 01:20:55.149 [restartedMain] INFO  org.mongodb.driver.cluster - Adding discovered server 127.0.0.1:27017 to client view of cluster
+2019-05-17 01:20:55.221 [cluster-ClusterId{value='5cdd9bf76fd5fe3920950d7e', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:1, serverValue:2}] to 127.0.0.1:27017
+2019-05-17 01:20:55.246 [cluster-ClusterId{value='5cdd9bf76fd5fe3920950d7e', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=127.0.0.1:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 9]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=23564645}
+2019-05-17 01:20:55.248 [cluster-ClusterId{value='5cdd9bf76fd5fe3920950d7e', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Discovered cluster type of STANDALONE
+2019-05-17 01:20:55.449 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2019-05-17 01:20:56.343 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - no modules loaded
+2019-05-17 01:20:56.344 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+2019-05-17 01:20:56.345 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.join.ParentJoinPlugin]
+2019-05-17 01:20:56.345 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+2019-05-17 01:20:56.345 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+2019-05-17 01:20:56.345 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+2019-05-17 01:20:58.593 [restartedMain] INFO  o.s.d.e.client.TransportClientFactoryBean - Adding transport node : 123.207.11.229:9300
+2019-05-17 01:21:00.646 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2019-05-17 01:21:01.268 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2019-05-17 01:21:01.298 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/lixue'
+2019-05-17 01:21:01.301 [restartedMain] INFO  xyh.LixueApplication - Started LixueApplication in 13.662 seconds (JVM running for 16.203)
+2019-05-17 01:21:01.481 [restartedMain] INFO  c.m.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1hgery9a21hqfc4214qkxol|3ddc0540, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> null, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1hgery9a21hqfc4214qkxol|3ddc0540, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://118.89.21.225:3306/lixue?useUnicode=true&characterEncoding=UTF-8, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 15, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 3, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+2019-05-17 01:21:03.812 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-05-17 01:21:03.813 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2019-05-17 01:21:03.826 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 13 ms
+2019-05-17 01:21:03.870 [http-nio-8080-exec-1] INFO  xyh.lixue.common.aspect.WebAspect - URL----> http://127.0.0.1:8080/lixue/forum/posts
+2019-05-17 01:21:03.870 [http-nio-8080-exec-1] INFO  xyh.lixue.common.aspect.WebAspect - IP----> 127.0.0.1
+2019-05-17 01:21:03.946 [http-nio-8080-exec-1] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:2, serverValue:3}] to 127.0.0.1:27017
+2019-05-17 01:21:04.014 [http-nio-8080-exec-1] INFO  xyh.lixue.common.aspect.WebAspect - RequestTimeConsuming----> 143 ms
+2019-05-17 01:21:31.553 [C3P0PooledConnectionPoolManager[identityToken->1hgery9a21hqfc4214qkxol|3ddc0540]-HelperThread-#0] WARN  com.mchange.v2.resourcepool.BasicResourcePool - com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask@50068ac0 -- Acquisition Attempt Failed!!! Clearing pending acquires. While trying to acquire a needed new resource, we failed to succeed more than the maximum number of allowed acquisition attempts (30). Last acquisition attempt exception: 
+java.sql.SQLException: No suitable driver
+	at java.sql.DriverManager.getDriver(DriverManager.java:315)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.driver(DriverManagerDataSource.java:285)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.getConnection(DriverManagerDataSource.java:175)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:220)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:206)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool$1PooledConnectionResourcePoolManager.acquireResource(C3P0PooledConnectionPool.java:203)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquire(BasicResourcePool.java:1138)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquireAndDecrementPendingAcquiresWithinLockOnSuccess(BasicResourcePool.java:1125)
+	at com.mchange.v2.resourcepool.BasicResourcePool.access$700(BasicResourcePool.java:44)
+	at com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask.run(BasicResourcePool.java:1870)
+	at com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:696)
+2019-05-17 01:21:31.553 [C3P0PooledConnectionPoolManager[identityToken->1hgery9a21hqfc4214qkxol|3ddc0540]-HelperThread-#2] WARN  com.mchange.v2.resourcepool.BasicResourcePool - com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask@4509f184 -- Acquisition Attempt Failed!!! Clearing pending acquires. While trying to acquire a needed new resource, we failed to succeed more than the maximum number of allowed acquisition attempts (30). Last acquisition attempt exception: 
+java.sql.SQLException: No suitable driver
+	at java.sql.DriverManager.getDriver(DriverManager.java:315)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.driver(DriverManagerDataSource.java:285)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.getConnection(DriverManagerDataSource.java:175)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:220)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:206)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool$1PooledConnectionResourcePoolManager.acquireResource(C3P0PooledConnectionPool.java:203)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquire(BasicResourcePool.java:1138)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquireAndDecrementPendingAcquiresWithinLockOnSuccess(BasicResourcePool.java:1125)
+	at com.mchange.v2.resourcepool.BasicResourcePool.access$700(BasicResourcePool.java:44)
+	at com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask.run(BasicResourcePool.java:1870)
+	at com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:696)
+2019-05-17 01:21:31.553 [C3P0PooledConnectionPoolManager[identityToken->1hgery9a21hqfc4214qkxol|3ddc0540]-HelperThread-#1] WARN  com.mchange.v2.resourcepool.BasicResourcePool - com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask@1dee7056 -- Acquisition Attempt Failed!!! Clearing pending acquires. While trying to acquire a needed new resource, we failed to succeed more than the maximum number of allowed acquisition attempts (30). Last acquisition attempt exception: 
+java.sql.SQLException: No suitable driver
+	at java.sql.DriverManager.getDriver(DriverManager.java:315)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.driver(DriverManagerDataSource.java:285)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.getConnection(DriverManagerDataSource.java:175)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:220)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:206)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool$1PooledConnectionResourcePoolManager.acquireResource(C3P0PooledConnectionPool.java:203)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquire(BasicResourcePool.java:1138)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquireAndDecrementPendingAcquiresWithinLockOnSuccess(BasicResourcePool.java:1125)
+	at com.mchange.v2.resourcepool.BasicResourcePool.access$700(BasicResourcePool.java:44)
+	at com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask.run(BasicResourcePool.java:1870)
+	at com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:696)
+2019-05-17 01:21:31.553 [C3P0PooledConnectionPoolManager[identityToken->1hgery9a21hqfc4214qkxol|3ddc0540]-HelperThread-#0] WARN  com.mchange.v2.resourcepool.BasicResourcePool - Having failed to acquire a resource, com.mchange.v2.resourcepool.BasicResourcePool@5b9569a8 is interrupting all Threads waiting on a resource to check out. Will try again in response to new client requests.
+2019-05-17 01:21:31.569 [C3P0PooledConnectionPoolManager[identityToken->1hgery9a21hqfc4214qkxol|3ddc0540]-HelperThread-#1] WARN  com.mchange.v2.resourcepool.BasicResourcePool - Having failed to acquire a resource, com.mchange.v2.resourcepool.BasicResourcePool@5b9569a8 is interrupting all Threads waiting on a resource to check out. Will try again in response to new client requests.
+2019-05-17 01:21:31.570 [C3P0PooledConnectionPoolManager[identityToken->1hgery9a21hqfc4214qkxol|3ddc0540]-HelperThread-#2] WARN  com.mchange.v2.resourcepool.BasicResourcePool - Having failed to acquire a resource, com.mchange.v2.resourcepool.BasicResourcePool@5b9569a8 is interrupting all Threads waiting on a resource to check out. Will try again in response to new client requests.
+2019-05-17 01:21:31.575 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-05-17 01:21:31.582 [restartedMain] ERROR org.springframework.boot.SpringApplication - Application run failed
+java.lang.IllegalStateException: Failed to execute CommandLineRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:816)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:797)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:324)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
+	at xyh.LixueApplication.main(LixueApplication.java:27)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+### The error may exist in xyh/lixue/user/mapper/UserMapper.xml
+### The error may involve xyh.lixue.user.mapper.UserMapper.getAllUser
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:77)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)
+	at com.sun.proxy.$Proxy84.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:230)
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:58)
+	at com.sun.proxy.$Proxy85.getAllUser(Unknown Source)
+	at xyh.lixue.user.service.impl.UserServiceImpl.importUserToRedis(UserServiceImpl.java:87)
+	at xyh.LixueApplication.run(LixueApplication.java:41)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:813)
+	... 10 common frames omitted
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+### The error may exist in xyh/lixue/user/mapper/UserMapper.xml
+### The error may involve xyh.lixue.user.mapper.UserMapper.getAllUser
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:149)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	... 19 common frames omitted
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:81)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:82)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:68)
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:336)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:85)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	... 25 common frames omitted
+Caused by: java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at com.mchange.v2.sql.SqlUtils.toSQLException(SqlUtils.java:118)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:692)
+	at com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:140)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:157)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:115)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:78)
+	... 35 common frames omitted
+Caused by: com.mchange.v2.resourcepool.CannotAcquireResourceException: A ResourcePool could not acquire a resource from its primary factory or source.
+	at com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1469)
+	at com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:644)
+	at com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:554)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndMarkConnectionInUse(C3P0PooledConnectionPool.java:758)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:685)
+	... 39 common frames omitted
+Caused by: java.sql.SQLException: No suitable driver
+	at java.sql.DriverManager.getDriver(DriverManager.java:315)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.driver(DriverManagerDataSource.java:285)
+	at com.mchange.v2.c3p0.DriverManagerDataSource.getConnection(DriverManagerDataSource.java:175)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:220)
+	at com.mchange.v2.c3p0.WrapperConnectionPoolDataSource.getPooledConnection(WrapperConnectionPoolDataSource.java:206)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool$1PooledConnectionResourcePoolManager.acquireResource(C3P0PooledConnectionPool.java:203)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquire(BasicResourcePool.java:1138)
+	at com.mchange.v2.resourcepool.BasicResourcePool.doAcquireAndDecrementPendingAcquiresWithinLockOnSuccess(BasicResourcePool.java:1125)
+	at com.mchange.v2.resourcepool.BasicResourcePool.access$700(BasicResourcePool.java:44)
+	at com.mchange.v2.resourcepool.BasicResourcePool$ScatteredAcquireTask.run(BasicResourcePool.java:1870)
+	at com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread.run(ThreadPoolAsynchronousRunner.java:696)
+2019-05-17 01:21:31.586 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-05-17 01:21:31.599 [restartedMain] INFO  org.mongodb.driver.connection - Closed connection [connectionId{localValue:2, serverValue:3}] to 127.0.0.1:27017 because the pool has been closed.
+2019-05-17 09:32:27.819 [restartedMain] INFO  xyh.LixueApplication - Starting LixueApplication on DESKTOP-P1GCRLJ with PID 9284 (D:\lixue\target\classes started by XiangYida in D:\lixue)
+2019-05-17 09:32:27.850 [restartedMain] INFO  xyh.LixueApplication - No active profile set, falling back to default profiles: default
+2019-05-17 09:32:28.022 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-05-17 09:32:28.022 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-05-17 09:32:29.196 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-17 09:32:29.196 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-17 09:32:29.290 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 94ms. Found 1 repository interfaces.
+2019-05-17 09:32:29.321 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-17 09:32:29.321 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-17 09:32:29.337 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-05-17 09:32:29.337 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16ms. Found 0 repository interfaces.
+2019-05-17 09:32:29.353 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-17 09:32:29.353 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-17 09:32:29.384 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-05-17 09:32:29.384 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16ms. Found 0 repository interfaces.
+2019-05-17 09:32:29.837 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$e9866e6e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-17 09:32:30.478 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2019-05-17 09:32:30.478 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2019-05-17 09:32:30.493 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2019-05-17 09:32:30.493 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-05-17 09:32:30.728 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring embedded WebApplicationContext
+2019-05-17 09:32:30.728 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2706 ms
+2019-05-17 09:32:31.775 [restartedMain] INFO  org.mongodb.driver.cluster - Cluster created with settings {hosts=[127.0.0.1:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-05-17 09:32:31.775 [restartedMain] INFO  org.mongodb.driver.cluster - Adding discovered server 127.0.0.1:27017 to client view of cluster
+2019-05-17 09:32:31.994 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2019-05-17 09:32:32.509 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - no modules loaded
+2019-05-17 09:32:32.509 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+2019-05-17 09:32:32.509 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.join.ParentJoinPlugin]
+2019-05-17 09:32:32.509 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+2019-05-17 09:32:32.509 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+2019-05-17 09:32:32.509 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+2019-05-17 09:32:32.837 [cluster-ClusterId{value='5cde0f2f6fd5fe24441bc44f', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Exception in monitor thread while connecting to server 127.0.0.1:27017
+com.mongodb.MongoSocketOpenException: Exception opening socket
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:67)
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:126)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:117)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:64)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:62)
+	... 3 common frames omitted
+2019-05-17 09:32:33.493 [restartedMain] INFO  o.s.d.e.client.TransportClientFactoryBean - Adding transport node : 123.207.11.229:9300
+2019-05-17 09:32:34.900 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2019-05-17 09:32:35.494 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2019-05-17 09:32:35.509 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/lixue'
+2019-05-17 09:32:35.509 [restartedMain] INFO  xyh.LixueApplication - Started LixueApplication in 8.565 seconds (JVM running for 10.175)
+2019-05-17 09:32:35.556 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2019-05-17 09:32:35.588 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.588 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.588 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.588 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.603 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.603 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.603 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.603 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.619 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.619 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.619 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.619 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.634 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.634 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.634 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.650 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.650 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.650 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.650 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.666 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.666 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.666 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.666 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.681 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.681 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.681 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.681 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.697 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.697 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.697 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)
+2019-05-17 09:32:35.697 [Druid-ConnectionPool-Create-1047164183] ERROR com.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://127.0.0.1:3306/lixue?useUnicode=true&characterEncoding=UTF-8
+java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:946)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:2870)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:812)
+	at com.mysql.jdbc.MysqlIO.secureAuth411(MysqlIO.java:3269)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1182)
+	at com.mysql.jdbc.Connection.createNewIO(Connection.java:2644)
+	at com.mysql.jdbc.Connection.<init>(Connection.java:1531)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:266)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1375)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1431)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1888)

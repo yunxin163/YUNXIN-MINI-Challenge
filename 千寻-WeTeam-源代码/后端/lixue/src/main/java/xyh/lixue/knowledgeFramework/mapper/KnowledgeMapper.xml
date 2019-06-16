@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyh.lixue.knowledgeFramework.mapper.KnowledgeMapper">
+
+
+    <select id="getAllBooks" resultType="xyh.lixue.knowledgeFramework.entity.Book">
+        select * from book
+    </select>
+    <select id="getChaptersByBookId" resultType="xyh.lixue.knowledgeFramework.entity.Chapter">
+        select * from chapter where book_id = #{bookId}
+    </select>
+
+    <select id="getKnowledgeByChapterId" resultType="xyh.lixue.knowledgeFramework.entity.Knowledge">
+        select * from knowledge where chapter_id = #{chapterId}
+    </select>
+</mapper>
