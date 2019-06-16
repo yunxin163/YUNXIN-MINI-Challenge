@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<title>title</title>
+	<link rel="stylesheet" type="text/css" href="../../../css/aui.css" />
+	<style>
+		body {
+			background-color: #ffffff;
+		}
+
+		.aui-user-view:after {
+			border-top: 0px solid #c8c7cc;
+			display: none;
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			-webkit-transform-origin: 0 0;
+			-webkit-transform: scale(1);
+			pointer-events: none;
+			margin-top: 35px;
+		}
+
+		.aui-user-view-cell:after {
+			border-bottom: 0px solid #c8c7cc;
+			display: block;
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			-webkit-transform-origin: 0 0;
+			-webkit-transform: scale(1);
+			pointer-events: none;
+		}
+
+		.aui-tab-item.aui-active {
+			color: #ffffff;
+			background-color: #42b1ff;
+		}
+
+		.aui-tab {
+			position: relative;
+			background-color: #ffffff;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-flex-wrap: nowrap;
+			flex-wrap: nowrap;
+			-webkit-align-self: center;
+			align-self: center;
+		}
+
+		.aui-user-view-cell:last-child:after {
+			border-bottom: 0px solid #c8c7cc;
+		}
+
+		.aui-tab-item {
+			width: 100%;
+			height: 2.2rem;
+			line-height: 2.2rem;
+			position: relative;
+			font-size: 0.7rem;
+			text-align: center;
+			color: #212121;
+			margin-left: -1px;
+			-webkit-box-flex: 1;
+			box-flex: 1;
+			border-radius: 45px;
+			box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+			margin: 5px;
+		}
+
+
+		.empty {
+		  padding-top: 20%;
+		  background-color: #ffffff;
+		  text-align: center;
+		}
+
+		.empty .logo img {
+		  height: 100px;
+		  margin: 0 auto;
+		}
+
+		.empty .msg {
+		  height: 100px;
+		  line-height: 50px;
+		  opacity: 0.3;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div>
+		<div class="aui-tab" id="tab">
+			<div class="aui-tab-item aui-active">全部</div>
+			<div class="aui-tab-item">男生</div>
+			<div class="aui-tab-item">女生</div>
+			<div class="aui-tab-item">更多</div>
+		</div>
+	</div>
+	<div class="aui-content">
+		<ul id="act-content" class="aui-user-view"></ul>
+	</div>
+
+	<div class="empty" id="empty1">
+		<div class="logo"><img src="../../../image/empty_page_nothing.png"></div>
+		<div class="msg" style="etter-spacing:22px;">当前没有用户</div>
+	</div>
+
+	<script id="act-template" type="text/x-dot-template">
+		{{ for(var i=0; i< it.length; i++) { }}
+		<li class="aui-user-view-cell" style="margin:0px;bottom:0px;border-radius:0px;box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);" onclick="toPersonal('{{=it[it.length-i-1].id}}');">
+			<img class="aui-img-object aui-pull-left" src="{{=it[it.length-i-1].avatar}}">
+			<div class="aui-img-body">
+				<span>{{=it[it.length-i-1].nickname}}<em></em></span>
+				<p class="aui-ellipsis-1">{{=it[it.length-i-1].identity}}</p>
+			</div>
+			</li>
+			{{ }}}
+	</script>
+
+
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../../script/winu-base.js"></script>
+<script type="text/javascript" src="../../../script/linq.min.js"></script>
+<script type="text/javascript" src="../../../script/mycommon.js"></script>
+<script type="text/javascript" src="../../../script/aui-tab.js"></script>
+<script type="text/javascript">
+	var page = 1,userJson = null;
+	var skip = 0;
+
+	apiready = function() {
+		api.parseTapmode();
+		searchByMcm();
+	};
+	// 搜索
+	function searchByMcm() {
+
+		api.ajax({
+			url: 'http://125.124.148.148:81/App/userall.php',
+			method: 'GET',
+			cache: 'true',
+			timeout: 30,
+			dataTpye: 'JSON'
+		}, function(ret, err) {
+			if (ret) {
+        ee();
+				var content = $api.byId('act-content');
+				var tpl = $api.byId('act-template').text;
+				var tempFn = doT.template(tpl);
+				content.innerHTML = tempFn(ret);
+				//alert( JSON.stringify( ret));
+			} else {
+
+			}
+		});
+	};
+
+
+	/*打开详细页面*/
+	function toPersonal(userID) {
+		api.openWin({
+			name: 'win_friend_info' + userID,
+			url: '../../contact/win_friend_info.html',
+			rect: {
+				x: 0,
+				y: 0,
+				w: api.winWidth,
+				h: api.winHeight
+			},
+			pageParam: {
+				data_id: userID
+			},
+			animation: {
+				type: "movein", //动画类型（详见动画类型常量）
+				subType: "from_right", //动画子类型（详见动画子类型常量）
+				duration: 300 //动画过渡时间，默认300毫秒
+			},
+			bounces: false,
+			delay: 300
+		});
+	}
+
+
+	var tab = new auiTab({
+		element: document.getElementById("tab"),
+	}, function(ret) {
+		if (ret.index=='1') {
+			searchByMcm();
+		}else if(ret.index=='2'){
+			 searchBy('男');
+			 console.log("男")
+		}else if(ret.index=='3'){
+			 searchBy('女');
+			 console.log("女")
+		}else{
+			 //select();
+		}
+	});
+
+
+	// 搜索
+	function searchBy(select){
+		api.ajax({
+			url: 'http://125.124.148.148:81/App/userSelect.php',
+			method: 'POST',
+			data:{
+				values:{
+					gender:select
+				}
+			},
+			dataTpye: 'JSON'
+		}, function(ret, err) {
+			if (ret) {
+        ee();
+				var content = $api.byId('act-content');
+				var tpl = $api.byId('act-template').text;
+				var tempFn = doT.template(tpl);
+				content.innerHTML = tempFn(ret);
+			} else {
+
+			}
+		});
+	};
+
+
+	function ee() {
+	    document.getElementById('empty1').style.display = "none";
+	}
+</script>
+
+</html>

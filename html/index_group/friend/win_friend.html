@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui.css"/>
+    <style>
+    	body {
+				background: #ffffff;
+			}
+    	 #aui-header{
+            display: block;
+        }
+         .custom-headers{
+            display: block;
+            height: 25px;
+        }
+
+        .aui-list-view-cell {
+            line-height: 26px;
+        }
+        #tip_chatting{
+        	line-height: 26px;
+        	margin-left:26px;
+        }
+        #title_tip{
+        line-height: 25px;
+        margin-left:26px;
+        }
+
+				.aui-btn-block {
+					display: block;
+					width: 92%;
+					padding: 12px 12px;
+					margin-left: 10px;
+					margin-right: 10px;
+					font-size: 16px;
+					border-radius: 70px;
+				}
+
+				.aui-input-row .aui-input1 {
+				font-size: 14px;
+				margin: 0;
+				display: table-cell;
+				position: relative;
+				float: left;
+				width: 70%;
+				border:none;
+				border-radius: 0;
+				}
+
+				.aui-btn-info {
+				color: #ffffff;
+				background-color: #ffffff;
+				border: 0px solid #4faeff;
+
+			}
+
+			/*导航栏*/
+.aui-bar {
+	position: relative;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 10;
+	width: 100%;
+	background-color: #ffffff;
+	color: #ffffff;
+	display: table;
+	min-height: 45px;
+	line-height: 45px;
+	font-size: 18px;
+	text-align: center;
+	box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.aui-bar-dark {
+	background-color: #ffffff;
+}
+    </style>
+</head>
+<body>
+	<header class="aui-bar aui-bar-nav aui-bar-dark" id="aui-header">
+		<div class="custom-headers">
+			<a class="aui-btn  aui-bar-dark aui-pull-left"  id="back" tapmode="tap-active" onclick=" api.closeWin({});">
+				<span class="aui-iconfont aui-icon-pullleft"></span>
+			</a>
+		</div>
+	</header>
+
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/common_WinOpenFrame.js"></script>
+<script type="text/javascript">
+    common_WinOpenFrame('frm_friend_result', './frm_friend_result.html');
+</script>
+</html>
