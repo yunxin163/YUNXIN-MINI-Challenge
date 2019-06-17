@@ -1,0 +1,245 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.xuhong.smarthome.view.PullScrollView
+        android:id="@+id/pullView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/all"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/flNull"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivHeaderBg"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/ivIcon"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:text="欢迎使用智能管家"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/llIndex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:padding="15dp">
+
+                    <RelativeLayout
+                        android:id="@+id/all_one"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvDevices"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_home_press"
+                            android:layout_centerInParent="true"
+                            android:text="我的设备"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1">
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:background="@color/black1"
+
+                            />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvShareDevices"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:padding="2dp"
+                            android:text="设备共享"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1">
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:background="@color/black1"
+                            />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvDevicesLog"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:padding="2dp"
+                            android:text="设备日志"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </FrameLayout>
+
+            <com.lqr.optionitemview.OptionItemView
+                android:id="@+id/OVUserInf"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_bg_click"
+                app:left_src="@mipmap/ic_location"
+                app:left_text="个人资料"
+                app:left_text_color="@color/black1"
+                app:right_src="@mipmap/ic_next"
+                app:right_text="修改、查看"
+                app:right_text_color="@color/black1"
+                app:right_text_size="12sp" />
+
+            <com.lqr.optionitemview.OptionItemView
+                android:layout_marginTop="10dp"
+                android:id="@+id/OVWeather"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_bg_click"
+                app:left_src="@mipmap/ic_location"
+                app:right_src="@mipmap/ic_next"
+                app:left_text="天气预报"
+                android:visibility="gone"
+                app:left_text_color="@color/black1"
+                />
+
+            <com.lqr.optionitemview.OptionItemView
+                android:id="@+id/OVCarText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_bg_click"
+                app:left_src="@mipmap/ic_location"
+                app:left_text="驾考题库"
+                app:left_text_color="@color/black1"
+                app:right_src="@mipmap/ic_next" />
+
+            <com.lqr.optionitemview.OptionItemView
+                android:id="@+id/OVDayHappy"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_bg_click"
+                app:left_src="@mipmap/ic_location"
+                app:left_text="每日一笑"
+                app:left_text_color="@color/black1"
+                app:right_src="@mipmap/ic_next" />
+
+            <com.lqr.optionitemview.OptionItemView
+                android:id="@+id/OVQRScan"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_bg_click"
+                app:left_src="@mipmap/ic_location"
+                app:left_text="二维码扫描"
+                app:left_text_color="@color/black1"
+                app:right_src="@mipmap/ic_next" />
+
+            <com.lqr.optionitemview.OptionItemView
+                android:id="@+id/OVBox"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_bg_click"
+                app:left_src="@mipmap/ic_location"
+                app:left_text="快递查询"
+                android:visibility="gone"
+                app:left_text_color="@color/black1"
+                app:right_src="@mipmap/ic_next" />
+
+            <com.lqr.optionitemview.OptionItemView
+                android:id="@+id/OVAbout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_bg_click"
+                app:left_src="@mipmap/ic_location"
+                app:left_text="关于软件"
+                app:left_text_color="@color/black1"
+                app:right_src="@mipmap/ic_next"  />
+
+        </LinearLayout>
+
+
+    </com.xuhong.smarthome.view.PullScrollView>
+
+
+</RelativeLayout>
