@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block resources %}
+<style>
+#find-container {
+	position: relative;
+}
+.find-header {
+	text-align: center;
+    font-size: 25px;
+    color: #676767;
+    padding: 30px 40px 50px 40px;
+    border-bottom: #bbbbbb 1px dotted;
+    word-break: break-all;
+}
+.find-header::before {
+	content: '“';
+    font-size: 100px;
+    font-family: Arial;
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    color: #848484;
+}
+.find-header::after {
+	content: '”';
+    font-size: 100px;
+    font-family: Arial;
+    position: absolute;
+    right: 20px;
+    top: 70px;
+    color: #848484;
+}
+#find-container label {
+    display: block !important;
+    text-align: left !important;
+    color: #101010 !important;
+    font-size: 15px !important;
+    margin-bottom: 10px !important;
+    width: initial !important;
+    text-align: left !important;
+    padding-left: 0 !important;
+}
+.user-list .left {
+	float: left;
+}
+.user-list .right {
+	float: right;
+}
+.user-list .user-list-item {
+	border: #e0e0e0 1px solid;
+	border-radius: 5px;
+	padding: 15px;
+	transition: all 0.5s;
+}
+.user-list .user-avatar {
+	border-right: #e0e0e0 1px solid;
+	width: 85px;
+}
+.user-list .item-action {
+	width: 120px;
+	margin-top: 30px;
+}
+.user-list .item-action a {
+	font-weight: bold;
+	color: #2ACD43;
+}
+.user-list .user-info {
+	padding: 0 20px;
+}
+.user-list .user-info h3 {
+	font-weight: normal;
+	font-size: 22px;
+	line-height: 0;
+	color: #101010;
+}
+.user-list .user-info p {
+	font-weight: normal;
+	font-size: 13px;
+	line-height: 5px;
+	color: #595959;
+}
+.user-list .user-info .user-rank img {
+	height: 15px;
+	width: 15px;
+}
+.user-list .user-info .user-rank .title {
+	font-size: 13px;
+    font-weight: bold;
+    display: block;
+    position: relative;
+    margin-top: -19px;
+    margin-left: 20px;
+    color: #F39577;
+}
+.user-list .user-list-item:hover {
+	transform: scale3d(1.01, 1.01, 1);
+	box-shadow: 0 2px 5px rgba(0,0,0,.05);
+}
+</style>
+<script>
+
+</script>
+{% endblock %}
+{% block main %}
+<section id="home-intro">
+	<div class="content-wrap section-content">
+		<div id="home-intro-header" class="intro-text">
+			<h1>寻求解答</h1>
+            <h2>Find your answer</h2>
+		</div>
+		<div id="find-container" class="white-center-box main-box">
+			<header class="find-header">
+				红烧肉怎么做好吃
+			</header>
+			<div style="margin-top: 20px">
+				<label>以下是针对该问题的推荐答主：</label>
+				<div class="user-list">
+					<div class="user-list-item">
+						<div class="left user-avatar">
+							<img src="/static/img/index-story/experimentsNotifications.png" height="70">
+						</div>
+						<div class="left user-info">
+							<h3>Mark</h3>
+							<p>业余厨师、mini 答疑 优秀答主</p>
+							<div class="user-rank">
+								<img src="/static/img/user/rank.png">
+								<span class="title">13 级</span>
+							</div>
+						</div>
+						<div class="right item-action">
+							<a>向 TA 发起提问</a>
+						</div>
+						<div style="clear: both"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div style="height: 50px"></div>
+{% endblock %}

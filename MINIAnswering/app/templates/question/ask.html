@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block resources %}
+
+{% autoescape false %}
+    {{fields_data}}
+{% endautoescape %}
+
+<link rel="stylesheet" href="/static/css/quill.snow.css" />
+<link rel="stylesheet" href="/static/css/katex.min.css" />
+<link rel="stylesheet" href="/static/css/monokai-sublime.min.css" />
+<style>
+#ask-form {
+    text-align: center;
+}
+#no-question-mark-tip {
+    display: none;
+    padding: 5px 10px;
+    color: #f44336;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+}
+</style>
+<script>
+var chip;
+$(document).ready(function() {
+    // 展开问题领域
+    for (i = 0; i < fields_data.length; i++){
+        $('#fields-selector').append(`
+            <li class="chip" data-value="${fields_data[i].id}">${fields_data[i].name}</li>
+        `);
+    }
+    chip = new ui_chips('#fields-selector');
+
+    $('#ask-form-title').on('change input', function() {
+        var title = $(this).val();
+        if (title.indexOf('?') <= 0 && title.indexOf('？') <= 0) {
+            $('#no-question-mark-tip').show();
+        } else {
+            $('#no-question-mark-tip').hide();
+        }
+    });
+    $('#ask-btn').on('click', function() {
+        var fields = chip.getDataByValue();
+        $.post('action/', {
+            title: $('#ask-form-title').val(),
+            content: quill.container.firstChild.innerHTML,
+            fields: fields.toString(),
+        }, function(d) {
+            if (d.states == 200) {
+                // success
+                alert('Success');
+            } else {
+                // failed
+                $('#ask-error').text(d.message);
+                $('#ask-error').show();
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
+{% block main %}
+<section id="home-intro">
+	<div class="content-wrap section-content">
+		<div id="home-intro-header" class="intro-text">
+			<h1>描述你的问题</h1>
+            <h2>Describe your question</h2>
+		</div>
+		<div id="ask-container" class="white-center-box main-box">
+			<form id="ask-form">
+                <div class="row">
+                    <div class="col-15">
+                        <label for="ask-form-title">问题标题</label>
+                    </div>
+                    <div class="col-85">
+                        <input type="text" id="ask-form-title" class="basic-input" />
+                        <div id="no-question-mark-tip">您还没有为标题添加问号</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-15">
+                        <label for="ask-form-fields">问题领域</label>
+                    </div>
+                    <div class="col-85">
+                        <ul class="chips" id="fields-selector"></ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-15">
+                        <label for="ask-form-content">问题内容</label>
+                    </div>
+                    <div class="col-85">
+                        <!-- Rich-text Editor Begin -->
+                        <div id="standalone-container" class="richtext-area">
+                            <div id="toolbar-container">
+                                <span class="ql-formats">
+                                    <select class="ql-font"></select>
+                                    <select class="ql-size"></select>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-bold"></button>
+                                    <button class="ql-italic"></button>
+                                    <button class="ql-underline"></button>
+                                    <button class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <select class="ql-color"></select>
+                                    <select class="ql-background"></select>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-script" value="sub"></button>
+                                    <button class="ql-script" value="super"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-header" value="1"></button>
+                                    <button class="ql-header" value="2"></button>
+                                    <button class="ql-blockquote"></button>
+                                    <button class="ql-code-block"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-list" value="ordered"></button>
+                                    <button class="ql-list" value="bullet"></button>
+                                    <button class="ql-indent" value="-1"></button>
+                                    <button class="ql-indent" value="+1"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-direction" value="rtl"></button>
+                                    <select class="ql-align"></select>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-link"></button>
+                                    <button class="ql-image"></button>
+                                    <button class="ql-video"></button>
+                                    <button class="ql-formula"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-clean"></button>
+                                </span>
+                            </div>
+                            <div id="editor-container"></div>
+                        </div>
+                        <!-- Rich-text Editor End -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="ask-error" class="error-box" style="display: none"></div>
+                    <button class="submit-btn" type="button" id="ask-btn">发布问题</button>
+                </div>
+            </form>
+		</div>
+	</div>
+</section>
+<div style="height: 50px"></div>
+{% endblock %}
+{% block bottom_resources %}
+<script src="/static/js/katex.min.js"></script>
+<script src="/static/js/highlight.min.js"></script>
+<script src="/static/js/quill.min.js"></script>
+<script>
+var quill = new Quill('#editor-container', {
+    modules: {
+        formula: true,
+        syntax: true,
+        toolbar: '#toolbar-container'
+    },
+    placeholder: '在此描述你的问题，准确地描述问题更容易得到解答',
+    theme: 'snow',
+});
+</script>
+{% endblock %}

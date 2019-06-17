@@ -1,0 +1,62 @@
+#signup-main-form{
+	margin-top: 40px;
+}
+#signup-step-1 label{
+	width: 94px;
+	display: inline-block;
+	text-align: right;
+	padding: 9px 20px;
+    color: #545454;
+    font-size: 14px;
+    font-weight: 600;
+}
+#signup-main-form input{
+	display: inline-block;
+}
+#signup-step-0{
+	text-align: center;
+}
+#signup-step-0 label{
+	font-size: 14px;
+	color: grey;
+	width: auto;
+	padding: 0;
+}
+#signup-step-1{
+	width: 400px;
+	margin: 60px auto;
+	text-align: center;
+}
+#signup-main-form form button{
+    margin-top: 50px;
+}
+#signup-tube-map{
+	max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#signup-terms-of-service{
+	padding: 12px;
+	font-size: 15px;
+	color: #545454;
+	margin-bottom: 20px;
+	text-align: left;
+}
+#signup-step-2{
+	text-align: center;
+}
+#signup-step-2 h1{
+	color: #636363;
+}
+#signup-step-2 p{
+	color: #8e8e8e;
+}
+#signup-form-password-tip{
+    margin-left: 20px;
+    margin-bottom: 10px;
+    padding: 15px 0 0 0;
+    font-size: 13px;
+    text-align: left;
+    color: #545454;
+    font-weight: 600;
+}

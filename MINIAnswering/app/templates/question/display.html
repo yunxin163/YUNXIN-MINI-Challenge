@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% block resources %}
+
+{% autoescape false %}
+    {{meta_data}}
+{% endautoescape %}
+
+<link rel="stylesheet" href="/static/css/katex.min.css" />
+<link rel="stylesheet" href="/static/css/monokai-sublime.min.css" />
+<style>
+.chip {
+    font-weight: normal !important;
+}
+.intro-text {
+    padding-top: 70px;
+}
+#display-container {
+    padding: 0;
+}
+#question-content {
+    padding: 30px;
+    min-height: 160px;
+}
+#question-top {
+    position: relative;
+    padding: 15px 30px;
+    background-color: #f9f9f9;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 1px #eaeaea solid;
+}
+#question-top h1 {
+    margin: 15px 0;
+    font-size: 22px;
+    line-height: 30px;
+    color: #000;
+    font-weight: bold;
+}
+#question-bottom {
+    position: relative;
+    padding: 15px 30px;
+    background-color: #f9f9f9;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top: 1px #eaeaea solid;
+}
+.question-follow-status {
+    position: absolute;
+    right: 30px;
+    top: 15px;
+}
+.question-follow-status .number-board:first-child {
+    border-right: 1px solid #eaeaea;
+}
+.question-follow-status .number-board {
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+}
+.question-follow-status .item-name {
+    font-size: 14px;
+    font-weight: normal;
+    color: #868686;
+}
+.question-follow-status .item-value {
+    font-size: 16px;
+}
+.question-bottom-item {
+    padding: 10px 0;
+    font-size: 15px;
+}
+.question-bottom-item .item-name {
+    display: inline-block;
+    font-weight: bold;
+    color: #000;
+    width: 80px;
+    text-align: right;
+    margin-right: 15px;
+}
+.question-bottom-item .item-value {
+    display: inline-block;
+}
+.question-bottom-item.publisher img {
+    position: absolute;
+}
+.question-bottom-item.publisher .username {
+    margin-left: 30px;
+}
+.question-bottom-btns {
+    text-align: right;
+}
+.question-bottom-btns button {
+    display: inline-block;
+}
+
+</style>
+<script>
+
+</script>
+{% endblock %}
+{% block main %}
+<section id="home-intro">
+	<div class="content-wrap section-content">
+		<div id="home-intro-header" class="intro-text"></div>
+		<div id="display-container" class="white-center-box main-box">
+            <header id="question-top">
+                <h1>{{question.title}}</h1>
+                <ul class="chips">
+                    <template v-for="field in question_data.fields">
+                        <li class="chip active">{[ field.name ]}</li>
+                    </template>
+                </ul>
+                <div class="question-follow-status">
+                    <div class="number-board">
+                        <div class="item-name">关注者</div>
+                        <strong class="item-value" id="followed_by">{[ question_data.followed_by ]}</strong>
+                    </div>
+                    <div class="number-board">
+                        <div class="item-name">被浏览</div>
+                        <strong class="item-value">{{question.viewed}}</strong>
+                    </div>
+                </div>
+            </header>
+			<div id="question-content">
+            {% autoescape false %}{{question.content}}{% endautoescape %}
+            </div>
+            <footer id="question-bottom">
+                <div class="question-bottom-item publisher">
+                    <div class="item-name">提问者</div>
+                    <div class="item-value">
+                        <img src="{{question.to_dict().publisher.avatar_uri}}" height="20" width="20" class="user-avatar">
+                        <div class="username">{{question.to_dict().publisher.username}}</div>
+                    </div>
+                </div>
+                <div class="question-bottom-item">
+                    <div class="item-name">提问时间</div>
+                    <div class="item-value">{{question.publish_time}}</div>
+                </div>
+                <div class="question-bottom-btns">
+                    <button class="second-btn small" type="button" id="invite-btn">邀请回答</button>
+                    <button class="second-btn small" type="button" style="margin-left: 15px" id="follow-btn" @click="question_data.is_user_followed? unfollowQuestion() : followQuestion()">{[ question_data.is_user_followed? '取消关注' : '关注问题' ]}</button>
+                    <button class="submit-btn small" type="button" style="margin-left: 15px" id="ask-btn"><a>回答问题</a></button>
+                </div>
+            </footer>
+		</div>
+	</div>
+</section>
+<div style="height: 50px"></div>
+{% endblock %}
+{% block bottom_resources %}
+<script>
+Vue.config.delimiters = ['{[', ']}'];
+var app = new Vue({
+    el: '#home-intro',
+    delimiters: ['{[', ']}'],
+    data: {
+        question_data: questionData,
+    },
+    methods: {
+        followQuestion() {
+            followQuestion(questionData.id, function(result) {
+                if (result) {
+                    app.question_data.is_user_followed = true;
+                    app.question_data.followed_by++;
+                } else {
+                    alert('操作失败');
+                }
+            });
+        },
+        unfollowQuestion() {
+            unfollowQuestion(questionData.id, function(result) {
+                if (result) {
+                    app.question_data.is_user_followed = false;
+                    app.question_data.followed_by--;
+                } else {
+                    alert('操作失败');
+                }
+            });
+        },
+    },
+});
+</script>
+<script src="/static/js/katex.min.js"></script>
+<script src="/static/js/highlight.min.js"></script>
+{% endblock %}

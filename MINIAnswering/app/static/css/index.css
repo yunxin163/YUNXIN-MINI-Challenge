@@ -1,0 +1,47 @@
+#home-story {
+	margin-top: 400px;
+}
+#home-story .story-wrap {
+    max-width: 800px;
+    margin: 100px auto;
+}
+#home-story .left {
+	float: left;
+	max-width: 400px;
+}
+#home-story .right {
+	float: right;
+	max-width: 400px;
+	word-break: break-all;
+	word-wrap: break-word;
+}
+#home-story .section-content h2 {
+	font-size: 25px;
+	font-weight: 500;
+	color: #232323;
+}
+#home-story .section-content p {
+    color: #797979;
+    font-weight: 400;
+    line-height: 25px;
+    font-size: 16px;
+}
+#home-join-now {
+	background-color: #e5ffed;
+	background-image: url(/static/img/index-story/join-now-bg@3x.png);
+	background-repeat: no-repeat;
+    background-size: contain;
+    background-position-x: center;
+	padding: 30px 20px;
+}
+#home-join-now .join-now-wrap h2 {
+	text-align: center;
+	font-size: 25px;
+	font-weight: 400;
+	color: #232323;
+	line-height: 15px;
+}
+#home-join-now .join-now-btn {
+	float: initial;
+	margin-top: 40px;
+}

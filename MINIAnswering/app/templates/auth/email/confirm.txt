@@ -1,0 +1,13 @@
+亲爱的 {{ user.username }}：
+
+欢迎使用 Mini 答疑
+
+为了确认您的账户，请点击下面的链接：
+
+{{ url_for('users.confirm', token=token, _external=True) }}
+
+谢谢配合
+
+Mini 答疑团队 至上
+
+Note: 回复此邮件将不会得到任何回复
