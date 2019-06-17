@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../vueMinJs/vue.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="details.css" />
+    <script src="../vueMinJs/vue.min.js"></script>
+    <title>家教详情页</title>
+</head>
+
+<body>
+    <div class="bottom">
+        <div class="topBack">
+            <div class="teacherImage"><img style="width:200px; height:257px" :src="item.picture"></div>
+            <div class="name">{{item.name}}</div>
+            <div class="topBlock"></div>
+            <div class="topFont">可预约</div>
+            <div class="topFontBlock">浏览量:</div>
+            <div class="topNumber">{{viewAccount}}</div>
+        </div>
+
+        <div class="title" id="title1">身份验证</div>
+        <div class="title" id="title2">授课次数</div>
+        <div class="title" id="title3">家教科目</div>
+        <div class="title" id="title4">可授课时间</div>
+        <div class="title" id="title5">课时费</div>
+        <div class="title" id="title6">优惠信息</div>
+        <div class="title" id="title7">查看电话</div>
+        <div class="title" id="title8">个人简介</div>
+
+        <div class="content" style="margin:34px 540px">身份证</div>
+        <div class="content" style="margin:34px 640px">院校学生证</div>
+        <div class="content" style="margin:34px 760px">高考分数</div>
+        <div class="content" style="margin:34px 860px">四级分数</div>
+        <div class="content" style="margin:34px 960px">六级分数</div>
+        <div class="content" style="margin:84px 540px">{{item.total}}</div>
+        <div class="content" style="margin:134px 540px">{{item.subjects}}</div>
+        <div class="content" style="margin:186px 540px">周一至周五晚上六点后</div>
+        <div class="content" style="margin:237px 540px">50/小时</div>
+        <div class="content" style="margin:285px 540px">免费授课一次</div>
+
+ 
+        <div class="content" style="margin:384px 540px">{{item.introduction}}</div>
+        
+            
+        
+    </div>
+
+    <div id="bu">
+    <button class="button1 button11 contentBlockFont" @click="alert">{{phoneNum}}</button>
+    </div>
+
+</body>
+<script type="text/javascript" src="details.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    let items;
+    let bool=true;
+    let id=location.search.split('=')[1];
+    console.log(id);
+     axios({
+    method: 'get',
+    url: 'http://122.237.100.158:8081/homeedu-0.0.1-SNAPSHOT/teacher/getTeachers'
+  })
+    .then(function (response) {
+      console.log(response);
+      items=response.data;
+      let item=items.filter((item)=>{return (item.id==id)})[0];
+      let map=new Map([['Chinese','小学语文'],['math','小学数学'],['English','小学英语']]);
+      item.subjects=item.subjects.split(',').map((currentValue)=>{
+          return map.get(currentValue);
+      }).join(',');
+      var app=new Vue({
+      el:'.bottom',
+      data:{
+         item:item,
+         viewAccount:parseInt(Math.random()*100)
+      },
+      methods:{
+      }
+    })
+
+    var bu=new Vue({
+      el:'#bu',
+      data:{
+        phoneNum:'查看电话马上约'
+      },
+      methods:{
+        alert(){
+          if(bool===true){
+           this.phoneNum=item.phone;
+          }
+          else{
+            this.phoneNum='查看电话马上约'
+          }
+          bool=!bool;
+         }
+      }
+    })
+  
+    }).catch(function(res){
+      console.log(res);
+    });
+  
+  </script>
+</html>

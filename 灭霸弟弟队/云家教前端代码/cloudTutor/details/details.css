@@ -1,0 +1,206 @@
+.bottom{
+    margin:0 auto;
+    width: 1280px;
+    height: 680px;    position: relative;
+    background-color: rgba(255, 255, 255, 1);
+    z-index:-10;
+}
+
+.topBack{
+    margin: 0 40px;
+    width: 1200px;
+    height: 168px;
+    position: relative;
+    line-height: 20px;
+    background-color: #f7f7f7;
+    text-align: center;
+   
+    z-index:-9;
+}
+
+.teacherImage{
+    left: 58px;
+    top: 27px;
+    width: 200px;
+    height: 257px;
+    position:absolute;
+}
+
+.name{
+    left: 330px;
+    top: 45px;
+    width: 183px;
+    height: 28px;
+    position: absolute;
+    color: rgba(16, 16, 16, 1);
+    font-size: 28px;
+    text-align: left;
+    font-family: SourceHanSansSC-regular;
+}
+
+
+.topBlock{
+    left: 500px;
+    top: 38px;
+    width: 129px;
+    height: 42px;
+    position:absolute;
+    line-height: 20px;
+    opacity: 0.52;
+    border-radius: 33px;
+    background-color: rgba(15, 136, 235, 1);
+    text-align: center;
+    z-index:-8;
+}
+
+
+.topFont{
+    left: 530px;
+    top: 49px;
+    width: 72px;
+    height: 36px;
+    position:absolute;
+    color: rgba(255, 255, 255, 1);
+    font-size: 24px;
+    text-align: left;
+    font-family: SourceHanSansSC-regular;
+}
+
+
+.topFontBlock{
+    left: 960px;
+    top: 50px;
+    width: 96px;
+    height: 9px;
+    position: absolute;
+    color: rgba(15, 136, 235, 1);
+    font-size: 24px;
+    text-align: left;
+    font-family: Roboto-regular;
+}
+
+.topNumber{
+    left: 1045px;
+    top: 50px;
+    width: 44px;
+    height: 36px;
+    position:absolute;
+    color: rgba(16, 16, 16, 1);
+    font-size: 20px;
+    text-align: left;
+    font-family: SourceHanSansSC-regular;
+}
+
+
+.title{
+    left: 380px;
+    width: 130px;
+    height: 45px;
+    position: absolute;
+    color: rgba(147, 138, 138, 1);
+    font-size: 26px;
+    text-align: left;
+    font-family: SourceHanSansSC-regular;
+}
+
+
+#title1{
+    top:200px;
+}
+
+#title2{
+    top:250px;
+}
+
+#title3{
+    top:300px;
+}
+
+#title4{
+    top:350px;
+}
+
+#title5{
+    top:400px;
+}
+
+#title6{
+    top:450px;
+}
+
+#title7{
+    top:500px;
+}
+
+#title8{
+    top:550px;
+}
+
+
+.content{
+    width: 500px;
+    height: 30px;
+    position: absolute;
+    color: rgba(16, 16, 16, 1);
+    font-size: 20px;
+    text-align: left;
+    font-family: SourceHanSansSC-regular;
+}
+
+
+/* .contentBlock{
+    left: 540px;
+    top: 500px;
+    width: 182px;
+    height: 30px;
+    position:absolute;
+    line-height: 20px;
+    background-color: rgba(15, 136, 235, 1);
+    text-align: center;
+    border: 1px solid rgba(15, 136, 235, 1);
+} */
+
+
+.button1 {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 2px 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width:184px;
+    height:48px;
+}
+
+.button11 {
+    background-color: #0F88EB; 
+}
+
+.button11:hover {
+    background-color: #409eff;
+    color: white;
+}
+
+.button11:active {
+    background-color: #409eff;
+    color: white;
+}
+
+.button11:focus {
+    background-color: #409eff;
+    color: white;
+}
+
+
+.contentBlockFont{
+    left: 657px;
+    top: 496px;
+    position:absolute;
+    font-family: SourceHanSansSC-regular;
+}
