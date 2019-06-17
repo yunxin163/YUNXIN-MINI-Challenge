@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddFriendActivity"
+    android:background="@color/loginPageBackgroundColor">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        app:navigationIcon="@drawable/back"
+        app:title="添加好友"
+        app:titleMarginStart="120dp"
+        app:titleTextColor="@color/colorPrimary"
+
+       ></android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/search_friend_edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/shape_edit_background_ground"
+        android:textSize="18sp"
+        android:maxLines="1"
+        android:drawableLeft="@drawable/search"
+        android:paddingLeft="10dp"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_friend_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+</LinearLayout>
