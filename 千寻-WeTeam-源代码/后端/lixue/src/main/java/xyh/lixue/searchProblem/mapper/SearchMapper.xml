@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyh.lixue.searchProblem.mapper.SearchMapper">
+
+    <select id="getAll" resultType="xyh.lixue.searchProblem.entity.Problem">
+        select * from problem
+    </select>
+    <select id="getProblemById" resultType="xyh.lixue.searchProblem.entity.Problem">
+        select * from problem where id=#{id}
+    </select>
+
+</mapper>
