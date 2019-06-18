@@ -1,0 +1,491 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+		<link rel="stylesheet" type="text/css" href="./css/api.css" />
+	</head>
+	<body>
+
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/mycommon.js"></script>
+<script type="text/javascript" src="./script/winu-base.js"></script>
+<script type="text/javascript" src="./script/keyback.js"></script>
+<script type="text/javascript">
+  var dialogBox;
+	/*rong全局*/
+	var rong;
+	apiready = function() {
+
+ var systemType = api.systemType;  // 比如： ios
+ if (systemType=="ios") {
+       api.startLocation({
+        accuracy: '10m',
+        filter: 1,
+        autoStop: true
+    }, function(ret, err){
+        if(ret && ret.status){
+             //获取位置信息成功
+             //alert(JSON.stringify(ret));
+        }else{
+             ///alert(JSON.stringify(err));
+        }
+    });
+ } else {
+
+   var aMapLBS = api.require('aMapLBS');
+    aMapLBS.configManager({
+        accuracy: 'tenMeters',
+        filter: 1
+    }, function(ret, err) {
+        if (ret.status) {
+            //alert('定位管理器初始化成功！');
+            aMapLBS.singleLocation({
+              timeout: 10
+          }, function(ret, err) {
+              if (ret.status) {
+                  //alert(JSON.stringify(ret));
+              }
+          });
+          //
+
+        }
+    });
+    //alert(2)
+ }
+
+  var NVTabBar = api.require('NVTabBar');
+    NVTabBar_open();
+
+    dialogBox = api.require('dialogBox');
+    //状态栏参数设置/黑色字体
+    api.setStatusBarStyle({
+        style: 'dark'
+    });
+
+    //手机返回键监听
+		api.addEventListener({
+				name: 'keyback'
+		}, function(ret, err) {
+			//alert('返回');
+      //不执行任何活动
+      if (ret) {
+        back();
+      } else {
+
+      }
+		});
+
+		//创建本地数据库 file
+		CreateDB('file');
+		//创建本地数据库 friends
+		setTimeout("CreateDB('friends')",200);
+
+    //引导页模块代码部分
+		var WelcomePage = api.require('welcomePage');
+    	WelcomePage.openWelcomePage({
+      			isFullscreen: true,             //是否全屏(全屏不显示状态栏)  默认false
+      			AnimationType: 'Default',      //动画类型   'Default默认', 'DepthPage深入浅出', 'Cube立方体', 'Rotate旋转','Accordion左右折叠',
+      																	  //'InRightUp右上角进入' , 'InRightDown右下角进入', 'ZoomOutPage淡入淡出'
+      			imgs: [
+              'widget://image/Welcome/0.png',
+              'widget://image/Welcome/1.png',
+              'widget://image/Welcome/2.png'
+             ],
+
+      			setting: {
+      					isShow: false,                                                // 是否显示页面点 默认不显示
+      					SelectedImg: 'widget://image/Welcome/2.png',
+      					NotSelectedImg: 'widget://image/Welcome/1.png',
+      					ImgSize: 30,                                                 // 图片size
+      					ImgSpacing: 30                                               // 图片之间的间隔
+      			}
+
+      	}, function(ret, err) {
+      			if (ret) {
+      				// 各页面未初始化之时↑
+      			NVTabBar_open();
+      					//alert(JSON.stringify(ret));
+      			} else {
+      				//alert(JSON.stringify(err));
+      			}
+    	});
+	};
+
+
+  /*发布动态功能模块*/
+	function pub(){
+    //监听是否登陆状态
+    api.addEventListener({
+      name: 'login_success'
+    }, function(ret,err){
+    });
+
+    //如果有登陆账号，执行相关函数
+    if ($api.getStorage('lastUser')) {
+      //打开发布模块
+      //api.openWin({
+      api.openWin({
+          name: 'video',
+          url : './html/index_group/pub/main.html',
+          rect: {
+            x: 0,
+            y: 0,
+            w : 'auto',
+            h : 'auto'
+          },
+
+              //页面动画效果
+              animation:{
+                  type:"movein",                //动画类型（详见动画类型常量）
+                  subType:"from_bottom",       //动画子类型（详见动画子类型常量）
+                  duration:300                //动画过渡时间，默认300毫秒
+              },
+        bounces: false
+      });
+
+    } else {
+      //弹出弹窗进行登陆事件
+      dialogBox_alert();
+    }
+
+	}
+
+
+/*跳转到登陆页面功能模块*/
+	function goPageLogin() {
+		api.openWin({
+			name : 'win_login',
+			url : './html/user/win_login.html',
+      bounces: false,
+      delay: 200
+		});
+	};
+
+
+  function NVTabBar_open() {
+    api.openFrame({
+            name: 'win_bbs',
+            url: './html/index_group/bbs/win_bbs.html',
+            rect: {
+                    x: 0,
+                    y: 45,
+                    h:  api.winHeight-97
+            }
+    });
+
+                var NVTabBar = api.require('NVTabBar');
+                NVTabBar.open({
+                        styles: {
+                                bg:'#ffffff',
+                                //bg:"widget://image/NVTabBar/tabbar_bg.png",
+                                h:52,
+                                dividingLine: {
+                                        width: 0.5,
+                                        color: '#dbdbdb'
+                                },
+                                badge: {
+                                        bgColor: '#f00',
+                                        numColor: '#000',
+                                        size: 3.0,
+                                        centerY: 2
+                                }
+                        },
+                        items: [{
+                                w: api.winWidth / 5.0,
+                                bg: {
+                                    marginB: -2,
+                                    image: 'rgba(0,0,0,0)'
+                                },
+                                iconRect: {
+                                        w: 28.0,
+                                        h: 28.0,
+                                },
+                                icon: {
+                                        normal: 'widget://image/nvtabbar/discover.png',
+                                        highlight: 'widget://image/nvtabbar/discover1.png',
+                                        selected: 'widget://image/nvtabbar/discover1.png'
+                                },
+                                title: {
+                                        text: '发现',
+                                        size: 12.0,
+                                        normal: '#999999',
+                                        selected: '#29ABE2',
+                                        marginB: 6.0
+                                }
+                        }, {
+                                w: api.winWidth / 5.0,
+                                bg: {
+                                    marginB: -2,
+                                    image: 'rgba(0,0,0,0)'
+                                },
+                                iconRect: {
+                                        w: 28.0,
+                                        h: 28.0,
+                                },
+                                icon: {
+                                        normal: 'widget://image/nvtabbar/home.png',
+                                        highlight: 'widget://image/nvtabbar/home1.png',
+                                        selected: 'widget://image/nvtabbar/home1.png'
+                                },
+                                title: {
+                                        text: '首页',
+                                        size: 12.0,
+                                        normal: '#999999',
+                                        selected: '#29ABE2',
+                                        marginB: 6.0
+                                }
+                        }, {
+                                w: api.winWidth / 5.0,
+                                bg: {
+                                    marginB: -2,
+                                    image: 'rgba(0,0,0,0)'
+                                },
+                                bg: {
+                                    marginB: 0,
+                                    image: 'rgba(0,0,0,0)'
+                                },
+                                iconRect: {
+                                        w: 30,
+                                        h: 30,
+                                },
+                                icon: {
+                                        normal: 'widget://image/nvtabbar/yyuan.png',
+                                        highlight: 'widget://image/nvtabbar/yyuan.png',
+                                        selected: 'widget://image/nvtabbar/yyuan.png'
+                                }
+                        }, {
+                                w: api.winWidth / 5.0,
+                                bg: {
+                                    marginB: -2,
+                                    image: 'rgba(0,0,0,0)'
+                                },
+                                iconRect: {
+                                        w: 28.0,
+                                        h: 28.0,
+                                },
+                                icon: {
+                                        normal: 'widget://image/nvtabbar/message.png',
+                                        highlight: 'widget://image/nvtabbar/message1.png',
+                                        selected: 'widget://image/nvtabbar/message1.png'
+                                },
+                                title: {
+                                        text: '消息',
+                                        size: 12.0,
+                                        normal: '#999999',
+                                        selected: '#29ABE2',
+                                        marginB: 6.0
+                                }
+                        }, {
+                                w: api.winWidth / 5.0,
+                                bg: {
+                                    marginB: -2,
+                                    image: 'rgba(0,0,0,0)'
+                                },
+                                iconRect: {
+                                        w: 28.0,
+                                        h: 28.0,
+                                },
+                                icon: {
+                                        normal: 'widget://image/nvtabbar/my.png',
+                                        highlight: 'widget://image/nvtabbar/my1.png',
+                                        selected: 'widget://image/nvtabbar/my1.png'
+                                },
+                                title: {
+                                        text: '我的',
+                                        size: 12.0,
+                                        normal: '#999999',
+                                        selected: '#29ABE2',
+                                        marginB: 6.0
+                                }
+                        }],
+                        selectedIndex: 0
+                }, function(ret, err) {
+                        if (ret) {
+                                if (ret.eventType == "click" && ret.index == 0) {
+                                  //alert(api.winHeight-54);
+                                  api.openFrame({
+                                          name: 'win_bbs',
+                                          url: './html/index_group/bbs/win_bbs.html',
+                                          rect: {
+                                                  x: 0,
+                                                  y: 45,
+                                                  h:  api.winHeight-97
+                                          }
+                                  });
+
+
+                                }
+                                if (ret.eventType == "click" && ret.index == 1) {
+
+
+                                        api.openFrame({
+                                                name: 'main',
+                                                url: './html/main.html',
+                                                rect: {
+                                                        x: 0,
+                                                        y: 45,
+                                                        w:'auto',
+                                                        h: api.winHeight-97
+                                                }
+                                        });
+
+                                }
+                                if (ret.eventType == "click" && ret.index == 2) {
+
+                                  api.addEventListener({
+                                    name: 'login_success'
+                                  }, function(ret,err){
+
+                                  });
+
+                                  if ($api.getStorage('lastUser')) {//getStorage('lastUser')
+                                    // 有，继续
+
+                                    api.openFrame({
+                                            name: 'pub',
+                                            url: './html/index_group/pub/pub.html',
+                                            rect: {
+                                                    x: 0,
+                                                    y: 0,
+                                                    h: api.winHeight
+                                            },
+                                            //页面动画效果
+                                            animation:{
+                                                type:"movein",                //动画类型（详见动画类型常量）
+                                                subType:"from_bottom",       //动画子类型（详见动画子类型常量）
+                                                duration:300                //动画过渡时间，默认300毫秒
+                                            },
+
+                                    });
+
+
+                                  } else {
+                                    dialogBox_alert();
+                                  }
+
+
+                                }
+                                if (ret.eventType == "click" && ret.index == 3) {
+
+                                  api.addEventListener({
+                                    name: 'login_success'
+                                  }, function(ret,err){
+
+                                  });
+
+                                  if ($api.getStorage('lastUser')) {//getStorage('lastUser')
+
+                                      api.openFrame({
+                                              name: 'message',
+                                              url: './html/index_group/huihua/message.html',
+                                              rect: {
+                                                      x: 0,
+                                                      y: 45,
+                                                      h:api.winHeight-97
+                                              }
+                                      });
+                                    } else {
+                                      goPageLogin();
+                                    }
+
+                                }
+                                if (ret.eventType == "click" && ret.index == 4) {
+
+                                  api.addEventListener({
+                                    name: 'login_success'
+                                  }, function(ret,err){
+
+                                  });
+
+                                  if ($api.getStorage('lastUser')) {//getStorage('lastUser')
+
+                                        api.openFrame({
+                                                name: 'frm_my_info',
+                                                url: './html/index_group/frm_my_info.html',
+                                                rect: {
+                                                        x: 0,
+                                                        y: 45,
+                                                        h:api.winHeight-97
+                                                }
+                                        });
+
+                                      } else {
+                                        goPageLogin();
+                                      }
+
+                                }
+                                var NVTabBar = api.require('NVTabBar');
+                                NVTabBar.setBadge({
+                                        index: 3,
+                                        badge: ''
+                                });
+                        }
+                });
+        }
+
+  /*弹出功能模块*/
+  function dialogBox_alert() {
+      dialogBox.alert({
+      texts: {
+          title: '确认',
+          content: '您是游客状态，是否登录',
+          leftBtnTitle: '取消',
+          rightBtnTitle: '确认'
+      },
+      styles: {
+          bg: '#fff',
+          corner: 5,
+          w: 300,
+          title: {
+              marginT: 20,
+              icon: 'widget://res/ug_check_small.png',
+              iconSize: 20,
+              titleSize: 14,
+              titleColor: '#000'
+          },
+          content: {
+              color: '#000',
+              size: 16
+          },
+          left: {
+              marginB: 7,
+              marginL: 20,
+              w: 130,
+              h: 35,
+              corner: 2,
+              bg: '#ffffff',
+              size: 16
+          },
+          right: {
+              marginB: 7,
+              marginL: 10,
+              w: 130,
+              h: 35,
+              corner: 2,
+              bg: '#ffffff',
+              size: 16
+          }
+      }
+  }, function(ret) {
+      if (ret.eventType == 'left') {
+
+          var dialogBox = api.require('dialogBox');
+          dialogBox.close({
+              dialogName: 'alert'
+          });
+      }
+      if (ret.eventType == 'right') {
+
+        var dialogBox = api.require('dialogBox');
+        dialogBox.close({
+            dialogName: 'alert'
+        });
+        goPageLogin();
+      }
+  });
+  }
+</script>
+</body>
+</html>
