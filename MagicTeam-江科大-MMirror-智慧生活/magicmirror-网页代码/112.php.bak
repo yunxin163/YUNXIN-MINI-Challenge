@@ -1,0 +1,34 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "crb";
+$dbname = "myDB";
+session_start();
+// 创建连接
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("连接失败: " . $conn->connect_error);
+} 
+if (isset($_POST['username']) && isset($_POST['password'])
+    && !empty($_POST['username']) && !empty($_POST['password'])
+) {
+	$username = $_POST['username'];
+    $password = $_POST['password'];
+	$_SESSION['views']=$username;
+	$sql_select="SELECT username FROM mima WHERE username = '$username'";
+	$ret = mysqli_query($conn,$sql_select);
+    $row = mysqli_fetch_array($ret);
+	if($username == $row['username']) {
+            //用户名已存在，显示提示信息
+            echo "用户名已存在";
+       }else{
+		   $sql_insert = "INSERT INTO mima (username,password,shebei) VALUES('$username','$password','15')";
+            //执行SQL语句
+           mysqli_query($conn,$sql_insert);
+           header("Location:genxin/dongtailiebiao2.php");
+        }
+}
+mysqli_close($conn);
+
+?>

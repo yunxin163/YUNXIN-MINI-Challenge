@@ -1,0 +1,92 @@
+alter table data drop column shebei;shanchu
+ alter table data add column shebei varchar(20);
+<?php
+header("content-type:text/html;charset=utf-8"); 
+$servername = "localhost";
+$username = "root";
+$password = "crb";
+$dbname = "myDB";
+$acckey="aQhiPsTqV9jHnnE7";
+session_start();
+// 创建连接
+$conn=mysql_connect("localhost","root","crb");
+if(!$conn){
+      die("连接失败！");
+	  }
+
+if ($conn->connect_error) {
+    die("连接失败: " . $conn->connect_error);
+} 
+mysql_select_db("myDB",$conn);
+mysql_query("set names 'utf8'");
+
+/*$json_strget=json_encode($str_get);
+
+
+$rid=$_POST['username'];
+$distance=$_POST['key'];
+$key=$_POST['jifen'];
+
+if(empty($rid)||empty($distance)||empty($key)){
+	die("error;empty");}
+	else{echo "666666";}
+	*/
+	$str_get = file_get_contents("php://input");
+	if(!empty($str_get)){
+		echo "111";
+
+		$json_strget=json_decode($str_get,true);
+		echo "JSON decode:".$json_strget;
+		
+		$userid=$json_strget['username'];
+		$key=$json_strget['key'];
+		$jifen=$json_strget['jifen'];
+        echo $userid;
+		echo $key;
+		echo $jifen;
+		header("content-type:text/json");
+		$po='454';
+        echo json_encode($po);
+/*		$str_return=$str_get;
+		$str_return.=" ";
+		$str_return.="rid:".$rid." ";
+		$str_return.="distance:".$distance." ";
+		$str_return.="key:".$key." ";
+		writeToFile($str_return);
+		
+	
+            
+	else{echo "77777";}
+	*/  $conn=new mysqli("localhost","root","crb","myDB");
+	    $username='1441903116';
+		$sql="update beiwanglu set userid='$key',jifen='$jifen' where username='$username'";
+        $result=mysqli_query($conn,$sql);
+        
+	}
+
+/*
+if(!empty($rid)&&!empty($distance)&&!empty($key)){
+			if($key==$acckey){
+				$place="江苏科技大学";
+				$sql = "update recyclingbins set distance='".$distance."',place='".$place."' where rid='".$rid."'";
+				mysqli_query($sql,$conn);//执行SQL
+				$mark  = mysql_affected_rows();//返回影响行数
+
+				if($mark>0){
+					echo "success"."<br/>";
+				}else{
+					echo "failed"."<br/>";
+				}
+				die('rid:'.$rid.'<br/>'.'distace:'.$distance.'<br/>'.'数据接收并匹配'.'<br/>');
+			}else{
+				die('error:rejected');
+			}
+		}else{
+			die('error:order empty');
+		}
+		
+	}else{
+		die('error:empty');
+	}*/
+	
+?>
