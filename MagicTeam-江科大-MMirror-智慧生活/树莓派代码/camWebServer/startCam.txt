@@ -1,0 +1,1 @@
+./natapp -authtoken=f2c74b96b168065b -log=stdout &

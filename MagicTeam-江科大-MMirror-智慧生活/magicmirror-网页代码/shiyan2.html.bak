@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+  <form action="demo_keygen.asp" method="get">
+   beifangshijian: <input type="text" name="jiludata"><br>
+   时  间: <input type="datetime-local" name="datetime">
+ 
+   <input type="submit">
+  </form>
+  <?php
+   session_start();
+   echo $_SESSION['views'];
+  ?>
+  
+ </body>
+</html>

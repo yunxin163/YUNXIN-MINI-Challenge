@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/monitor_alarm"
+        android:title="开启监控"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/monitor_noalarm"
+        android:title="关闭监控"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/monitor_call"
+        android:title="一键报警"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/monitor_refresh"
+        android:title="实时更新数据"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/monitor_norefresh"
+        android:title="关闭实时更新"
+        app:showAsAction="never">
+    </item>
+
+
+
+</menu>

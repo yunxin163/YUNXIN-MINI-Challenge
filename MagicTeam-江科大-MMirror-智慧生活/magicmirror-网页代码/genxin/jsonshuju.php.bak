@@ -1,0 +1,33 @@
+<?php
+header("content-type:text/html;charset=utf-8"); 
+$servername = "localhost";
+$username = "root";
+$password = "crb";
+$dbname = "myDB";
+$acckey="aQhiPsTqV9jHnnE7";
+session_start();
+
+	$str_get = file_get_contents("php://input");
+	if(!empty($str_get)){
+		
+
+		$json_strget=json_decode($str_get,true);
+		echo "JSON decode:".$json_strget;
+		
+		$username=$json_strget['username'];
+		$yanwu=$json_strget['yanwu'];
+		$jifen=$json_strget['jifen'];
+
+        
+		header("content-type:text/json");
+		
+		
+	    $conn=new mysqli("localhost","root","crb","myDB");
+	    $username='1441903116';
+		$sql="update cgq set yanwu='$yanwu',jifen='$jifen' where username='$username'";
+        $result=mysqli_query($conn,$sql);
+        
+	}
+
+
+?>
