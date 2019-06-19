@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+		body{
+			font-family:"黑体";
+		}
+    	.footer{
+    		width:100%;
+    		height:49px;
+    		background-color:#fff;
+    		border-top:0px solid #ddd;
+    	}
+    	.save{
+    		text-align:center;
+				margin: auto 0;
+				line-height: 49px;
+				font-size: 18px;
+    	}
+    </style>
+</head>
+<body>
+	<div class="footer" onclick="save();">
+		<div class="save" >保存</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+	function save(){
+			api.execScript({
+				name:'imageWin',
+		        script: 'save();'
+	        });
+	}
+</script>
+</html>

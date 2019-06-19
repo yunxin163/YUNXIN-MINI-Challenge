@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/aui-win.css"/>
+    <style>
+		body { background: #ffffff;}
+		 #aui-header{
+					display: block;
+			}
+			 .custom-headers{
+					display: none;
+					height: 75px;
+			}
+
+			#title_tip{
+			line-height:70px;
+			margin-left:26px;
+			}
+
+			 .custom-headers.active{
+					display: block;
+			}
+			.aui-bar-dark {
+			background-color:#4faeff;
+		 }
+    </style>
+</head>
+<body>
+</body>
+<script type="text/javascript" src="api.js"></script>
+<script type="text/javaxcript" src="mycommon.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		window.imageClip = api.require('imageClip');
+		var img = api.pageParam.imgUrl;
+		var url;
+		openImageClip(img)
+	};
+	//头像切图
+	function openImageClip(img){
+			imageClip.open({
+				path:img,
+				clipRect:{
+					x:(api.winWidth - 200) / 2,
+					y:(api.winHeight - 200) / 2,
+					w:200,
+					h:200,
+					fixation: true
+				}
+			},function(ret, err){
+				if(ret){
+					api.openFrame({
+						name:'userImgClip',
+						url:'./userImgClip.html',
+						rect:{
+							x:0,
+							y:0,
+							w:'auto',
+							h:70
+						},
+						vScrollBarEnabled:false,
+						bounce:false
+					});
+					api.openFrame({
+						name:'imageSave',
+						url:'./imageSave.html',
+						rect:{
+							x:0,
+							y:api.winHeight - 50 ,
+							w:'auto',
+							h:50
+						},
+						vScrollBarEnabled:false,
+						bounce:false
+					});
+				}else{
+			        api.alert({msg:err.msg});
+			    }
+			});
+		}
+
+	//关闭截图
+	function cansel(){
+		imageClip.close();
+	}
+
+	function save(){
+
+		imageClip.save({
+					album: true,
+					quality: 1
+			},function(ret, err){
+			if(ret){
+     //alert(JSON.stringify(ret));
+			api.execScript({
+				name:"personal_info",
+				frameName:"frm_personal_info",
+							script: 'UploadAvatar("'+ ret.savePath +'");'
+						});
+
+						api.execScript({
+							name:"win_register",
+							script: 'UploadAvatar("'+ ret.savePath +'");'
+						});
+
+			api.closeWin({
+			    name: 'imageWin'
+			});
+
+			}else{
+					//api.alert({msg:err.msg});
+			}
+	});
+	}
+</script>
+</html>
