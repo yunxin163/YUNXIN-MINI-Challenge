@@ -1,0 +1,497 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css" />
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+
+        .round-read-girl img {
+            margin-top: 40px;
+            display: inline-block;
+            width: 3.0em;
+            height: 3.0em;
+            margin-left: 8.3125em;
+            position: absolute;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 65px;
+        }
+
+        .aui-btn-block {
+            display: block;
+            width: 80%;
+            height: 2.2rem;
+            line-height: 2.2rem;
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+        /*按钮样式*/
+
+        button,
+        .aui-btn {
+            position: relative;
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 400;
+            font-family: inherit;
+            text-decoration: none;
+            text-align: center;
+            margin: 0;
+            color: #ffffff;
+            background: #4faeff;
+            padding: 0 0.6rem;
+            /*
+            height: 1.5rem;
+            line-height: 1.5rem;
+            */
+            border-radius: 5px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .aui-btn:active {
+            color: #ffffff;
+            background-color: #4faeff;
+        }
+
+        .aui-card-list-content-padded {
+            background-color: #ffffff;
+            margin-bottom: 15px;
+            margin-right: 3px;
+            margin-left: 3px;
+            width: 48%;
+            float: left;
+        }
+
+        .aui-card-list-footer .aui-iconfont {
+            font-size: 1.2rem;
+        }
+
+      .aui-bar-tab .aui-bar-tab-item {
+      	display: table-cell;
+      	position: relative;
+      	width: 1%;
+      	height: 75px;
+      	text-align: center;
+      	vertical-align: middle;
+      }
+
+
+
+      .detail-header{
+          border-bottom: 1px solid #CDCDCD;
+          background-color: #DD3237;
+      }
+      .back{
+          background-size: 40px!important;
+          background-image: url("../../../image/weather_back@2x.png");
+          background-position: right!important;
+      }
+
+      .detail-header a{
+          padding:25px;
+      }
+      .title{
+          color: #FFFFFF;
+          text-align: center;
+          line-height:50px;
+          font-size: 18px;
+      }
+
+      .mine li, .bottom li {
+          display: inline-block;
+          width: 32%;
+          text-align: center;
+          padding: 20px 0 6px;
+          background-size: 30px;
+          background-repeat: no-repeat;
+          background-position: top;
+      }
+
+      .activity {
+          margin: 0 10px;
+      }
+
+      .activity li {
+          position: relative;
+          padding: 20px 0;
+          background-size: 8px;
+          background-repeat: no-repeat;
+          background-position: right;
+          background-image: url("../../../image/setting_cell_arrow@2x.png");
+          border-bottom: 1px solid #F6F6F6;
+      }
+      .no-arrow{
+          background-image:none!important;
+      }
+      .value {
+          position: absolute;
+          right:20px;
+      }
+
+      .btn {
+          display: block;
+          color: #FFFFFF;
+          margin: 0 40px;
+          text-align: center;
+          border-radius: 8px;
+          height: 40px;
+          line-height: 40px;
+          border: 1px solid #CECECE;
+          background-color:#DD3237 ;
+          margin-top: 20px;
+      }
+      .user-photo{
+          background-position: center;
+          background-size: 30px;
+          border-radius: 50px;
+          width: 30px;
+          height: 30px;
+          bottom: 13px;
+      }
+    </style>
+</head>
+
+<body>
+
+    <div id="interpolation"></div>
+    <script id="interpolationTemp" type="text/x-dot-template">
+        <div class="main">
+            <div style="margin:0px;border-radius:10px;background-color:#ffffff;padding-top:15px;">
+                <div style="padding：5px;">
+                    <img style="width:5rem;border-radius:90px;clear: both; display: block; margin:auto; " src="{{=it.avatar}}" />
+                </div>
+                <div style="padding：25px;text-align: center;">
+                    <span><font style="color:#000000;font-size:18px;font-weight:bold;">{{=it.nickname}}</font></span>
+                </div>
+
+            </div>
+
+            <ul class="activity">
+                <li>
+                    <span class="key">ID</span>
+                    <span class="value">{{=it.userIdIM}}</span>
+                </li>
+                <li>
+                    <span class="key">昵称</span>
+                    <span class="value">{{=it.nickname}}</span>
+                </li>
+                <li>
+                    <span class="key">性别</span>
+                    <span id="sex" class="value">{{=it.sex}}</span>
+                </li>
+                <li class="no-arrow">
+                    <span class="key">身份</span>
+                    <span class="value ">{{=it.identity}}</span>
+                </li>
+            </ul>
+        </div>
+
+        <footer class="aui-bar aui-bar-tab" id="footer">
+            <div class="aui-bar-tab-item" onclick="openMovieDetail('{{=it.id}}');">
+                <i class="aui-iconfont aui-icon-paper"></i>
+                <div class="aui-bar-tab-label">动态</div>
+            </div>
+            <div class="aui-bar-tab-item">
+                <li class="aui-btn aui-btn-block " style="margin:5px;" tapmode="tap-active" id="p1" data-id="{{=it.id}}" data-conversationType="PRIVATE" data-targetId="{{=it.userIdIM}}" data-targetName="{{=it.nickname}}" data-photo="{{=it.avatar}}" data-imToken="{{=it.imToken}}"
+                    data-createAt="{{=it.createAt}}">关注</li>
+            </div>
+        </footer>
+    </script>
+
+
+</body>
+
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/commonOpenWinForPersonal.js"></script>
+<script type="text/javascript" src="../../script/winu-base.js"></script>
+<script type="text/javascript" src="../../script/linq.min.js"></script>
+<script type="text/javascript" src="../../script/mycommon.js"></script>
+<script type="text/javascript">
+var page = 1;
+var id;
+var interpolation = $api.dom('#interpolation');
+var page = 1,
+    userJson = null;
+var targetId;
+/*初始化*/
+apiready = function() {
+
+    api.showProgress({
+        style: 'default',
+        animationType: 'fade',
+        title: '努力加载中...',
+        text: '先喝杯茶...',
+        modal: false
+    });
+
+    var userID = api.pageParam.data_id;
+
+    api.ajax({
+        url: 'http://125.124.148.148:81/App/userinfo.php',
+        method: 'POST',
+        cache: 'false',
+        timeout: 30,
+        dataTpye: 'JSON',
+        data: {
+            values: {
+                aid: userID
+            }
+        }
+    }, function(ret, err) {
+        if (ret) {
+            api.hideProgress();
+            var interpolation = doT.template($api.dom('#interpolationTemp').innerHTML);
+            $api.dom('#interpolation').innerHTML = interpolation(ret);
+            //alert( JSON.stringify( ret));
+            targetId = ret.userIdIM;
+        } else {
+            //alert( JSON.stringify( err));
+        }
+    });
+
+
+
+//判断是否关注当前好友
+api.ajax({
+    url: 'http://125.124.148.148:81/App/friendscheck3.php',
+    method: 'POST',
+    cache: 'false',
+    dataTpye: 'JSON',
+    data: {
+        values: {
+            uid: $api.getStorage('userIdIM')
+        }
+    }
+}, function(ret) {
+    if (ret) {
+        //alert( targetId);
+        var check_user_friend_jsonArray = ret;
+        var check_user_friend_result = Enumerable.From(check_user_friend_jsonArray).Where(function(x) {
+            return x.UserID == targetId
+        }).OrderBy(function(x) {
+            return x.UserID
+        }).Select(function(x) {
+            return x.UserID
+        }).ToArray();
+        //				缩写check_user_friend_result[0] 为 cufr
+        var cufr = check_user_friend_result[0];
+          console.log(cufr);
+        if (cufr !== undefined) {
+            document.getElementById("p1").innerHTML = "已关注";
+            document.getElementById("p1").style.backgroundColor = "#f2f2f2";
+            return;
+        } else if ($api.getStorage('userIdIM') == targetId) {
+            document.getElementById("p1").innerHTML = "已关注";
+            document.getElementById("p1").style.backgroundColor = "#f2f2f2";
+            return;
+        } else {
+
+            return;
+        }
+        //alert( JSON.stringify( ret ) );
+    } else {
+        //alert( JSON.stringify( err ) );
+    }
+});
+
+  }
+
+
+
+Zepto(function($) {
+// 绑定会话点击事件
+$("#interpolation").on("tap", "li", function() {
+    //获取用户表自增ID
+    var data_id = $(this).attr("data-id");
+    // 获取会话类型
+    var conversationType = $(this).attr("data-conversationType");
+    // 获取目标ID
+    var targetId = $(this).attr("data-targetId");
+    // 获取目标名称
+    var targetName = $(this).attr("data-targetName");
+    //获取照片信息
+    var photo = $(this).attr("data-photo");
+    //获取token信息
+    var imToken = $(this).attr("data-imToken");
+    //获取创建时间
+    var createAt = $(this).attr("data-createAt");
+    // 检查是否存在好友
+    check_user_friend(data_id, conversationType, targetId, targetName, photo, imToken, createAt);
+});
+});
+
+
+
+//检查当前好友
+function check_user_friend(data_id, conversationType, targetId, targetName, photo, imToken, createAt) {
+
+api.ajax({
+    url: 'http://125.124.148.148:81/App/friendscheck.php',
+    method: 'POST',
+    cache: 'false',
+    dataTpye: 'JSON',
+    data: {
+        values: {
+            UserID: targetId,
+            uid: $api.getStorage('userIdIM')
+        }
+    }
+}, function(ret) {
+    if (ret) {
+        //alert( JSON.stringify( ret ) );
+        //	使用 linq.js 筛选返回结果
+        var check_user_friend_jsonArray = ret;
+        var check_user_friend_result = Enumerable.From(check_user_friend_jsonArray).Where(function(x) {
+            return x.UserID == targetId
+        }).OrderBy(function(x) {
+            return x.UserID
+        }).Select(function(x) {
+            return x.UserID
+        }).ToArray();
+        //				缩写check_user_friend_result[0] 为 cufr
+        var cufr = check_user_friend_result[0];
+          //console.log(cufr);
+        if (cufr !== undefined) {
+            console.log(cufr);
+            return;
+        } else if ($api.getStorage('userIdIM') == targetId) {
+          console.log(cufr);
+            api.toast({
+                msg: '不能添加自己为好友',
+                duration: 2000,
+                location: 'middle'
+            });
+            return;
+        } else {
+          document.getElementById("p1").innerHTML = "已关注";
+          document.getElementById("p1").style.backgroundColor = "#f2f2f2";
+            //添加好友函数
+            add_friend_both(data_id, targetId, targetName, photo,createAt);
+            return;
+        }
+        //alert( JSON.stringify( ret ) );
+    } else {
+        //alert( JSON.stringify( err ) );
+    }
+});
+
+
+
+}
+
+
+function add_friend_both(data_id, conversationType, targetId, targetName, photo, imToken, createAt) {
+
+api.ajax({
+    url: 'http://125.124.148.148:81/App/friendscheck2.php',
+    method: 'POST',
+    cache: 'true',
+    timeout: 30,
+    dataTpye: 'JSON',
+    data: {
+        values: {
+            UserID: targetId,
+            uid: $api.getStorage('userIdIM')
+        }
+    }
+}, function(ret) {
+    if (ret) {
+        //alert( JSON.stringify( ret.UserID ) );
+        api.toast({
+            msg: '当前用户已在您的好友列表',
+            duration: 2000,
+            location: 'middle'
+        });
+
+    } else {
+        //alert( JSON.stringify( err ) );
+        //添加好友信息--》  自己的好友列表
+        api.ajax({
+            url: 'http://125.124.148.148:81/App/friends.php',
+            method: 'post',
+            data: {
+                values: {
+                    UserID: targetId,
+                    uid: $api.getStorage('userIdIM'),
+                    UserNickname: targetName,
+                    photo: photo
+                }
+            }
+        }, function(ret, err) {
+            _sendEvent("updateContact");
+            _toast("关注成功", null, null, function() {});
+            api.hideProgress();
+            api.refreshHeaderLoadDone();
+        });
+
+
+    }
+});
+
+}
+
+
+/*打开详细页面*/
+function toPersonal(id) {
+api.openWin({
+    name: 'frm_friend_info' + id,
+    url: '../contact/frm_friend_info.html',
+    rect: {
+        x: 0,
+        y: 0,
+        w: api.winWidth,
+        h: api.winHeight
+    },
+    pageParam: {
+        UserID: id
+    },
+    animation: {
+        type: "movein", //动画类型（详见动画类型常量）
+        subType: "from_right", //动画子类型（详见动画子类型常量）
+        duration: 300 //动画过渡时间，默认300毫秒
+    },
+    bounces: false
+});
+}
+
+
+/*打开详细页面*/
+function openMovieDetail(id) {
+api.openWin({
+    name: 'personal_dt' + id,
+    url: './personal_dt.html',
+    rect: {
+        x: 0,
+        y: 0,
+        w: api.winWidth,
+        h: api.winHeight
+    },
+    pageParam: {
+        id: id
+    },
+    animation: {
+        type: "movein", //动画类型（详见动画类型常量）
+        subType: "from_right", //动画子类型（详见动画子类型常量）
+        duration: 300 //动画过渡时间，默认300毫秒
+    },
+    bounces: false
+});
+}
+
+</script>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <style>
+        body {
+          background:#ffffff;
+        }
+        #aui-header{
+            display: block;
+        }
+        #tip_chatting{
+            line-height: 26px;
+            margin-left:26px;
+        }
+
+        .custom-headers{
+           display: none;
+           height: 45px;
+       }
+        .custom-headers.active{
+           display: block;
+       }
+       .aui-list-view-cell {
+           line-height: 26px;
+       }
+
+       .aui-bar-dark {
+      	background-color: #ffffff;
+      }
+      .aui-bar .aui-btn .aui-iconfont {
+      	font-size: 22px;
+      	line-height: 45px;
+      	padding: 0;
+      	margin: 0;
+      	color: #000000;
+      }
+    </style>
+</head>
+<body>
+  <header class="aui-bar aui-bar-nav aui-bar-dark" id="aui-header">
+      <div class="custom-headers active">
+          <a class="aui-btn  aui-bar-dark aui-pull-left" id="back" tapmode="tap-active" onclick=" api.closeWin({});">
+              <span class="aui-iconfont aui-icon-pullleft"></span>
+          </a>
+          <a class="aui-btn  aui-bar-dark aui-pull-right" id="back" tapmode="tap-active" onclick="">
+              <span class="aui-iconfont aui-icon-more"></span>
+          </a>
+      </div>
+
+  </header>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    var header = $api.dom('#aui-header');
+    var titleTip = $api.dom('#title_tip');
+    var id;
+    apiready = function(){
+        $api.fixStatusBar(header);
+        $api.addHeaderColor(header);
+        var headerPos = $api.offset(header);
+        var userID = api.pageParam.data_id;
+        rect = {
+            x: 0,
+            y: headerPos.h,
+            w:'auto',
+            h: 'auto'
+        };
+        api.openFrame({
+            name: 'friend_info',
+            url: './friend_info.html',
+            rect: rect,
+            pageParam: {
+              data_id: userID
+            }
+        });
+
+        console.log(userID);
+    };
+</script>
+</html>
