@@ -1,0 +1,359 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css" />
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        ul,
+        ol {
+            list-style: none;
+        }
+
+        .hide{
+          display: none;
+        }
+        .show{
+          display: block;
+        }
+
+
+        html,body {
+            height: 100%;
+            background-color: #ffffff;
+            font-family: sans-serif;
+        }
+
+        .head-tab {
+            height: 44px;
+            display: block;
+            overflow: hidden;
+            background-color: #FFF;
+        }
+
+        .head-tab li {
+            float: left;
+            width: 25%;
+            line-height: 41px;
+            font-size: 1rem;
+            border-bottom: 3px solid #FFF;
+            text-align: center;
+            color: #bdbdbb;
+            font-weight: bold;
+        }
+
+        .head-tab .active {
+            color: #039be5;
+            border-bottom: 0px solid #039be5;
+            font-size: 1.2rem;
+        }
+
+
+        .aui-list .wechat-avatar {
+            width:3rem;
+        }
+        .wechat-avatar .aui-row-padded {
+            background-color: #dddee0;
+            padding: 0.1rem;
+            border-radius: 0.2rem;
+            margin-left: -0.05rem;
+            margin-right: -0.05rem;
+        }
+        .wechat-avatar .aui-row-padded [class*=aui-col-xs-] {
+            padding: 0.05rem;
+        }
+        .wechat-avatar,
+        .wechat-avatar > img {
+          border-radius:15rem;
+        }
+
+        .aui-list .aui-list-item-text img {
+            width: 14px;
+            height: 14px;
+        }
+
+        .aui-list {
+            border-top: none;
+        }
+        @media screen and (-webkit-min-device-pixel-ratio: 1.5) {
+            .aui-list {
+                border: none;
+                background-size: 100% 0px;
+            }
+        }
+
+        .aui-list .aui-list-item {
+            border: none;
+            background-size: 100% 0px;
+            background-color: #ffffff;
+        }
+
+
+
+        .wrapper {
+            position: relative;
+            height: 68px;
+            overflow: hidden;
+            border-bottom: 0px solid #f2f2f2;
+        }
+        .container {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 68px;
+            padding-left: 0%;
+            box-sizing: border-box;
+            background-color: #fff;
+            font-size: 18px;
+            font-weight: 200;
+            border-bottom: 0px solid #f2f2f2;
+        }
+        .delete {
+          float: right;
+          width: 80px;
+          top: 0;
+          right: 0;
+          line-height: 68px;
+          background-color: #f00;
+          color: #fff;
+          text-align: center;
+          height: 68px;
+        }
+        .delete i.iconfont {
+            font-size: 1em;
+            padding-right: 5px;
+        }
+        p {
+            text-align: center;
+            padding-top: 4em;
+            padding-bottom: 6em;
+            color: #555;
+            font-size: 1em;
+        }
+
+          @keyframes noheight {
+              0% {
+                  height: 68px;
+                  opacity: 1;
+              }
+
+              100% {
+                  height: 0px;
+                  opacity: 0;
+              }
+          }
+
+          .noheight {
+              animation: noheight .5s linear 0s forwards;
+          }
+    </style>
+</head>
+
+<body>
+    <ul class="head-tab ui-border-b" style="position:fixed;top:0px;left:0px;right:0px;z-index: 10;">
+        <li tapmode onclick="changeTab(0)" class="active">消息</li>
+        <li tapmode onclick="changeTab(1)">好友</li>
+        <li tapmode onclick="" style="float:right;font-size:0.7rem;font-weight: normal;">清除未读</li>
+    </ul>
+    <div class="dianliang" id="tab0" style=" margin-top:55px;z-index: -10;">
+        <div class="aui-content">
+            <ul class="aui-list aui-media-list">
+                <li class="aui-list-item aui-list-item-middle" tapmode onclick="system()">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media wechat-avatar">
+                            <img src="../../../image/service.jpg" /></div>
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-title">系统公告</div>
+                                <div class="aui-list-item-right"></div>
+                            </div>
+                            12:11
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+        <div id="hh_list"></div>
+
+    </div>
+
+
+    <div class="shishi hide" id="tab1" style="margin-top:55px;z-index: -30;">
+      <div class="aui-content">
+          <ul class="aui-list aui-media-list">
+              <li class="aui-list-item aui-list-item-middle" tapmode="tap-active" onclick="friend()">
+                  <div class="aui-media-list-item-inner">
+                      <div class="aui-list-item-media wechat-avatar" style="padding: 0rem 0;padding-right: 0rem;">
+                          <img src="../../../image/demo/i6.png"  /></div>
+                      <div class="aui-list-item-inner" style="font-size:12px;">
+                          <div class="aui-list-item-text">
+                              <div class="aui-list-item-title" style="font-size:14px;">我关注</div>
+                          </div>
+                           好友数
+                      </div>
+                  </div>
+              </li>
+          </ul>
+          <ul class="aui-list aui-media-list">
+              <li class="aui-list-item aui-list-item-middle" tapmode="tap-active">
+                  <div class="aui-media-list-item-inner">
+                      <div class="aui-list-item-media wechat-avatar" style="padding: 0rem 0;padding-right: 0rem;">
+                          <img src="../../../icon/icon150x150.png" /></div>
+                      <div class="aui-list-item-inner" style="font-size:12px;">
+                          <div class="aui-list-item-text">
+                              <div class="aui-list-item-title" style="font-size:14px;">关注我</div>
+                          </div>
+                           好友数
+                      </div>
+                  </div>
+              </li>
+          </ul>
+      </div>
+    </div>
+    <script type="text/javascript" src="../../../script/api.js"></script>
+    <script type="text/javascript" src="../../../script/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../../../script/hammer.min.js"></script>
+    <script type="text/javascript" src="../../../script/zepto.min.js"></script>
+    <script type="text/javascript" src="../../../script/doT.min.js"></script>
+    <!--linq.js json操作框架-->
+    <script type="text/javascript" src="../../../script/linq.min.js"></script>
+    <!--通用脚本库-->
+    <script type="text/javascript" src="../../../script/winu-base.js"></script>
+    <script type="text/javascript" src="../../../script/tab.js"></script>
+    <script type="text/javascript">
+     apiready=function(){
+           init();
+     }
+    </script>
+    <script type="text/javascript">
+        var dialogBox;
+        var userJson = null;
+        var targetId;
+
+        //屏蔽可容差错误
+        window.onerror = function() {
+            return true;
+        };
+
+        // 1、 声明融云对象 new RongObject
+        var rong = null,msgJson = null,msg = [];
+
+        apiready = function() {
+            dialogBox = api.require('dialogBox');
+            // 2.0 引入融云模块
+
+        };
+
+
+
+
+        function friend() {
+            api.openWin({
+                name: 'win_user_list',
+                url: '../../chat/chat_set/win_user_list.html'
+            });
+        }
+
+
+
+
+
+function system() {
+  api.openWin({
+      name: 'system',
+      url: 'system.html'
+  });
+}
+
+
+function touchstartF(event) {
+    x = event.changedTouches[0].pageX;
+    y = event.changedTouches[0].pageY;
+    swipeX = true;
+    swipeY = true;
+};
+
+function touchmoveF(event, e) {
+    X = event.changedTouches[0].pageX;
+    Y = event.changedTouches[0].pageY;
+    // 左右滑动
+    if (swipeX && Math.abs(X - x) - Math.abs(Y - y) > 0) {
+        // 阻止事件冒泡
+        event.stopPropagation();
+        if (X - x > 10) {
+            event.preventDefault();
+            e.style.WebkitTransform = "translateX(" + 0 + "px)";
+            e.style.transition = "-webkit-transform 300ms ease-in-out";
+        }
+        if (x - X > 10) {
+            event.preventDefault();
+            e.style.WebkitTransform = "translateX(" + -80 + "px)";
+            e.style.transition = "-webkit-transform 300ms ease-in-out";
+        }
+        swipeY = false;
+    }
+    // 上下滑动
+    if (swipeY && Math.abs(X - x) - Math.abs(Y - y) < 0) {
+        swipeX = false;
+    }
+};
+
+
+function toDelete(event, e,targetId) {
+   rong_removeConversation(targetId);
+
+    var deleteL = document.querySelectorAll('.delete');
+    var wrapper = document.querySelectorAll('.wrapper');
+    for (var i = 0; i < wrapper.length; i++) {
+        wrapper[i].style.transition = 'height 500ms';
+        wrapper[i].style.webkitTransition = 'height 500ms';
+        wrapper[i].style.overflow = 'hidden';
+    }
+
+    var deleteLB = e;
+
+    var down = deleteLB.parentNode;
+    if (down.clientHeight == '68') {
+        // deleteLB.parentNode.style.height = '0';
+        deleteLB.parentNode.classList.add('noheight');
+        setTimeout(function() {
+            down.remove();
+        }, 700);
+    }
+
+}
+
+
+
+// 24 删除会话
+function rong_removeConversation(targetId) {
+    rong.removeConversation({
+        conversationType: 'PRIVATE',
+        targetId: targetId
+    }, function(ret, err) {
+        if (ret.status == "success") {
+            // 删除会话成功
+            _sendEvent("removeChatStart", {
+                conversationType: 'PRIVATE',
+                targetId: targetId
+            });
+        }
+    })
+}
+
+
+    </script>
+</body>
+
+</html>

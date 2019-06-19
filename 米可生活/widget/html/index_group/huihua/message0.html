@@ -1,0 +1,514 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css" />
+
+    <script type="text/javascript" src="../../../script/api.js"></script>
+    <script type="text/javascript">
+        var userJson = null;
+        var targetId;
+
+        //屏蔽可容差错误
+        window.onerror = function() {
+            return true;
+        };
+
+        // 1、 声明融云对象 new RongObject
+        var rong = null,msgJson = null,msg = [];
+
+        apiready = function() {
+            // 2.0 引入融云模块
+            rong = api.require('rongCloud2');
+            // 8.0 初始化并连接融云
+            rong_init();
+            //提示音播放
+            api.addEventListener({
+                name: 'hhxx'
+            }, function(ret, err) {
+                api.startPlay({
+                    path: 'widget://res/message.mp3'
+                }, function(ret, err) {
+                    if (ret) {
+                        //alert('播放完成');
+                    } else {
+                        //alert(JSON.stringify(err));
+                    }
+                });
+                rong_getConversationList();
+            });
+
+            // 15 获取用户信息
+            userJson = _getStorage(window.userKey + "h5");
+            // 9.0 监听是否需要发送消息
+            _addEventListener("sendMsgStart", function(ret) {
+                if (ret && ret.value) {
+                    var msg = ret.value;
+                    // 调用统一接口发送信息
+                    rong_sendMsg(msg.msgType, msg.conversationType, msg.targetId, msg.content, msg.extra);
+                }
+            });
+
+            // 10.0 监听网络连接
+            _addEventListener("online", function(ret) {
+                // 11 重新初始化
+                rong_init();
+            });
+
+            // 12. 监听用户信息更新时，重新初始化
+            _addEventListener("userUpdate", function(ret) {
+                // 先断开连接
+                rong_disconnect();
+                // 13 重新初始化
+                rong_init();
+                // 18、重新获取数据
+                api.refreshHeaderLoading();
+            });
+
+            // 14、监听是否会话需要获取最新消息
+            _addEventListener("getNewMsgStart", function(ret) {
+                if (ret && ret.value) {
+                    var msg = ret.value;
+                    // 获取最新消息
+                    rong_getLatestMessages(msg.conversationType, msg.targetId);
+                }
+            });
+
+            //15、下拉重新加载会话
+            _setRefreshHeaderInfo(function() {
+                rong_getConversationList();
+                api.refreshHeaderLoadDone();
+            });
+
+
+            // 17、监听是否会话需要获取历史消息
+            _addEventListener("getHistoryMsgStart", function(ret) {
+                if (ret && ret.value) {
+                    var msg = ret.value;
+                    // 获取最新消息
+                    rong_getHistoryMessages(msg.conversationType, msg.targetId, msg.oldestMessageId);
+                }
+            });
+
+            // 21、监听是否退出登录
+            _addEventListener("logOut", function(ret) {
+                rong_logout();
+            });
+
+            // 25、移除该会话
+            _addEventListener("removeChatStart", function(ret) {
+                if (ret && ret.value) {
+                    var targetId = ret.value.targetId;
+                    //alert(JSON.stringify(ret.value.targetId));
+                    // 重新加载会话
+                    //api.refreshHeaderLoading();
+                    rong_getConversationList();
+                }
+            });
+
+
+            // 27、清除未读记录数
+            _addEventListener("clearMessages", function(ret) {
+                if (ret && ret.value) {
+                    var msg = ret.value;
+                    rong_clearMessagesUnreadStatus(msg.conversationType, msg.targetId);
+                    //alert(JSON.stringify(ret));
+                    // 重新加载会话
+                    rong_getConversationList();
+                    //rong_init();
+                }
+            });
+
+            // 21、监听是否退出登录
+            _addEventListener("clearMessages", function(ret) {
+                rong_getConversationList();
+            });
+
+        };
+
+
+        // ~~~~~~~~~~~~~~~~~~~~~~融云对象方法 BEGIN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // 4.0 消息监听器，负责监听所有的消息 message listener ,listerning all messages
+        function rong_onMsgListener() {
+            rong.setOnReceiveMessageListener(function(ret, err) {
+                // 4.1 广播接收到消息了
+                _sendEvent("receivedMsg", ret.result.message);
+                rong_getConversationList();
+                api.startPlay({
+                    path: 'widget://res/message.mp3'
+                }, function(ret, err) {
+                    if (ret) {
+                        //alert('播放完成');
+                    } else {
+                        //alert(JSON.stringify(err));
+                    }
+                });
+            })
+        }
+
+
+        // 3、融云初始化并连接监听
+        function rong_init() {
+            // 初始化融云
+            // 3.1
+            rong.init(function(ret, err) {
+                if (ret.status == 'error') {
+                    _alert(err);
+                }
+            });
+
+            rong.setConnectionStatusListener(function(ret, err) {
+
+            });
+
+            // 3.3 监听是否有消息进入
+            rong_onMsgListener();
+            // 3.4.1 连接
+            rong_content();
+            //  获取未读信息
+            rong_getTotalUnreadCount();
+
+            rong_getConversationList();
+        }
+
+        // 3.4 连接融云
+        function rong_content() {
+            var _token = _getStorage("rong_token");
+            if (_token) {
+                rong.connect({
+                    token: _token
+                }, function(ret, err) {
+                    if (ret.status == 'success') {
+                        //alert(JSON.stringify(ret));
+                        // 获取会话列表
+                        rong_getConversationList();
+                    } else {
+                        //_alert(err);
+                    }
+                });
+            }
+        }
+
+
+        // 5.0 获取会话列表
+        function rong_getConversationList() {
+            rong.getConversationList(function(ret, err) {
+                if (ret) {
+                  // 渲染列表
+                  //alert(JSON.stringify(ret));
+
+                } else {
+                    //alert(JSON.stringify(err));
+                }
+            })
+        }
+
+
+        // 6.0 统一发送消息接口
+        // @msgType：消息类型，文字，图片
+        // @conversationType：会话类型，单聊（PRIVATE）
+        // @targetId：接受方ID，可以是用户 Id
+        // @content：发送内容
+        function rong_sendMsg(msgType, conversationType, targetId, content, extra) {
+            switch (msgType) {
+                // 发送文字消息
+                case "text":
+                    rong.sendTextMessage({
+                        conversationType: conversationType,
+                        targetId: targetId,
+                        text: content,
+                        extra: extra
+                    }, function(ret, err) {
+                        if (ret.status == 'prepare') {
+                            // 存储当前发送信息
+                            _setStorage(JSON.stringify(ret.result.message.messageId), ret);
+                            // 广播消息，发送准备中
+                            _sendEvent("sendMsgPrepare", ret.result.message);
+                        } else if (ret.status == 'success') {
+                            // 广播消息，发送成功
+                            _sendEvent("sendMsgSuccess", ret.result.message);
+                            // 设置发送会话
+                            sendMsgSuccessEnd(_getStorage(JSON.stringify(ret.result.message.messageId)));
+                        } else if (ret.status == 'error') {
+                            // 广播消息，发送失败
+                            _sendEvent("sendMsgError", {
+                                errcode: err.code,
+                                messageId: ret.result.message.messageId
+                            });
+                        }
+                    });
+                    break;
+                    // 发送语音
+                case "voice":
+                    rong.sendVoiceMessage({
+                        conversationType: conversationType,
+                        targetId: targetId,
+                        voicePath: content,
+                        duration: $api.strToJson(extra).duration,
+                        extra: extra
+                    }, function(ret, err) {
+                        if (ret.status == 'prepare') {
+                            // 存储当前发送信息
+                            _setStorage(JSON.stringify(ret.result.message.messageId), ret);
+                            // 广播消息，发送准备中
+                            _sendEvent("sendMsgPrepare", ret.result.message);
+                        } else if (ret.status == 'success') {
+                            // 广播消息，发送成功
+                            _sendEvent("sendMsgSuccess", ret.result.message);
+                            // 设置发送会话
+                            sendMsgSuccessEnd(_getStorage(JSON.stringify(ret.result.message.messageId)));
+                        } else if (ret.status == 'error') {
+                            // 广播消息，发送失败
+                            _sendEvent("sendMsgError", {
+                                errcode: err.code,
+                                messageId: ret.result.message.messageId
+                            });
+                        }
+                    });
+                    break;
+                    // 发送图片
+                case "image":
+                    rong.sendImageMessage({
+                        conversationType: conversationType,
+                        targetId: targetId,
+                        imagePath: content,
+                        extra: extra
+                    }, function(ret, err) {
+                        if (ret.status == 'prepare') {
+                            // 存储当前发送信息
+                            _setStorage(JSON.stringify(ret.result.message.messageId), ret);
+                            // 广播消息，发送准备中
+                            _sendEvent("sendMsgPrepare", ret.result.message);
+                        } else if (ret.status == 'progress') {
+                            // 广播消息，发送过程中
+                            _sendEvent("sendMsgProgress", ret.result.progress);
+                        } else if (ret.status == 'success') {
+                            // 广播消息，发送成功
+                            _sendEvent("sendMsgSuccess", ret.result.message);
+                            // 设置发送会话
+                            sendMsgSuccessEnd(_getStorage(JSON.stringify(ret.result.message.messageId)));
+                        } else if (ret.status == 'error') {
+                            // 广播消息，发送失败
+                            _sendEvent("sendMsgError", {
+                                errcode: err.code,
+                                messageId: ret.result.message.messageId
+                            });
+                        }
+                    });
+                    break;
+                    // 发送图文
+                case "richmsg":
+                    rong.sendRichContentMessage({
+                        conversationType: conversationType,
+                        targetId: targetId,
+                        title: $api.strToJson(extra).title,
+                        description: $api.strToJson(extra).description,
+                        imageUrl: content,
+                        extra: extra
+                    }, function(ret, err) {
+                        if (ret.status == 'prepare') {
+                            // 存储当前发送信息
+                            _setStorage(JSON.stringify(ret.result.message.messageId), ret);
+                            // 广播消息，发送准备中
+                            _sendEvent("sendMsgPrepare", ret.result.message);
+                        } else if (ret.status == 'success') {
+                            // 广播消息，发送成功
+                            _sendEvent("sendMsgSuccess", ret.result.message);
+
+                            // 设置发送会话
+                            sendMsgSuccessEnd(_getStorage(JSON.stringify(ret.result.message.messageId)));
+                        } else if (ret.status == 'error') {
+                            // 广播消息，发送失败
+                            _sendEvent("sendMsgError", {
+                                errcode: err.code,
+                                messageId: ret.result.message.messageId
+                            });
+                        }
+                    });
+
+            }
+        }
+        // 7.0  获取最新消息记录
+        // @conversationType：会话类型，单聊PRIVATE
+        // @targetId：接受方ID，可以是用户 Id
+        function rong_getLatestMessages(conversationType, targetId) {
+            rong.getLatestMessages({
+                conversationType: conversationType,
+                targetId: targetId,
+                count: 20
+            }, function(ret, err) {
+                // 广播事件，通知成功获取到数据
+                _sendEvent("getNewMsgEnd", ret.result);
+            })
+        }
+
+        // 16、 获取历史纪录
+        // @conversationType：会话类型，单聊（PRIVATE）
+        // @targetId：接受方ID，可以是用户 Id
+        // @oldestMessageId：最后消息id
+        function rong_getHistoryMessages(conversationType, targetId, oldestMessageId) {
+            rong.getHistoryMessages({
+                conversationType: 'PRIVATE',
+                targetId: targetId,
+                oldestMessageId: oldestMessageId,
+                count: 20
+            }, function(ret, err) {
+                // 广播事件，通知成功获取到数据
+                _sendEvent("getHistoryMsgEnd", ret.result);
+            })
+        }
+
+        // 20、退出登录
+        function rong_logout() {
+            rong.logout(function(ret, err) {
+                if (ret.status == 'error') {
+                    _alert(err);
+                }
+            });
+        }
+
+        // 22 断开连接
+        function rong_disconnect() {
+            rong.disconnect(false);
+        }
+
+
+
+        // 清除会话未读数
+        function rong_clearMessagesUnreadStatus(conversationType, targetId) {
+            rong.clearMessagesUnreadStatus({
+                conversationType: conversationType,
+                targetId: targetId
+            }, function(ret, err) {})
+        }
+
+        // 获取所有未读消息
+        function rong_getTotalUnreadCount() {
+            rong.getTotalUnreadCount(function(ret, err) {
+                // 状态栏提醒
+
+                api.notification({
+                    vibrate: [300, 500],
+                    sound: 'widget://res/message.wav',
+                    light: true,
+                    notify: {
+                        title: '您有' + ret.result + '条未读消息',
+                        content: '您有' + ret.result + '条未读消息',
+                        updateCurrent: true,
+                        extra: JSON.stringify(ret.result.message)
+                    }
+                }, function(ret, err) {});
+
+            });
+        }
+
+        // ~~~~~~~~~~~~~~~~~~~~~~融云对象方法 END  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+        // 获取一组用户信息
+        function getUsersInfo(msglist) {
+          User.get({"_id":$api.getStorage('id'),"_relation":"friend"},function(ret, err) {
+            for (var i = 0; i < msglist.length; i++) {
+              var msgObj = msglist[i];
+              // 查询用户信息
+              var users_query_results = Enumerable.From(ret)
+                  .Where(function(x) {
+                return x.UserID == msgObj.chatId
+              })
+                  .ToArray();
+              //打印结果：：
+              //console.log(JSON.stringify(users_query_results));
+              // 追加新属性
+              msgObj.chatInfo = users_query_results[0];
+              //console.log(JSON.stringify(msgObj.chatInfo));
+            }
+            var interText = doT.template($("#msglistTpl").text());
+            $("#userList ul").html(interText(msglist));
+            // 设置不是首次获取数据了
+            isFirst = false;
+            api.hideProgress();
+            api.refreshHeaderLoadDone();
+          });
+        }
+
+            // 根据主键获取一个用户ID
+        function getUserByID(userid, msgObj) {
+          User.query({
+            filter: {
+              where: {
+                "userid":userid
+              }
+            }
+          },function (ret,err) {
+
+            msgObj.chatId = msgObj.senderUserId;
+            msgObj.chatInfo = ret;
+            //打印测试结果：：
+            console.log(msgObj.chatInfo);
+            msgObj.latestMessage = msgObj.content;
+            msgObj.sentTime = msgObj.receivedTime;
+            var _arr = [];
+            _arr.push(msgObj);
+            var interText = doT.template($("#msglistTpl").text());
+            $("#userList ul").prepend(interText(_arr));
+          });
+        }
+
+
+        // 设置最后消息文本
+        function setLastMsgText(msgObj, isConversationList) {
+            // 获取消息类型
+            var objectName = msgObj.objectName;
+            var returnMsg = "";
+            switch (objectName) {
+                // 文本类型
+                case "RC:TxtMsg":
+                    if (isConversationList) {
+                        returnMsg = "[文本消息]：" + msgObj.latestMessage.text;
+                    } else {
+                        returnMsg = "[文本消息]：" + msgObj.content.text;
+                    }
+                    break;
+                    // 语音类型
+                case "RC:VcMsg":
+                    returnMsg = "[语音消息]：";
+                    break;
+                    // 图片消息
+                case "RC:ImgMsg":
+                    returnMsg = "[图片消息]：";
+                    break;
+            }
+            return returnMsg;
+        }
+
+
+        // 融云发送信息成功后更新会话
+        function sendMsgSuccessEnd(ret) {
+            // 接收者ID
+            var targetId = ret.result.message.targetId;
+            // 判断该会话是否存在了，如果存在就上移并更新数据
+            if ($("#userList ul li[data-targetId='" + targetId + "']").size() > 0) {
+                var $newMsg = $("#userList ul li[data-targetId='" + targetId + "']");
+                $newMsg.find(".msgnr").text(setLastMsgText(ret.result.message, false));
+                var $clone = $newMsg.clone();
+                // 移除
+                $newMsg.remove();
+                // 在第一次插入
+                $('#userList ul').prepend($clone);
+            } else {
+                // 插入新的
+                var msgObj = ret.result.message;
+                getUserByID(targetId, msgObj);
+            }
+            // 移除消息ret.result.message.messageId
+            _removeStorage(JSON.stringify(ret.result.message.messageId));
+        }
+
+    </script>
+</body>
+</html>
