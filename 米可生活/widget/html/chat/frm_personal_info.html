@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+    <style>
+      html,body{
+        height: 100%;
+        background-color: #ffffff;
+        }
+        .detail-header{
+            border-bottom: 1px solid #CDCDCD;
+            background-color: #DD3237;
+        }
+        .back{
+            background-size: 40px!important;
+            background-image: url("../../../image/weather_back@2x.png");
+            background-position: right!important;
+        }
+
+        .detail-header a{
+            padding:25px;
+        }
+        .title{
+            color: #FFFFFF;
+            text-align: center;
+            line-height:50px;
+            font-size: 18px;
+        }
+
+        .mine li, .bottom li {
+            display: inline-block;
+            width: 32%;
+            text-align: center;
+            padding: 20px 0 6px;
+            background-size: 30px;
+            background-repeat: no-repeat;
+            background-position: top;
+        }
+
+        .activity {
+            margin: 0 10px;
+        }
+
+        .activity li {
+            position: relative;
+            padding: 20px 0;
+            background-size: 8px;
+            background-repeat: no-repeat;
+            background-position: right;
+            background-image: url("../../../image/setting_cell_arrow@2x.png");
+            border-bottom: 1px solid #F6F6F6;
+        }
+        .no-arrow{
+            background-image:none!important;
+        }
+        .value {
+            position: absolute;
+            right:20px;
+        }
+
+        .btn {
+            display: block;
+            color: #FFFFFF;
+            margin: 0 40px;
+            text-align: center;
+            border-radius: 8px;
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #CECECE;
+            background-color:#DD3237 ;
+            margin-top: 20px;
+        }
+        .user-photo{
+            background-position: center;
+            background-size: 30px;
+            border-radius: 50px;
+            width: 30px;
+            height: 30px;
+            bottom: 13px;
+        }
+
+
+        .empty {
+          padding-top: 50%;
+          background-color: #ffffff;
+          text-align: center;
+        }
+
+        .empty .logo img {
+          height: 100px;
+          margin: 0 auto;
+        }
+
+        .empty .msg {
+          height: 100px;
+          line-height: 50px;
+          opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+  <!--  赋值 -->
+<script id="interpolationTemp" type="text/x-dot-template">
+<ul class="activity">
+    <li  onclick="newUser_pic();" id="change">
+        <span class="key">头像</span>
+        <span class="value user-photo"><img id="touxiang" class="user-photo" src="{{=it.avatar}}"></span>
+    </li>
+    <li>
+        <span class="key">ID</span>
+        <span class="value">{{=it.userIdIM}}</span>
+    </li>
+    <li>
+        <span class="key">昵称</span>
+        <span class="value">{{=it.nickname}}</span>
+    </li>
+    <li>
+        <span class="key">性别(不可修改)</span>
+        <span id="sex" class="value">{{=it.sex}}</span>
+    </li>
+    <li class="no-arrow">
+        <span class="key">身份</span>
+        <span class="value ">{{=it.identity}}</span>
+    </li>
+</ul>
+  </script>
+<div id="interpolation"></div>
+
+<div class="empty" id="empty1">
+  <div class="logo"><img src="../../../image/empty_page_nothing.png"></div>
+  <div class="msg" style="etter-spacing:22px;">当前无网络...</div>
+</div>
+
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/doT.min.js"></script>
+<script type="text/javascript">
+var userID = $api.getStorage('id');
+
+apiready = function(){
+            api.parseTapmode();
+            window.imageClip = api.require('imageClip');
+     getdata();
+
+    }
+
+    function getdata() {
+      api.ajax({
+        url: 'http://125.124.148.148:81/App/userinfo.php',
+        method: 'POST',
+        cache:'false',
+        timeout:30,
+        dataTpye:'JSON',
+        data: {
+            values: {
+              aid : userID
+            }
+        }
+      },function(ret, err){
+        if( ret ){
+          ee();
+          api.hideProgress();
+           var interpolationData = {
+               'nickname': ret.nickname,
+               'userIdIM': ret.userIdIM,
+               'avatar': ret.avatar,
+               'sex': ret.sex,
+               'age': ret.age,
+               'identity': ret.identity,
+               'school': ret.school,
+               'zy': ret.zy
+           };
+           var interpolation = doT.template($api.dom('#interpolationTemp').innerHTML);
+           $api.dom('#interpolation').innerHTML = interpolation(interpolationData);
+          //alert( JSON.stringify( ret));
+        }else{
+            //alert( JSON.stringify(err));
+
+            api.toast({
+                msg: '网络错误，请检查网络',
+                duration: 20,
+                location: 'bottom'
+            });
+        }
+  });
+    }
+
+//修改userPic
+function newUser_pic() {
+  api.actionSheet({
+    cancelTitle : '取消',
+    buttons : ['相册', '照相机']
+  }, function(ret, err) {
+    if (ret.buttonIndex == 1) {
+      var scene = 'album';
+      select(scene);
+    } else if (ret.buttonIndex == 2) {
+      var scene = 'camera';
+      select(scene);
+    } else {
+      return false;
+    }
+  });
+}
+
+function newselct() {
+  select("album");
+}
+
+function select(scene) {
+  api.getPicture({
+    sourceType : scene,
+    encodingType : 'jpg',
+    mediaValue : 'pic',
+    destinationType : 'url'
+  }, function(ret, err) {
+    if (ret) {
+      if (!ret.data) {//如果不选择图片，则退出
+        return;
+      }
+      api.openWin({
+        name : "imageWin",
+        url : "../../imageclip/imageWin.html",
+        pageParam : {
+          imgUrl : ret.data
+        },
+        animation : {
+          type : "none",
+          subType : "from_right",
+          duration : 0
+        }
+      })
+    } else {
+      api.alert({
+        msg : err.msg
+      });
+    }
+  });
+  return false;
+}
+
+
+
+
+//图片保存 关闭截图
+function UploadAvatar(savePath) {
+  //alert(savePath);
+  $api.attr($api.byId('touxiang'), 'src', savePath);
+  //保存截好的图的地址到服务器_file表中
+  var fileurl = savePath; //文件地址，也可通过文件选择器获得
+  var name1 = new Date().getTime();
+  var baseUrl = 'http://www.xianyu.design'; //七牛给你的测试域名，也可使用自己捆绑的域名youe.xxx.com
+  var obj = api.require('qiniuUpfile');
+  obj.upfile({
+      file: fileurl,
+      name: name1
+  }, function(ret, err) {
+      if (ret.status) {
+          if (ret.oper == "complete") {
+              api.hideProgress({});
+              photourl = baseUrl + '/' + ret.info.key;
+              //console.log(photourl)
+              //callback(photourl);
+              update(photourl);
+              //alert(JSON.stringify(ret));
+          } else if (ret.oper == "progress") {
+              //上传过程中获取进度数据
+              //$api.text(a, ret.percent);
+             /*
+              api.showProgress({
+                  style: 'default',
+                  animationType: 'fade',
+                  title: '上传中',
+                  text: '上传进度:' + ret.percent + "%...",
+                  modal: true
+              });
+              */
+
+          }
+      }
+  });
+
+}
+
+
+//修改年龄
+function dialogBox_amount() {
+  var dialogBox = api.require('dialogBox');
+dialogBox.amount({
+    texts: {
+        title: '修改年龄',
+        default: '1',
+        leftBtnTitle: '取消',
+        rightBtnTitle: '确定'
+    },
+    styles: {
+        bg: '#fff',
+        corner: 0.5,
+        w: 300,
+        h: 220,
+        title: {
+            marginT: 20,
+            size: 14,
+            color: '#000'
+        },
+        input: {
+            w: 150,
+            h: 44,
+            marginT: 15,
+            size: 14,
+            color: '#000'
+        },
+        dividingLine: {
+            marginT: 10,
+            width: 0.5,
+            color: '#696969'
+        },
+        left: {
+            marginL: 10,
+            w: 135,
+            h: 55,
+            bg: '#ffffff',
+            color: '#000000',
+            size: 14
+        },
+        right: {
+            marginR: 10,
+            w: 135,
+            h: 55,
+            bg: '#ffffff',
+            color: '#000000',
+            size: 14
+        }
+    }
+}, function(ret) {
+  //alert( JSON.stringify( ret));
+    if (ret.eventType == 'left') {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.close({
+            dialogName: 'amount'
+        });
+    }
+    if (ret.eventType == 'right') {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.close({
+            dialogName: 'amount'
+        });
+
+      document.getElementById("old").innerHTML=ret.amount;
+    }
+});
+}
+
+function update(photourl){
+
+api.ajax({
+    url: 'http://125.124.148.148:81/App/update_userinfo.php',
+    method: 'post',
+    data: {
+      values: {
+          id:$api.getStorage('id'),
+          avatar: photourl
+      }
+    }
+},function(ret, err){
+  api.sendEvent({
+      name: 'info_fresh'
+  });
+
+   //alert( JSON.stringify( ret ) );
+   var interpolationData = {
+       'nickname': ret.nickname,
+       'userIdIM': ret.userIdIM,
+       'avatar': ret.avatar,
+       'sex': ret.sex,
+       'age': ret.age,
+       'identity': ret.identity,
+       'school': ret.school,
+       'zy': ret.zy
+   };
+   var interpolation = doT.template($api.dom('#interpolationTemp').innerHTML);
+   $api.dom('#interpolation').innerHTML = interpolation(interpolationData);
+});
+
+}
+
+
+function ee() {
+  document.getElementById('empty1').style.display = "none";
+}
+</script>
+</body>
+</html>

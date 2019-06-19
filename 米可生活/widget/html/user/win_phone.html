@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<title>title</title>
+	<link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mycommon.css" />
+	<style>
+		body {
+			background-color: #ffffff;
+		}
+
+		p {
+			margin-top: 0;
+			margin-bottom: 0;
+			font-size: 14px;
+			color: #ffffff;
+		}
+
+		.aui-btn-row {
+			position: relative;
+			text-align: center;
+			padding: 15px;
+		}
+
+		.aui-btn-row:after {
+			border-bottom: 0px solid #c8c7cc;
+			display: block;
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			-webkit-transform-origin: 0 0;
+			-webkit-transform: scale(1);
+			pointer-events: none;
+		}
+
+		.aui-btn-block {
+			display: block;
+			width: 100%;
+			padding: 15px 15px;
+			margin-bottom: 0;
+			font-size: 20px;
+			border-radius: 80px;
+		}
+
+		.aui-bar {
+			position: relative;
+			top: 0;
+			right: 0;
+			left: 0;
+			z-index: 10;
+			width: 100%;
+			background-color: #ffffff;
+			color: #ffffff;
+			display: table;
+			line-height: 180px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.aui-bar .aui-btn .aui-iconfont {
+			font-size: 22px;
+			line-height: 45px;
+			padding: 0;
+			margin: 0;
+			color: #000000;
+		}
+
+		.logins {
+			width: 100%;
+			height: 30%;
+			position: absolute;
+			top: 50px;
+			left: 0;
+			box-sizing: border-box;
+			padding-left: 30px;
+			padding-right: 30px;
+		}
+
+		.login nav {
+			overflow: hidden;
+			width: 300px;
+			margin: 0px auto;
+			padding-top: 20px;
+		}
+
+		.login nav p {
+			width: 33%;
+			float: left;
+			text-align: center;
+		}
+
+		.login nav p img {
+			width: 38%;
+		}
+
+		.login-sns-title {
+			height: 1.25em;
+			border-top: 0px;
+			text-align: center;
+			margin: 0 0.9375em
+		}
+
+		.reg-bot-link {
+			margin: 0 0.9375em;
+			border-bottom: 0px solid #c8c7cc;
+		}
+
+		.reg-bot-link span {
+			float: right
+		}
+
+		.reg-bot-link a {
+			color: #666666;
+			display: inline-block;
+			padding: 0.9375em 0
+		}
+
+		.aui-form {
+			position: relative;
+			background: #ffffff;
+			margin-left: 20px;
+			margin-right: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<header class="aui-bar aui-bar-dark">
+			<a class="aui-btn aui-bar-dark aui-pull-left" style="padding-top:15px;background-color: #ffffff;" tapmode onclick=" api.closeWin({});">
+				<span class="aui-iconfont aui-icon-close"></span>
+			</a>
+		</header>
+		<div class="aui-form" id="frm">
+			<div class="" align="center"><img src="../../icon/icon150x150.png" / style="width:100px;height:100px;border-radius:15px;margin-top:50px;margin-bottom:50px;box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);">
+				<div>
+					<div class="aui-input-row" style="border-top: 0px solid #c8c7cc;">
+						<span class="aui-input-addon aui-iconfont aui-icon-myfill"></span>
+						<input type="number" id="username" class="aui-input" placeholder="手机" data-rule="m" data-nullmsg="手机不能为空" data-errmsg="你输入的不是一个手机" data-sucmsg="" />
+					</div>
+					<div class="aui-input-row">
+						<span class="aui-input-addon aui-iconfont aui-icon-lock"></span>
+						<input type="password" id="password" class="aui-input" placeholder="密码" data-nullmsg="请输入密码" data-errmsg="你输入的密码不正确" data-sucmsg="" />
+					</div>
+					<div class="aui-btn-row">
+						<p>
+							<button id="btn" class="aui-btn aui-bar-dark aui-btn-block aui-btn-outlined aui-pull-left" tapmode onclick="login()" style="margin-right: 10px;">
+						<span class="aui-iconfont" ></span>登录
+					</button>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="reg-bot-link">
+				<span><a onclick="api.openWin({name : 'win_register',url : './win_register.html'})"><font>注册新用户</font></a></span>
+				<a onclick="api.openWin({name : 'win_password',url : './win_password.html'})">
+					<font>忘记密码</font>
+				</a>
+			</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/winu-base.js"></script>
+<script type="text/javascript" src="../../script/hashes.min.js"></script>
+<script type="text/javascript" src="../../script/ajaxToRongCloud.js"></script>
+<script type="text/javascript" src="../../script/availdate-v1.0.2.js"></script>
+<script type="text/javascript">
+	ac.addRule({
+		"m": /^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$|17[0-9]{9}$/
+	});
+
+	apiready = function() {
+		api.addEventListener({
+			name: 'keyback'
+		}, function(ret, err) {
+			//alert('返回');
+		});
+		//优化点击事件
+		api.parseTapmode();
+	};
+
+	//去注册===============>>>>>>
+	function toRegister() {
+		api.openWin({
+			name: 'win_register',
+			url: './win_register.html'
+		});
+	}
+
+
+	//定义登录的方法=========>>>>>>>
+	function login() {
+		// 打开进度提示框
+		api.showProgress({
+			title: '登陆中...',
+			modal: false
+		});
+
+
+		var username = $api.val($api.dom('#username'));
+		//获取当前表单中的值
+		var password = $api.val($api.dom('#password'));
+
+		api.ajax({
+			url: 'http://125.124.148.148:81/App/usercheck.php',
+			method: 'POST',
+			cache: 'false',
+			timeout: 30,
+			dataTpye: 'JSON',
+			data: {
+				values: {
+					username: username,
+					password: password
+				}
+			}
+		}, function(ret, err) {
+			api.hideProgress();
+			if (ret) {
+				//alert(JSON.stringify(ret));
+				$api.setStorage('id', ret.id); // 数据库id
+				$api.setStorage('lastUser', ret.username); //最后登录用户名
+				$api.setStorage('nickname', ret.nickname); //用户昵称
+				$api.setStorage('userIdIM', ret.userIdIM); //用户昵称 userID targetID
+				$api.setStorage('phone', ret.username); //用户登录名 == 手机号
+				$api.setStorage('photo', ret.avatar); //用户头像
+				$api.setStorage('createAt', ret.createAt); //用户注册时间
+
+		  		// 优化本地数据，简单加密
+		  		_setPrefs(window.userKey, ret, function() {
+					// 存储token到本地存储中
+					// 存储用户信息到本地存储中
+					_setStorage(window.userKey + "h5", ret);
+				});
+
+				api.sendEvent({
+					name: 'login_success'
+				});
+
+				api.openWin({
+					name: 'index',
+					url: '../../index.html',
+					bounces: false
+				});
+
+			} else {
+				//alert(JSON.stringify(ret));
+				api.toast({
+					msg: '用户名或密码错误',
+					location: "middle"
+				});
+			}
+
+		});
+
+	};
+
+</script>
+
+</html>

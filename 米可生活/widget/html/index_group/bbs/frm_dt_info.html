@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0, width=device-width"/>
+    <title>api</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/aui-slide.css" />
+    <style>
+    html,body{
+      height: 100%;
+      background-color: #ffffff;
+
+    }
+
+    .aui-list {
+      border: none;
+      background-size: 100% 0px;
+      background-repeat: no-repeat;
+      background-position: top;
+      background-image: linear-gradient(0,#dddddd,#dddddd 50%,transparent 50%);
+    }
+
+
+    .empty {
+      padding-top: 50%;
+      background-color: #ffffff;
+      text-align: center;
+    }
+
+    .empty .logo img {
+      height: 100px;
+      margin: 0 auto;
+    }
+
+    .empty .msg {
+      height: 100px;
+      line-height: 50px;
+      opacity: 0.3;
+    }
+    </style>
+</head>
+<body>
+ <div id="slide"></div>
+
+  <script id="interpolationTemp" type="text/x-dot-template">
+  <div style="margin:13px;">{{=it.title}}</div>
+  <section class="aui-content">
+      <div class="aui-card-list">
+          <div class="aui-card-list-content">
+              <ul class="aui-list aui-media-list">
+                  <li class="aui-list-item aui-list-item-middle">
+                      <div class="aui-media-list-item-inner">
+                          <div class="aui-list-item-media" style="width:2.2rem;">
+                              <img src="{{=it.avatar}}" class="aui-img-round" >
+                          </div>
+                          <div class="aui-list-item-inner aui-list-item-arrow">
+                              <div class="aui-list-item-text">
+                                  <div class="aui-list-item-title" style="font-size: 0.6rem;">{{=it.nickname}}</div>
+                                  <div class="aui-list-item-right"></div>
+                              </div>
+                              <div class="aui-list-item-text" style="font-size: 0.5rem;">
+                                {{=it.createAt}}
+                              </div>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+
+      </div>
+  </section>
+
+
+    </script>
+
+    	<div id="interpolation"></div>
+
+      <div><h2 style="padding:10px;">全部评论</h2><div>
+
+
+
+      <section class="aui-content">
+          <ul class="aui-list aui-media-list">
+
+
+
+            <div class="empty" id="empty1">
+              <div class="logo"><img src="../../../image/empty_page_nothing.png"></div>
+              <div class="msg" style="etter-spacing:22px;">当前并未评论</div>
+            </div>
+
+            <!--li class="aui-list-item">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width: 3.5rem;">
+                        <img style="background-image: url(../../../image/pic.png);border-radius:45px;" src="../../../image/1.jpg" />
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title" style="color:#4c5276">海航</div>
+                        </div>
+                        <div class="aui-info aui-font-size-12 aui-padded-t-0">
+                            <div class="aui-info-item">以笔记为例，笔记的内容结构包括：用户信息、图片、标签、标题、正文、赞、评论、收藏、相关笔记，部分笔记还包括可购买商品和类似商品推荐。</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="aui-list-item">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width: 3.5rem;">
+                        <img style="background-image: url(../../../image/pic.png);border-radius:45px;" src="{{=it[it.length-i-1].avatar}}" />
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title" style="color:#4c5276">XX</div>
+                        </div>
+                        <div class="aui-list-item-text" style="color:#333;">
+                            {{=it[it.length-i-1].title}}
+                        </div>
+                        <div class="aui-info aui-font-size-12 aui-padded-t-0">
+                            <div class="aui-info-item">{{=it[it.length-i-1].createAt}}</div>
+                            <div class="aui-info-item">
+                                <i class="aui-iconfont aui-icon-comment"  style="color:#4c5276"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width: 3.5rem;">
+                        <img style="background-image: url(../../../image/pic.png);border-radius:45px;" src="{{=it[it.length-i-1].avatar}}" />
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title" style="color:#4c5276">XX</div>
+                        </div>
+                        <div class="aui-list-item-text" style="color:#333;">
+                            {{=it[it.length-i-1].title}}
+                        </div>
+                        <div class="aui-info aui-font-size-12 aui-padded-t-0">
+                            <div class="aui-info-item">{{=it[it.length-i-1].createAt}}</div>
+                            <div class="aui-info-item">
+                                <i class="aui-iconfont aui-icon-comment"  style="color:#4c5276"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width: 3.5rem;">
+                        <img style="background-image: url(../../../image/pic.png);border-radius:45px;" src="{{=it[it.length-i-1].avatar}}" />
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title" style="color:#4c5276">XX</div>
+                        </div>
+                        <div class="aui-list-item-text" style="color:#333;">
+                            {{=it[it.length-i-1].title}}
+                        </div>
+                        <div class="aui-info aui-font-size-12 aui-padded-t-0">
+                            <div class="aui-info-item">{{=it[it.length-i-1].createAt}}</div>
+                            <div class="aui-info-item">
+                                <i class="aui-iconfont aui-icon-comment"  style="color:#4c5276"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width: 3.5rem;">
+                        <img style="background-image: url(../../../image/pic.png);border-radius:45px;" src="{{=it[it.length-i-1].avatar}}" />
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title" style="color:#4c5276">XX</div>
+                        </div>
+                        <div class="aui-list-item-text" style="color:#333;">
+                            {{=it[it.length-i-1].title}}
+                        </div>
+                        <div class="aui-info aui-font-size-12 aui-padded-t-0">
+                            <div class="aui-info-item">{{=it[it.length-i-1].createAt}}</div>
+                            <div class="aui-info-item">
+                                <i class="aui-iconfont aui-icon-comment"  style="color:#4c5276"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width: 3.5rem;">
+                        <img style="background-image: url(../../../image/pic.png);border-radius:45px;" src="{{=it[it.length-i-1].avatar}}" />
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title" style="color:#4c5276">XX</div>
+                        </div>
+                        <div class="aui-list-item-text" style="color:#333;">
+                            {{=it[it.length-i-1].title}}
+                        </div>
+                        <div class="aui-info aui-font-size-12 aui-padded-t-0">
+                            <div class="aui-info-item">{{=it[it.length-i-1].createAt}}</div>
+                            <div class="aui-info-item">
+                                <i class="aui-iconfont aui-icon-comment"  style="color:#4c5276"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width: 3.5rem;">
+                        <img style="background-image: url(../../../image/pic.png);border-radius:45px;" src="{{=it[it.length-i-1].avatar}}" />
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title" style="color:#4c5276">XX</div>
+                        </div>
+                        <div class="aui-list-item-text" style="color:#333;">
+                            {{=it[it.length-i-1].title}}
+                        </div>
+                        <div class="aui-info aui-font-size-12 aui-padded-t-0">
+                            <div class="aui-info-item">{{=it[it.length-i-1].createAt}}</div>
+                            <div class="aui-info-item">
+                                <i class="aui-iconfont aui-icon-comment"  style="color:#4c5276"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li-->
+          </ul>
+          <!--div class="aui-card-list-footer aui-text-center">
+              查看更多
+          </div-->
+      </section>
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../../script/aui-slide.js"></script>
+<script type="text/javascript" src="../../../script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../../script/zepto.min.js"></script>
+<script type="text/javascript">
+
+	/*初始化*/
+	apiready = function(){
+		id = api.pageParam.id;
+
+    var slide = new auiSlide({
+        container:document.getElementById("aui-slide"),
+        "height":400,
+        "speed":300,
+        "pageShow":true,
+        "pageStyle":'dot',
+        "loop":true,
+        'dotPosition':'center'
+    })
+
+    //alert(id);
+		funWinIni();
+	};
+
+	/*网络判断*/
+	function funWinIni(){
+		if( api.connectionType == 'none' ){
+			api.toast({
+			    msg: '网络错误，请检查网络',
+			    duration: 2000,
+			    location: 'bottom'
+			});
+		}else{
+			getContentInfo();
+		};
+	}
+
+	/*读取详细信息*/
+	function getContentInfo(){
+
+    api.ajax({
+        url: 'http://125.124.148.148:81/App/pictureinfo.php',
+        method: 'POST',
+        cache:'true',
+        timeout:30,
+        dataTpye:'JSON',
+        data:{
+          values:{
+            aid:id
+          }
+        }
+    },function(ret, err){
+        if (ret) {
+            //alert( JSON.stringify( ret ) );
+            var html='';
+            var obj = $api.byId('slide');
+
+            var pic=ret.img;
+            var picArr = pic.split(",");
+
+            for (var j = 0; j <picArr.length; j++) {
+              //alert( picArr[j]);
+              html += '<div class="aui-slide-node"  style="padding:10px;border-radius:15px;"><img style="height:100%;" src="'+picArr[j]+'"/></div>';
+
+            }
+
+            $api.html(obj, html);
+
+            var interpolationData = {
+                'nickname': ret.nickname,
+                'avatar': ret.avatar,
+                'title': ret.title,
+                'UserID': ret.UserID,
+                'img': ret.img,
+                'createAt': ret.createAt
+            };
+
+
+            var interpolation = doT.template($api.dom('#interpolationTemp').innerHTML);
+            $api.dom('#interpolation').innerHTML = interpolation(interpolationData);
+
+
+        } else {
+            alert( JSON.stringify( err ) );
+        }
+    });
+
+	}
+</script>
+</html>

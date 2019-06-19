@@ -1,0 +1,505 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>动态</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/aui.css" />
+    <style type="text/css">
+        .aui-input-row {
+            width: 100%;
+        }
+
+        #content {
+            min-height: 30px;
+        }
+
+        .aui-form {
+            margin-bottom: 0px;
+        }
+
+        img {
+            border-radius: 15px;
+        }
+
+        .aui-input-row:after {
+            border-bottom: 0px solid #c8c7cc;
+            display: block;
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            -webkit-transform-origin: 0 0;
+            -webkit-transform: scale(1);
+            pointer-events: none;
+        }
+
+        .aui-input-row:last-child:after {
+            border-bottom: 0px solid #c8c7cc;
+        }
+        /*å¯¼èˆªæ */
+
+        .aui-bar {
+            position: relative;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 10;
+            width: 100%;
+            background-color: #ffffff;
+            color: #ffffff;
+            display: table;
+            min-height: 45px;
+            line-height: 45px;
+            font-size: 18px;
+            text-align: center;
+            box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+        }
+        /*æŒ‰é’®æ ·å¼*/
+
+        button,
+        .aui-btn {
+            position: relative;
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            background-color: #ffffff;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid #ecf0f1;
+            border-radius: 4px;
+        }
+
+        .aui-bar a {
+            color: #000000;
+        }
+
+        .back-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: url(../../../image/back.png) no-repeat center center;
+            -webkit-background-size: 14px 18px;
+            background-size: 20px 20px;
+            position: absolute;
+            left: 5px;
+            bottom: 0;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header class="aui-bar aui-bar-nav" style="padding-top:25px;">
+        <a class="back-icon" tapmode onclick="api.closeFrame({});"></a>
+        <div class="aui-title"></div>
+        <a class="aui-pull-right"style="etter-spacing:22px;font-family:sans-serif;font-weight: bold;color:#000" tapmode onclick="pub()">发布</a>
+    </header>
+    <div class="aui-form">
+        <div class="aui-input-row">
+            <textarea name="content" class="aui-input" id="title" placeholder="总得说点什么吧"></textarea>
+        </div>
+    </div>
+    <div class="aui-content">
+        <ul class="aui-list-view aui-grid-view" id="imgslist">
+            <li class="aui-list-view-cell aui-img aui-col-xs-4" id="addpic">
+                <img class="aui-img-object" src="../../../image/icon-img.png">
+            </li>
+        </ul>
+    </div>
+
+
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../../script/hammer.min.js"></script>
+<script type="text/javascript" src="../../../script/winu-base.js"></script>
+<script type="text/javascript" src="../../../script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+    var data=new Array();
+    var arr="";
+    var uiMediaScanner = null,
+        imageFilter = null,
+        imageBrowser = null,
+        bMap = null;
+    var isIOS = false;
+
+
+    // 生成guid,主要用于生成随机文件名
+    function NewGuid() {
+        function S4() {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        }
+
+        return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+    }
+
+    // 获取当前的时间，拼接成2015-11-09这样的格式，主要用于对图片进行时间分类
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate
+        return currentdate;
+    }
+
+    // 获取文件拓展名
+    function getExt(fileName) {
+        return fileName.substring(fileName.lastIndexOf('.') + 1);
+    }
+
+    // 图片压缩
+    // imgsrc：源图片的路径
+    // quality：图片压缩质量，一般建议0.5
+    // scale：图片压缩比例，也是建议0.5
+    // ext：源图片拓展名
+    // callback：转换成功之后回调函数
+    function imgCompress(imgsrc, quality, scale, ext, callback) {
+        // 压缩文件的保存目录
+        var savePath = api.cacheDir + "/" + getNowFormatDate() + "/";
+        // 压缩文件生成的随机文件名称
+        var savename = NewGuid() + "." + ext;
+        imageFilter.compress({
+            img: imgsrc,
+            quality: quality,
+            scale: quality,
+            save: {
+                album: false,
+                imgPath: savePath,
+                imgName: savename
+            }
+        }, function(ret, err) {
+            if (ret) {
+                callback(savePath + savename);
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    // 打开图片浏览
+    // imgs：需要预览的图片集合
+    function openImageBrowser(imgs) {
+        imageBrowser.openImages({
+            imageUrls: imgs,
+            showList: false,
+            activeIndex: 0
+        });
+    }
+
+    // 添加长按方法
+    function addPress(obj, index) {
+        // 获取目前长按的对象
+        var hammertime = new Hammer(obj[0]);
+        // 绑定长按对象
+        hammertime.on("press", function(e) {
+            api.confirm({
+                title: '温馨提示',
+                msg: '您确定要删除该图片吗？',
+                buttons: ['确定', '取消']
+            }, function(ret, err) {
+                if (ret.buttonIndex == 1) {
+                    // 移除自己
+                    $(obj).remove();
+                    api.toast({
+                        msg: '删除成功！'
+                    });
+                }
+            });
+        });
+    }
+
+    // 上传图片
+    // url：上传的url地址
+    // data：上传的文件
+    // callback：上传成功返回地址
+    function uploadFile(data, callback) {
+        var fileurl = data; //文件地址，也可通过文件选择器获得
+        var name1 = new Date().getTime();
+        var baseUrl = 'http://www.xianyu.design'; //七牛给你的测试域名，也可使用自己捆绑的域名youe.xxx.com
+        var obj = api.require('qiniuUpfile');
+        obj.upfile({
+            file: fileurl,
+            name: name1
+        }, function(ret, err) {
+            if (ret.status) {
+                if (ret.oper == "complete") {
+                    api.hideProgress({});
+                    photourl = baseUrl + '/' + ret.info.key;
+                    //console.log(photourl)
+                    callback(photourl);
+                    //alert(JSON.stringify(ret));
+                    //上传成功后组装访问路径，或直接访问文档
+                } else if (ret.oper == "progress") {
+                    //上传过程中获取进度数据
+                    //$api.text(a, ret.percent);
+
+                    api.showProgress({
+                        style: 'default',
+                        animationType: 'fade',
+                        title: '上传中',
+                        text: '上传进度:' + ret.percent + "%...",
+                        modal: true
+                    });
+
+                }
+            }
+        });
+    }
+
+
+    function pub() {
+
+      var title=$("#title").val();
+
+      if (title!==""  &&  arr!=="") {
+
+        api.ajax({
+            url: 'http://125.124.148.148:81/App/pub.php',
+            method: 'post',
+            data: {
+              values: {
+                  title: $("#title").val(),
+                  UserID: $api.getStorage('id'),
+                  img:arr
+              }
+            }
+        },function(ret, err){
+
+          api.toast({
+              msg: '发布成功',
+              duration: 2000,
+              location: 'middle'
+          });
+
+          //监听发布成功
+          api.sendEvent({
+              name: 'pub_fresh'
+          }, function(ret, err) {
+          });
+
+
+          api.closeFrame({});
+
+        });
+
+      } else {
+
+          api.toast({
+              msg: ' 请完善发布信息',
+              duration: 2000,
+              location: 'middle'
+          });
+
+      }
+    }
+
+
+
+    Zepto(function($) {
+        // 获取图片宽高
+        var normalW = $("#addpic img").width();
+        // ###############################################################
+        // 为图片添加点击预览功能,排除添加按钮
+        $("#imgslist").on("tap", "li:not(#addpic)", function() {
+            // 定义一个数组，存储需要预览的图片
+            var browerImgs = [];
+            $("#imgslist li:not(#addpic)").each(function() {
+                // 将图片追加到数组中
+                browerImgs.push($(this).find("img").attr("src"));
+            });
+            // 调用图片预览函数
+            openImageBrowser(browerImgs);
+        });
+        // 添加图片绑定点击事件
+        $("#imgslist").on("tap", "#addpic", function() {
+            api.actionSheet({
+                title: '选择图片来源',
+                buttons: ['优雅自拍', '浏览相册']
+            }, function(ret, err) {
+                var index = ret.buttonIndex;
+                switch (index) {
+                    // 拍照
+                    case 1:
+                        // 打开拍照
+                        api.getPicture({
+                            sourceType: "camera",
+                            encodingType: "jpg",
+                            destinationType: "url",
+                            mediaValue: "pic",
+                            quality: 50,
+                            saveToPhotoAlbum: true
+                        }, function(ret, err) {
+                            if (ret && ret.data) {
+                                // 拍照返回的本地路径
+                                var returnUrl = ret.data;
+                                // 图片压缩
+                                imgCompress(returnUrl, 0.5, 0.5, getExt(returnUrl), function(compressImg) {
+                                    var showImgHtml = '<li class="aui-list-view-cell aui-img aui-col-xs-4"><img class="aui-img-object" src="' + compressImg + '" style="width:' + normalW + 'px;height:' +
+                                        normalW + 'px;"></li>';
+                                    // 追加图片
+                                    $("#addpic").before(showImgHtml);
+                                    // ########################################  绑定长按事件 ########################
+                                    addPress($("#imgslist img[src='" + compressImg + "']").parent("li"));
+                                    // ########################################
+                                    // ################### 上传图片 #########################
+                                    uploadFile(compressImg, function(serverImg) {
+                                        //alert("上传成功后服务器返回的地址：http://linshiren.gotoip3.com/" + serverImg);
+                                        //arr.push(serverImg);
+                                        data.push(serverImg);
+                                        arr=data.join(",");
+                                        //console.log(arr)
+                                    });
+                                });
+                            } else {
+                                api.toast({
+                                    msg: '没有选择，或者选择出错'
+                                });
+                            }
+                        });
+                        break;
+                        // 打开图片选择器
+                    case 2:
+                        uiMediaScanner.open({
+                            type: 'picture',
+                            column: 4,
+                            classify: true,
+                            max: 6,
+                            sort: {
+                                key: 'time',
+                                order: 'desc'
+                            },
+                            texts: {
+                                stateText: '已选*项',
+                                cancelText: '取消',
+                                finishText: '完成'
+                            },
+                            styles: {
+                                bg: '#fff',
+                                mark: {
+                                    icon: '',
+                                    position: 'bottom_left',
+                                    size: 20
+                                },
+                                nav: {
+                                    bg: '#b23e4b',
+                                    stateColor: '#fff',
+                                    stateSize: 18,
+                                    cancelBg: 'rgba(0,0,0,0)',
+                                    cancelColor: '#fff',
+                                    cancelSize: 18,
+                                    finishBg: 'rgba(0,0,0,0)',
+                                    finishColor: '#fff',
+                                    finishSize: 18
+                                }
+                            }
+                        }, function(ret) {
+                            if (ret) {
+                                for (var i = 0; i < ret.list.length; i++) {
+                                    var selectImg = ret.list[i];
+                                    // 获取图片的路径
+                                    var selectimgPath = selectImg.path;
+                                    var selectimgThumbPath = selectImg.thumbPath;
+                                    // IOS需要将虚拟路径转换为本地路径才可以压缩
+                                    if (isIOS) {
+                                        // 转换为真实路径
+                                        uiMediaScanner.transPath({
+                                            path: selectimgPath
+                                        }, function(transObj) {
+                                            // 图片压缩
+                                            imgCompress(transObj.path, 0.5, 0.5, selectImg.suffix, function(compressImg) {
+                                                $("#addpic").before('<li class="aui-list-view-cell aui-img aui-col-xs-4"><img class="aui-img-object" src="' + compressImg + '" style="width:' + normalW +
+                                                    'px;height:' + normalW + 'px;"></li>');
+                                                // ########################################  绑定长按事件 ########################
+                                                addPress($("#imgslist img[src='" + compressImg + "']").parent("li"));
+                                                // ########################################
+                                                // ################### 上传图片 #########################
+                                                uploadFile(compressImg, function(serverImg) {
+                                                    //alert("上传成功后服务器返回的地址：http://linshiren.gotoip3.com/" + serverImg);
+                                                    //arr.push(serverImg);
+                                                    data.push(serverImg);
+                                                    arr=data.join(",");
+
+                                                });
+                                            });
+                                        });
+                                    } else {
+                                        // 图片压缩
+                                        imgCompress(selectimgPath, 0.5, 0.5, selectImg.suffix, function(compressImg) {
+                                            // 追加图片
+                                            $("#addpic").before('<li class="aui-list-view-cell aui-img aui-col-xs-4"><img class="aui-img-object" src="' + compressImg + '" style="width:' + normalW +
+                                                'px;height:' + normalW + 'px;"></li>');
+                                            // ########################################  绑定长按事件 ########################
+                                            addPress($("#imgslist img[src='" + compressImg + "']").parent("li"));
+                                            // ########################################
+                                            // ################### 上传图片 #########################
+                                            uploadFile(compressImg, function(serverImg) {
+                                                //alert("上传成功后服务器返回的地址：http://linshiren.gotoip3.com/" + serverImg);
+                                                //var arr =['0'];
+                                                data.push(serverImg);
+                                                arr=data.join(",");
+                                                //alert(arr);
+                                                //alert(data);
+                                                //console.log(arr)
+                                                //var x=document.getElementById("demo");
+                                                //	x.innerHTML=JSON.stringify(data);
+                                            });
+
+                                        });
+                                    }
+                                }
+                                //alert(JSON.stringify(data));
+
+                                //var arr =['0'];
+                                //arr.push(serverImg);
+                            }
+
+                        });
+                        break;
+
+                }
+            });
+        });
+    });
+
+
+    apiready = function() {
+        // 引入多选模块
+        uiMediaScanner = api.require('UIMediaScanner');
+        // 引入过滤压缩模块
+        imageFilter = api.require("imageFilter");
+        // 引入图片浏览模块
+        imageBrowser = api.require('imageBrowser');
+        // 引入百度模块
+        bMap = api.require('bMap');
+        // 判断是否是IOS系统
+        isIOS = api.systemType == "ios" ? true : false;
+        // 获取当前位置
+    };
+</script>
+
+</html>

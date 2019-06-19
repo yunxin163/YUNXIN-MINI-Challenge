@@ -1,0 +1,405 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <link type="text/css" rel="stylesheet" href="../../../css/select.css">
+  <link type="text/css" rel="stylesheet" href="../../../css/aui/aui.css">
+  <style>
+  html,body{
+    height: 100%;
+    background-color: #ffffff;
+  }
+
+  .aui-card-list-footer .aui-iconfont {
+  	font-size: 0.7rem;
+
+  }
+  </style>
+</head>
+<body>
+    <div style="background-color:#ffffff;z-index:99;"></div>
+    <!-- screening -->
+    <div id="1" class="screening">
+        <ul>
+            <li class="meishi"><span>分类</span></li>
+            <li class="Regional"><span>地区</span></li>
+            <li class="Sort"><span>筛选</span></li>
+            <li class="Brand"><span>校招</span></li>
+        </ul>
+    </div>
+    <!-- End screening -->
+    <!-- grade -->
+    <div id="1" class="meishi22">
+        <ul class="meishia-w" id="meishia">
+            <li onclick=""><div class="meishi2">兼职</div></li>
+            <li onclick=""><div class="meishi3">全职</div></li>
+            <li onclick=""><div class="meishi4">钟点工</div></li>
+        </ul>
+
+    </div>
+
+    <div id="1" class="grade-eject">
+        <ul class="grade-w" id="gradew">
+            <li onclick="grade1(this)">校内</li>
+            <li onclick="grade1(this)">商圈</li>
+        </ul>
+        <ul class="grade-t" id="gradet">
+            <div class="zimu">A</div>
+            <li onclick="gradet(this)">德辉广场</li>
+            <div class="zimu">B</div>
+            <li onclick="gradet(this)">泰禾广场</li>
+            <li onclick="gradet(this)">摩天城</li>
+        </ul>
+
+    </div>
+    <!-- Category -->
+    <div id="1" class="Sort-eject Sort-height">
+        <ul class="Sort-Sort" id="Sort-Sort">
+            <li onclick="Sorts(this)">智能排序</li>
+            <li onclick="Sorts(this)">离我最近</li>
+            <li onclick="Sorts(this)">好评优先</li>
+            <li onclick="Sorts(this)">人气优先</li>
+        </ul>
+    </div>
+    <!-- End Category -->
+
+    <!-- Category -->
+
+    <!-- demo-content -->
+    <div class="demo-content">
+
+      <div class="container">
+      <div id="act-content"></div>
+
+  <script  id="act-template" type="text/x-dot-template">
+      {{ for(var i=0; i < it.length; i++) { }}
+        <section class="aui-content">
+            <div class="aui-card-list" tapmode onclick="openMovieDetail('{{=it[it.length-i-1].id}}');" style="box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05); margin:5px;">
+                <div class="aui-card-list-header aui-card-list-user">
+                    <div class="aui-card-list-user-name">
+                        <div class="aui-font-size-18">{{=it[it.length-i-1].job}}</div>
+                        <div class="aui-font-size-18 aui-text-danger">{{=it[it.length-i-1].income}}</div>
+                    </div>
+                </div>
+                <div class="aui-card-list-content-padded aui-padded-t-5 aui-padded-b-5">
+                  {{=it[it.length-i-1].danwei}}
+                </div>
+                <div class="aui-card-list-footer aui-font-size-14">
+                    <div>
+                        <i class="aui-iconfont aui-icon-date">{{=it[it.length-i-1].type}}</i>
+                        <i class="aui-iconfont aui-icon-location">{{=it[it.length-i-1].address}}</i>
+                    </div>
+                    <div>
+                      <i>{{=it[it.length-i-1].createAt}}</i>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        {{ }}}
+    </script>
+
+        <!--section class="aui-content">
+            <div class="aui-card-list" style="box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05); margin:5px;">
+                <div class="aui-card-list-header aui-card-list-user">
+                    <div class="aui-card-list-user-name">
+                        <div class="aui-font-size-18">平面设计师</div>
+                        <div class="aui-font-size-18 aui-text-danger">2K-3K</div>
+                    </div>
+                    <div class="aui-card-list-user-info text-light">31分钟前</div>
+                </div>
+                <div class="aui-card-list-content-padded aui-padded-t-5 aui-padded-b-5">
+                    闽南理工学院（宝盖校区）
+                </div>
+                <div class="aui-card-list-footer aui-font-size-14">
+                    <div>
+                        <i class="aui-iconfont aui-icon-date">兼职</i>
+                        <i class="aui-iconfont aui-icon-location">校内</i>
+                    </div>
+                    <div>
+                      <i>13:42</i>
+                    </div>
+                </div>
+            </div>
+
+        </section-->
+    </div>
+</div>
+    <!-- End demo-content -->
+</body>
+    <script type="text/javascript" src="../../../script/api.js"></script>
+    <script type="text/javascript" src="../../../script/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../../../script/demo.js"></script>
+    <script type="text/javascript" src="../../../script/doT.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.choosebox li a').click(function () {
+                var thisToggle = $(this).is('.size_radioToggle') ? $(this) : $(this).prev();
+                var checkBox = thisToggle.prev();
+                checkBox.trigger('click');
+                $('.size_radioToggle').removeClass('current');
+                thisToggle.addClass('current');
+                return false;
+            });
+        });
+
+        $(".choosebox li a").click(function () {
+            var text = $(this).html();
+            $(".choosetext span").html(text);
+            $("#result").html("" + getSelectedValue("dress-size"));
+        });
+
+        function getSelectedValue(id) {
+            return
+            $("#" + id).find(".choosetext span.value").html();
+        }
+
+        var dialogBox;
+        var mcm = null;
+        var query = null;
+        apiready = function() {
+        dialogBox = api.require('dialogBox');
+          api.addEventListener({
+              name: 'pub_fresh'
+          }, function(ret, err) {
+            if (ret) {
+              getData();
+            } else {
+
+            }
+          });
+
+        getData();
+
+
+
+            api.addEventListener({
+                    name: 'scrolltobottom'
+                }, function (ret, err) {
+                  /*
+                  api.showProgress({
+                      title: '加载中...',
+                      modal: false
+                  });
+                  */
+                   //document.getElementById('1').style.display = 'none';
+                  if (ret) {
+
+                   //document.getElementById('1').style.display = 'none';
+
+
+                    getData();
+
+                    api.hideProgress();
+                    api.refreshHeaderLoadDone();
+
+
+                  } else {
+
+                  }
+
+
+
+                });
+
+            };
+
+
+
+            $("body").on("touchstart", function(e) {
+
+            　　　　e.preventDefault();
+            　　　　startX = e.originalEvent.changedTouches[0].pageX,
+            　　　　startY = e.originalEvent.changedTouches[0].pageY;
+            　　});
+            　　$("body").on("touchmove", function(e) {
+            　　　　e.preventDefault();
+            　　　　moveEndX = e.originalEvent.changedTouches[0].pageX,
+            　　　　moveEndY = e.originalEvent.changedTouches[0].pageY,
+            　　　　X = moveEndX - startX,
+            　　　　Y = moveEndY - startY;
+
+                /*
+            　　　　if ( X > 0 ) {
+            　　　　　　alert("left 2 right");
+            　　　　}
+            　　　　else if ( X < 0 ) {
+            　　　　　　alert("right 2 left");
+            　　　　}
+            */
+            　　　　if ( Y > 0) {
+                   document.getElementById('1').style.display = 'block';
+            　　　　　　//alert("top 2 bottom");
+            　　　　}
+            　　　　else if ( Y < 0 ) {
+                   document.getElementById('1').style.display = 'none';
+            　　　　　　//alert("bottom 2 top");
+            　　　　}
+            　　　　else{
+            　　　　　　//alert("just touch");
+            　　　　}
+            　　　});
+
+
+        function like(){
+            document.getElementById("like").style.color='red';
+        }
+
+        function getData() {
+          api.ajax({
+              url: 'http://106.14.137.42/App/job.php',
+              method: 'GET'
+          },function(ret, err){
+              if (ret) {
+             //alert( JSON.stringify( ret ) );
+             var content = $api.byId('act-content');
+             var tpl = $api.byId('act-template').text;
+             var tempFn = doT.template(tpl);
+             content.innerHTML = tempFn(ret);
+
+              } else {
+                  //alert( JSON.stringify( err ) );
+                  api.toast({
+                      msg: '当前网络不给力',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+              }
+          });
+
+        }
+
+
+
+          /*打开详细页面*/
+          function toPersonal(userID) {
+            api.openWin({
+              name: 'friend_info'+userID,
+              url: '../contact/friend_info.html',
+              rect: {
+                x: 0,
+                y: 0,
+                w: api.winWidth,
+                h: api.winHeight
+              },
+              pageParam: {
+                userID: userID
+              },
+                      animation:{
+                          type:"movein",                //动画类型（详见动画类型常量）
+                          subType:"from_right",       //动画子类型（详见动画子类型常量）
+                          duration:300                //动画过渡时间，默认300毫秒
+                      },
+              bounces: false,
+              delay: 200
+            });
+          }
+
+
+          /*打开详细页面*/
+          function openMovieDetail(did) {
+
+
+            api.addEventListener({
+              name: 'login_success'
+            }, function(ret,err){
+            });
+
+            //如果有登陆账号，执行相关函数
+            if ($api.getStorage('lastUser')) {
+              //打开发布模块
+              //api.openWin({
+              api.openWin({
+                  name: 'win_detail',
+                  url: './win_detail.html',
+                  delay: 200,
+                  pageParam: {
+                    id: did
+                  },
+                  bounces:false
+              });
+
+            } else {
+              //弹出弹窗进行登陆事件
+              dialogBox_alert();
+            }
+
+
+          }
+
+
+          /*弹出功能模块*/
+          function dialogBox_alert() {
+          		dialogBox.alert({
+          		texts: {
+          				title: '确认',
+          				content: '您是游客状态，是否登录',
+          				leftBtnTitle: '取消',
+          				rightBtnTitle: '确认'
+          		},
+          		styles: {
+          				bg: '#fff',
+          				w: 300,
+          				title: {
+          						marginT: 20,
+          						icon: 'widget://res/ug_check_small.png',
+          						iconSize: 20,
+          						titleSize: 14,
+          						titleColor: '#000'
+          				},
+          				content: {
+          						color: '#000',
+          						size: 16
+          				},
+          				left: {
+          						marginB: 7,
+          						marginL: 20,
+          						w: 130,
+          						h: 35,
+          						corner: 2,
+          						bg: '#ffffff',
+          						size: 16
+          				},
+          				right: {
+          						marginB: 7,
+          						marginL: 10,
+          						w: 130,
+          						h: 35,
+          						corner: 2,
+          						bg: '#ffffff',
+          						size: 16
+          				}
+          		}
+          }, function(ret) {
+          		if (ret.eventType == 'left') {
+
+          				var dialogBox = api.require('dialogBox');
+          				dialogBox.close({
+          						dialogName: 'alert'
+          				});
+          			return;
+          		}
+          		if (ret.eventType == 'right') {
+
+          			var dialogBox = api.require('dialogBox');
+          			dialogBox.close({
+          					dialogName: 'alert'
+          			});
+          			goPageLogin();
+          		}
+          });
+          }
+
+          /*跳转到登陆页面功能模块*/
+          	function goPageLogin() {
+          		api.openWin({
+          			name : 'win_login',
+          			url : '../../user/win_login.html',
+          			bounces: false,
+          			delay: 200
+          		});
+          	};
+    </script>
+</html>

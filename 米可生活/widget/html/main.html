@@ -1,0 +1,430 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>AUI快速完成布局</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui_flex.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui-slide.css" />
+    <style type="text/css">
+        img.icon {
+            display: block;
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        .aui-grid-label {
+            padding-top: 0rem;
+            font-size: 0.7rem !important;
+        }
+
+        .goods-item {
+            border: 1px solid #eee;
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .goods-item img {
+            display: block;
+            width: 100%;
+            height: 7rem;
+        }
+
+        .title {
+            color: #666;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .title p {
+            font-size: 0.6rem;
+            color: #ccc;
+        }
+
+        .goods-title {
+            font-size: 0.7rem;
+            color: #333 !important;
+        }
+
+        .hot img {
+            width: 3rem;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .aui-col-xs-9 {
+            width: 74%;
+        }
+
+        .aui-list .aui-list-item-media {
+            width: 6rem;
+        }
+        .aui-user-view-cell:last-child:after {
+          border-bottom: 0px solid #c8c7cc;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="aui-content">
+        <div id="aui-slide">
+            <div class="aui-slide-wrap">
+                <div class="aui-slide-node">
+                    <img src="../image/demo/b2.jpg" style="padding:10px;border-radius:15px;" />
+                </div>
+                <div class="aui-slide-node">
+                    <img src="../image/demo/b1.jpg" style="padding:10px;border-radius:15px;" />
+                </div>
+            </div>
+            <div class="aui-slide-page-wrap">
+                <!--分页容器-->
+            </div>
+        </div>
+    </section>
+    <section class="aui-content aui-margin-b-15">
+        <div class="aui-grid aui-padded-l-9 aui-padded-r-9">
+            <div class="aui-row aui-row-padded">
+                <div class="aui-col-6" style="padding-top:0;" tapmode onclick="friend();">
+                    <img src="../image/demo/i5.png" class="icon">
+                    <div class="aui-grid-label" style="margin-top:0px;">交友</div>
+                </div>
+                <div class="aui-col-6" style="padding-top:0;" tapmode onclick="video();">
+                    <img src="../image/demo/i4.png" class="icon">
+                    <div class="aui-grid-label" style="margin-top:0px;">视频</div>
+                </div>
+                <div class="aui-col-6" style="padding-top:0;" tapmode onclick="job();">
+                    <img src="../image/demo/i3.png" class="icon">
+                    <div class="aui-grid-label" style="margin-top:0px;">求职</div>
+                </div>
+                <div class="aui-col-6" style="padding-top:0;" tapmode onclick="photograph();">
+                    <img src="../image/demo/i2.png" class="icon">
+                    <div class="aui-grid-label" style="margin-top:0px;">附近</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="aui-content aui-margin-b-15" style="background-color: #fff;">
+        <div class="aui-row aui-row-padded">
+            <div class="aui-col-xs-6 aui-padded-t-15 aui-padded-l-15 aui-padded-r-7.5 aui-padded-b-15" onclick="psychology1();">
+                <img src="../image/24.jpg" style="width: auto;">
+            </div>
+            <div class="aui-col-xs-6 aui-col-xs-6 aui-padded-t-15 aui-padded-l-7.5 aui-padded-r-15 aui-padded-b-15">
+                <div class="aui-col-xs-12" style="padding:0px;height: 5rem" onclick="activity();">
+                    <img src="../image/23.jpg" style="width: auto;">
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="aui-content">
+        <div class="aui-card-list">
+            <div class="aui-card-list-header">
+                <div class="title">
+                  最新资讯
+                </div>
+                <div class="title" style="float:right;" onclick="news()">
+                  全部
+                </div>
+            </div>
+
+            <div class="aui-content">
+                <ul class="aui-list aui-media-list">
+                    <script id="news-template" type="text/x-dot-template">
+                        {{ for(var i=0; i < it.length; i++) { }}
+                        <li class="aui-list-item">
+                            <div class="aui-media-list-item-inner" tapmode onclick="openMovieDetail('{{=it[it.length-i-1].id}}');">
+                                <div class="aui-list-item-inner">
+                                    <div class="aui-list-item-text">
+                                        <div class="aui-list-item-title aui-font-size-18">{{=it[it.length-i-1].title}}</div>
+                                    </div>
+                                    <div class="aui-info aui-padded-b-0">
+                                        <div class="aui-info-item aui-font-size-12">
+                                            {{=it[it.length-i-1].createAt}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="aui-list-item-media">
+                                    <img src="{{=it[it.length-i-1].img}}">
+                                </div>
+                            </div>
+                            </li>
+                            {{ }}}
+                    </script>
+                    <li id="content"></li>
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/aui-slide.js"></script>
+<script type="text/javascript">
+    var dialogBox;
+    apiready = function() {
+        dialogBox = api.require('dialogBox');
+        var slide = new auiSlide({
+            container: document.getElementById("aui-slide"),
+            "height": 160,
+            "speed": 300,
+            "pageShow": true,
+            "pageStyle": 'dot',
+            "loop": true,
+            'dotPosition': 'center'
+        })
+
+
+        api.ajax({
+            url: 'http://125.124.148.148:81/App/news.php',
+            method: 'GET'
+        },function(ret, err){
+            if (ret) {
+                //alert( JSON.stringify( ret ) );
+                var content = $api.byId('content');
+                var tpl = $api.byId('news-template').text;
+                var tempFn = doT.template(tpl);
+                content.innerHTML = tempFn(ret);
+            } else {
+                //alert( JSON.stringify( err ) );
+            }
+        });
+
+
+
+    }
+
+
+    /*规划中功能模块*/
+    function job() {
+        api.openWin({
+            name: 'saixuan',
+            url: './index_group/job/win_job.html',
+            bounces: false
+        })
+    };
+
+    /*心理咨询功能模块*/
+    function psychology1() {
+
+
+        api.addEventListener({
+            name: 'login_success'
+        }, function(ret, err) {});
+
+        //如果有登陆账号，执行相关函数
+        if ($api.getStorage('lastUser')) {
+            //打开发布模块
+            api.openWin({
+                name: 'psychology_win',
+                url: './index_group/psychology/psychology_win.html',
+                bounces: false
+            })
+        } else {
+            //弹出弹窗进行登陆事件
+            dialogBox_alert();
+        }
+
+
+    };
+
+
+
+    /*规划中功能模块*/
+    function video() {
+        api.openWin({
+            name: 'video',
+            url: './index_group/actgroup/win_video.html',
+            bounces: false
+        })
+    };
+
+    /*规划中功能模块*/
+    function friend() {
+
+
+        api.addEventListener({
+            name: 'login_success'
+        }, function(ret, err) {});
+
+        //如果有登陆账号，执行相关函数
+        if ($api.getStorage('lastUser')) {
+            //打开发布模块
+            api.openWin({
+                name: 'win_friend',
+                url: './index_group/friend/win_friend.html',
+                bounces: false
+            })
+        } else {
+            //弹出弹窗进行登陆事件
+            dialogBox_alert();
+        }
+
+
+    };
+
+
+    /*弹出功能模块*/
+    function dialogBox_alert() {
+        dialogBox.alert({
+            texts: {
+                title: '确认',
+                content: '您是游客状态，是否登录',
+                leftBtnTitle: '取消',
+                rightBtnTitle: '确认'
+            },
+            styles: {
+                bg: '#fff',
+                corner: 5,
+                w: 300,
+                title: {
+                    marginT: 20,
+                    icon: 'widget://res/ug_check_small.png',
+                    iconSize: 20,
+                    titleSize: 14,
+                    titleColor: '#000'
+                },
+                content: {
+                    color: '#000',
+                    size: 16
+                },
+                left: {
+                    marginB: 7,
+                    marginL: 20,
+                    w: 130,
+                    h: 35,
+                    corner: 2,
+                    bg: '#ffffff',
+                    size: 16
+                },
+                right: {
+                    marginB: 7,
+                    marginL: 10,
+                    w: 130,
+                    h: 35,
+                    corner: 2,
+                    bg: '#ffffff',
+                    size: 16
+                }
+            }
+        }, function(ret) {
+            if (ret.eventType == 'left') {
+
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+            if (ret.eventType == 'right') {
+
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                goPageLogin();
+            }
+        });
+    }
+
+
+    /*跳转到登陆页面功能模块*/
+    function goPageLogin() {
+        api.openWin({
+            name: 'win_login',
+            url: './user/win_login.html',
+            bounces: false,
+            delay: 200
+        });
+    };
+
+
+
+    /*规划中功能模块*/
+    function news() {
+        api.openWin({
+            name: 'news_today_win',
+            url: './index_group/news/news_today_win.html',
+            bounces: false
+        })
+    };
+
+    /*规划中功能模块*/
+    function huodong() {
+        api.openWin({
+            name: 'win_sofa',
+            url: './index_group/activity/main.html',
+            bounces: false
+        })
+    };
+
+
+
+    /*规划中功能模块*/
+    function photograph() {
+        api.openWin({
+            name: 'webdemo',
+            url: './min.html',
+            bounces: false
+        })
+    };
+
+    /*规划中功能模块*/
+    function activity() {
+        api.openWin({
+            name: 'win_photo',
+            url: './index_group/activity/win_photo.html',
+            bounces: false
+        })
+    };
+
+
+    function app2() {
+        api.ajax({
+            url: 'http://106.14.137.42/query_location.php',
+            method: 'post',
+            data: {
+                values: {
+                    lon:'123.33434',
+                    lat:'345.3454'
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                alert(JSON.stringify(ret));
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+    }
+
+
+    /*规划中功能模块*/
+    function app() {
+
+
+      api.openWin({
+          name: 'win_friend',
+          url: './index_group/friend0/win_friend.html',
+          bounces: false
+      })
+
+
+    };
+
+
+    function openMovieDetail(did) {
+        api.openWin({
+            name: 'win_dt',
+            url: './index_group/news/win_dt.html',
+            pageParam: {
+              id: did
+            }
+        });
+    }
+</script>
+
+</html>

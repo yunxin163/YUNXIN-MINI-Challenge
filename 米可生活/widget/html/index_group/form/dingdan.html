@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<title>title</title>
+	<link rel="stylesheet" type="text/css" href="../../../css/aui.css" />
+	<link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css"/>
+	<style>
+
+	</style>
+</head>
+
+<body>
+
+	<header class="aui-bar aui-bar-nav" style="padding-top:25px;">
+		<a class="aui-btn aui-pull-left" id="back"> <span class="aui-iconfont aui-icon-left" onclick="api.closeWin({});"></span></a>
+		<div class="aui-title">订单详情</div>
+	</header>
+
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript">
+	var id = "";
+
+
+apiready=function() {
+	id = api.pageParam.dataId;//活动id
+
+	api.openFrame({
+			name: 'dingdan_info',
+			url: 'dingdan_info.html',
+			pageParam:{id: id},
+			rect: {
+					x: 0,
+					y: 70,
+					w: 'auto',
+					h: 'auto'
+			},
+			bounces: true,
+			vScrollBarEnabled: false
+	});
+}
+</script>
+
+</html>

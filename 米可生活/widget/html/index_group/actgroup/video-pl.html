@@ -1,0 +1,161 @@
+
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css" />
+    <style>
+        body {
+            height: auto;
+            min-height: 100%;
+            background-color: #ffffff;
+        }
+
+        .moviePlayer {
+            width: 100%;
+            height: 225px;
+        }
+
+        .aui-bar-tab {
+            position: fixed;
+            bottom：0;
+            border-top-width: 1px;
+        }
+
+        .hover {
+            opacity: .4;
+        }
+    </style>
+</head>
+
+<body>
+    <footer>
+        <!--footer class="aui-bar aui-bar-tab">
+            <div class="aui-bar-tab-item aui-padded-l-15 aui-padded-r-15" tapmode style="width: auto;">
+                <div class="search-input aui-font-size-14">	<input id="content" placeholder="输入评论" data-nullmsg="评论不能为空" /></div>
+            </div>
+            <div class="aui-bar-tab-item" tapmode onclick="comment()" style="width: 2.2rem;">
+                <i class="aui-iconfont aui-icon-share"></i>
+            </div>
+        </footer-->
+
+        <!--footer class="aui-bar aui-bar-tab">
+                  <div class="aui-bar-tab-item" tapmode onclick="comment()">
+                      <i class="aui-iconfont aui-icon-share"></i>
+                  </div>
+        </footer-->
+    </footer>
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/video/movie-con.js"></script>
+<script type="text/javascript">
+    var dialogBox;
+
+    apiready = function() {
+        dialogBox = api.require('dialogBox');
+    }
+
+
+
+    function comment() {
+
+        api.addEventListener({
+            name: 'login_success'
+        }, function(ret, err) {});
+
+        //如果有登陆账号，执行相关函数
+        if ($api.getStorage('lastUser')) {
+            //打开发布模块
+            comment_pub();
+        } else {
+            //弹出弹窗进行登陆事件
+            dialogBox_alert();
+        }
+
+    }
+
+
+
+    /*弹出功能模块*/
+    function dialogBox_alert() {
+        dialogBox.alert({
+            texts: {
+                title: '确认',
+                content: '您是游客状态，是否登录',
+                leftBtnTitle: '取消',
+                rightBtnTitle: '确认'
+            },
+            styles: {
+                bg: '#fff',
+                corner: 5,
+                w: 300,
+                title: {
+                    marginT: 20,
+                    icon: 'widget://res/ug_check_small.png',
+                    iconSize: 20,
+                    titleSize: 14,
+                    titleColor: '#000'
+                },
+                content: {
+                    color: '#000',
+                    size: 16
+                },
+                left: {
+                    marginB: 7,
+                    marginL: 20,
+                    w: 130,
+                    h: 35,
+                    corner: 2,
+                    bg: '#ffffff',
+                    size: 16
+                },
+                right: {
+                    marginB: 7,
+                    marginL: 10,
+                    w: 130,
+                    h: 35,
+                    corner: 2,
+                    bg: '#ffffff',
+                    size: 16
+                }
+            }
+        }, function(ret) {
+            if (ret.eventType == 'left') {
+
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+            if (ret.eventType == 'right') {
+
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                goPageLogin();
+            }
+        });
+    }
+
+
+    /*跳转到登陆页面功能模块*/
+    function goPageLogin() {
+        api.openWin({
+            name: 'win_login',
+            url: '../../user/win_login.html',
+            bounces: false,
+            delay: 200
+        });
+    };
+
+    function comment_pub() {
+        alert("评论");
+    }
+</script>
+
+</html>

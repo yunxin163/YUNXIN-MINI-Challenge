@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>title</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <style>
+    	html, body {width: 100%;min-height: 100%;background: #f2f2f2;}
+    .h10 {height: 10px;background: #f0f0f0;}
+		.h1 {height: 1px;margin-left: 15px;background: #f0f0f0;}
+		.fr {float: right;}
+		.hint {color: #666;font-size: 12px;margin-right: 5px;}
+
+		.firstblock, .secondblock, .thirdblock {background-color: #fff;}
+		/* 头部登陆 */
+		.login {
+			position:relative;
+			background-color:#ffffff;
+			height:120px;
+		}
+		.loginbg { width: 100%;height: 120px;}
+		.login .personal_logo {position: absolute; left:0;top: 20px; width: 70px; margin-left: 20px; border-radius: 100px;}
+		.person_arrow {position: absolute;height:20px; right: 10px; top: 50px;}
+		.login .userinfo {position: absolute; top: 30px; margin-left: 100px;}
+		.login .userinfo .title {font-size: 20px; color: #000000;}
+		.login .userinfo .subtitle {font-size: 14px; color: #000000;border: 1px solid #000000;display: inline-block;padding: 3px;border-radius: 4px;margin-top: 5px;}
+
+		/* 设置条目 */
+		.item {height: 50px;line-height: 50px;padding-left: 15px;background-color: #fff;}
+		.item_ico {float: left;width: 28px;padding: 11px 17px 10px 0;}
+		.item_arrow {float: right;width: 16px;padding: 17px 15px 15px 0;}
+
+		.presshover {background-color: #FAFAFA;}
+
+		.profile_box .tabBar{
+				height: 61px;
+				width: 100%;
+				background-color: #ffffff;
+		}
+		.tabBar .tabBar_inner{
+				float: left;
+				width: 33.3%;
+				height: 100%;
+				background-color:#ffffff;
+				background-size: 1px 100%;
+		}
+
+		.tabBar .tabBar_inner:active{
+				background: #000000;
+				background-size: 1px 100%;
+		}
+		.tabBar .tabBar_inner.last{
+				background: none;
+		}
+		.tabBar .tabBar_inner.last:active{
+				background: #A5A5A5;
+		}
+		.tabBar_inner .text{
+				font-size: 0.7em;
+		}
+		.tabBar_inner .num_top,.tabBar_inner .text{
+				color: #000000;
+				margin-top: 0.5em;
+				display: block;
+				text-align: center;
+		}
+
+		/*可切换的头部*/
+		.custom-headers {
+			height: 45px;
+			background-color: #ffffff;
+		}
+
+		.aui-bar-dark {
+			background-color: #ffffff;
+		}
+		.aui-bar .aui-btn .aui-iconfont {
+		font-size: 22px;
+		line-height: 45px;
+		padding: 0;
+		margin: 0;
+		color: #000000;
+		}
+    </style>
+</head>
+<body>
+	<!--header class="custom-headers">
+			<a class="aui-btn aui-bar-dark aui-pull-right" id="back" tapmode="tap-active" onclick="openSetting();"> <span class="aui-iconfont aui-icon-settings"></span> </a>
+		<div class="aui-title" style="color:#000000;">
+		</div>
+	</header-->
+	<div class="login">
+		<img id="touxiang" src="../../image/avatar.png" class="personal_logo">
+		<div class="userinfo">
+			<div id="p1" class="title">登录</div>
+			<div id="p2"class="subtitle" data-id="personal_info">未认证</div>
+		</div>
+		<!--img src="../../image/arrow.png" class="person_arrow" data-id="personal_info" tapmode onclick="commonOpenWin(this,'personal_info')"-->
+	</div>
+
+	<!-- 第二块 -->
+	<div class="h10"></div>
+	<div class="secondblock">
+		<div class="item" data-id="personal_info" tapmode="presshover" onclick="commonOpenWin(this,'personal_info')">
+			<img src="../../image/icon/ps.png" class="item_ico">
+			<span>个人资料</span>
+			<img src="../../image/icon/arrow.png" class="item_arrow">
+		</div><div class="h1"></div>
+		<div class="item" tapmode="presshover" onclick="">
+			<img src="../../image/icon/at.png" class="item_ico">
+			<span>实名认证</span>
+			<img src="../../image/icon/arrow.png" class="item_arrow">
+		</div><div class="h1"></div>
+		<div class="item" data-id="personal_dt" tapmode="presshover" onclick="commonOpenWin(this,'mtdt')">
+			<img src="../../image/icon/ddt.png" class="item_ico">
+			<span>我的动态</span>
+			<img src="../../image/icon/arrow.png" class="item_arrow">
+		</div><div class="h1"></div>
+		<div class="item" tapmode="presshover" onclick="toAnswer()">
+			<img src="../../image/icon/dt.png" class="item_ico">
+			<span>我的订单</span>
+			<img src="../../image/icon/arrow.png" class="item_arrow">
+		</div><div class="h1"></div>
+	</div>
+	<!--div class="thirdblock">
+		<div class="item" tapmode="presshover" data-id="wxpay" tapmode onclick="commonOpenWin(this,'wxpay')">
+			<img src="../../image/VIP.png" class="item_ico">
+			<span>VIP中心</span>
+			<img src="../../image/icon/arrow.png" class="item_arrow">
+		</div><div class="h1"></div>
+	</div-->
+
+	<!-- 第三块 -->
+	<div class="h10"></div>
+	<div class="thirdblock">
+		<div class="item" tapmode="presshover" onclick="meiQia()">
+			<img src="../../image/icon/service.png" class="item_ico">
+			<span>在线客服</span>
+			<img src="../../image/icon/arrow.png" class="item_arrow">
+		</div><div class="h1"></div>
+		<!--div class="item" tapmode="presshover" tapmode onclick="">
+			<img src="../../image/icon/dt.png" class="item_ico">
+			<span>客服咨询</span>
+			<img src="../../image/icon/arrow.png" class="item_arrow">
+		</div><div class="h1"></div-->
+		<div class="item" tapmode="presshover" onclick="openSetting()">
+			<img src="../../image/icon/setting.png" class="item_ico">
+			<span>设置</span>
+			<img src="../../image/icon/arrow.png" class="item_arrow">
+		</div>
+	</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/commonOpenWinForPersonal.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript">
+apiready = function(){
+	var userID = $api.getStorage('id');
+
+	api.addEventListener({
+		name: 'login_success'
+	}, function(ret,err){
+	});
+
+	if ($api.getStorage('lastUser')) {//getStorage('lastUser')
+		// 有，继续
+		api.ajax({
+			url: 'http://125.124.148.148:81/App/userinfo.php',
+			method: 'POST',
+			cache:'false',
+			timeout:30,
+			dataTpye:'JSON',
+			data: {
+					values: {
+						aid : userID
+					}
+			}
+		},function(ret, err){
+			if( ret ){
+				api.hideProgress();
+				//alert( JSON.stringify( ret));
+				document.getElementById("p1").innerHTML=ret.nickname;
+				document.getElementById("p2").innerHTML=ret.identity;
+				var avatar = ret.avatar;
+				$api.attr($api.byId('touxiang'), 'src', avatar);
+			}else{
+				document.getElementById("p1").innerHTML="请登录";
+				document.getElementById("p2").innerHTML="请寻找身份";
+			}
+		});
+
+	} else {
+
+	}
+
+	api.addEventListener({
+			name: 'info_fresh'
+	}, function(ret, err) {
+		apiready();
+	});
+
+}
+
+function toAnswer() {
+			api.openWin({
+					name: 'message',
+					url: './form/message.html',
+					//页面动画效果
+					animation:{
+							type:"movein",                //动画类型（详见动画类型常量）
+							subType:"from_right",       //动画子类型（详见动画子类型常量）
+							duration:300                //动画过渡时间，默认300毫秒
+					}
+			})
+
+}
+
+function toAnswer1() {
+			api.openWin({
+					name: 'personal_dt',
+					url: './form/personal_dt.html',
+					//页面动画效果
+					animation:{
+							type:"movein",                //动画类型（详见动画类型常量）
+							subType:"from_right",       //动画子类型（详见动画子类型常量）
+							duration:300                //动画过渡时间，默认300毫秒
+					}
+			})
+
+}
+
+
+function toPhoto() {
+			api.openWin({
+					name: 'Photo_dt',
+					url: './photo/personal_dt.html',
+					animation:{
+							type:"movein",                //动画类型（详见动画类型常量）
+							subType:"from_right",       //动画子类型（详见动画子类型常量）
+							duration:300                //动画过渡时间，默认300毫秒
+					}
+			})
+
+}
+
+
+function meiQia() {
+		//创建美洽
+		var mq = api.require('meiQia');
+
+		//配置初始化美洽需要的appkey
+		var param = {
+				appkey: "94c10814bde9124282b5a106758612b4"
+		};
+
+		//初始化美洽
+		mq.initMeiQia(param, function(ret, err) {
+				if (ret) {
+						//alert("初始化成功：\n\n" + JSON.stringify(ret) + "\n\n点击按钮继续");
+						show();
+				} else {
+						alert("初始化失败：\n\n" + JSON.stringify(err));
+				}
+		})
+
+		//配置功能参数，并显示美洽窗口
+		function show() {
+				//设置指定分配给某某客服
+				//var scheduleParam = {
+				//    agentId:"美洽客服的ID"
+				//};
+				//mq.setScheduledAgentOrAgentGroup(scheduleParam);
+
+				//设置用户信息
+				var infoParam = {
+						email: "dev@meiqia.com",
+						comment: "这是备注",
+						avatar: "https://app.meiqia.com/images/logo.png",
+						tags: ["手机APP", "北京"],
+						"服务器": "电信一区"
+				};
+				mq.setClientInfo(infoParam);
+
+				//设置自定义用户Id
+				var customizedIdParam = {
+						id: ""
+				};
+				mq.setLoginCustomizedId(customizedIdParam);
+
+				//设置美洽ID
+				//var clientIdParam = {
+				//    id:"9f0b2d3339edeec591a6e3be5dbafd64"
+				//};
+				//mq.setLoginMQClientId(clientIdParam);
+
+				//设置标题栏背景颜色
+				var titleBarColor = {
+						color: "#ffffff"
+				};
+				mq.setTitleBarColor(titleBarColor);
+
+				//设置title以及按钮颜色
+				var titleColor = {
+						color: "#ffffff"
+				};
+				mq.setTitleColor(titleColor);
+
+				//打开美洽客服界面
+				mq.show();
+		}
+}
+
+
+/*打开设置页面功能模块*/
+function openSetting() {
+	api.openWin({
+		name : 'setingPage.html',
+		url : '../chat/chat_set/setting.html',
+		bounces : true,
+		rect : {
+			x : 0,
+			y : 0,
+			w : 'auto',
+			h : 'auto'
+		},
+		animation:{
+				type:"movein",                //动画类型（详见动画类型常量）
+				subType:"from_right",       //动画子类型（详见动画子类型常量）
+				duration:300                //动画过渡时间，默认300毫秒
+		}
+	});
+};
+
+/*打开设置页面功能模块*/
+function identity() {
+	api.openWin({
+		name : 'win_identity.html',
+		url : 'http://106.14.137.42/login/win_identity.html',
+		bounces : false,
+		rect : {
+			x : 0,
+			y : 0,
+			w : 'auto',
+			h : 'auto'
+		},
+		animation:{
+				type:"movein",                //动画类型（详见动画类型常量）
+				subType:"from_right",       //动画子类型（详见动画子类型常量）
+				duration:300                //动画过渡时间，默认300毫秒
+		}
+	});
+};
+</script>
+</html>

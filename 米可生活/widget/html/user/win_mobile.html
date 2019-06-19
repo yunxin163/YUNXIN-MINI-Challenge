@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/mycommon.css" />
+    <style>
+        p {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        body {
+            background-color: #ffffff;font-family: sans-serif;
+
+        }
+
+        .aui-btn-row:after {
+            border-bottom: 0px solid #c8c7cc;
+            display: block;
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            -webkit-transform-origin: 0 0;
+            -webkit-transform: scale(1);
+            pointer-events: none;
+        }
+
+        .aui-bar .aui-btn .aui-iconfont {
+            font-size: 22px;
+            line-height: 45px;
+            padding: 0;
+            margin: 0;
+            color: #000000;
+        }
+
+        .aui-btn-block {
+            display: block;
+            width: 100%;
+            padding: 12px 12px;
+            margin-bottom: 0;
+            font-size: 18px;
+            border-radius: 60px;
+        }
+
+        .aui-bar {
+            position: relative;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 10;
+            width: 100%;
+            background-color: #ffffff;
+            color: #ffffff;
+            display: table;
+            line-height: 180px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .aui-input-row .aui-input1 {
+            font-size: 14px;
+            margin: 0;
+            display: table-cell;
+            position: relative;
+            float: left;
+            width: 70%;
+            border: none;
+            border-radius: 0;
+        }
+
+        .aui-btn-success {
+            color: #ffffff;
+            background-color: #4faeff;
+            border: 0px solid #ffffff;
+            border-radius: 50px;
+            margin-left: 2px;
+            margin-right: 2px;
+            margin-top: 2px;
+        }
+
+        .aui-btn-success.active,
+        .aui-btn-success:active {
+            color: #fff;
+            background-color: #4faeff;
+            border: 0px solid #ffffff;
+        }
+
+        .aui-form {
+            position: relative;
+            background: #ffffff;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="aui-bar aui-bar-dark">
+        <a class="aui-btn aui-bar-dark aui-pull-left" style="padding-top:15px;background-color: #ffffff;" tapmode="" onclick=" api.closeWin({});">
+            <span class="aui-iconfont aui-icon-close"></span>
+        </a>
+    </header>
+    <div class="aui-form">
+        <div align="center">
+            <img id="touxiang" src="../../icon/icon150x150.png" style="width:100px;height:100px;margin-top:50px;margin-bottom:30px;border-radius:50px;" />
+            <h2 id="name" style="margin-bottom:15px;">Hi 同学</h2>
+            <div>
+                <div class="aui-input-row">
+                    <span class="aui-input-addon aui-iconfont aui-icon-mobilefill"></span>
+                    <input type="number" id="username" class="aui-input1" placeholder="手机:" data-rule="m" data-nullmsg="手机或固话不能为空" data-errmsg="你输入的不是一个手机或者固话" />
+                    <input style=" -webkit-appearance: none;width:65px;border-radius:5px;background-color:#42b1ff;line-height:1.9;padding:0.75px;color:#ffffff;" id="get-code" type="button" value="验证码" onclick="clickButton(this)">
+                </div>
+                <div class="aui-input-row">
+                    <span class="aui-input-addon aui-iconfont aui-icon-lock"></span>
+                    <input type="password" id="code" class="aui-input" placeholder="验证码(4位)" data-nullmsg="请输入验证码" />
+                </div>
+                <div class="aui-btn-row">
+                    <p>
+                        <button class="aui-btn aui-bar-dark aui-btn-block aui-btn-outlined" tapmode onclick="verify()" style="margin-right: 10px;">
+                <span class="aui-iconfont aui-icon-vip"></span>立即绑定
+            </button>
+                    </p>
+                </div>
+            </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../script/hashes.min.js"></script>
+<script type="text/javascript" src="../../script/availdate-v1.0.2.js"></script>
+<script type="text/javascript">
+    //自定义添加avalidate.js中的规则
+    ac.addRule({
+        "m": /^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$|17[0-9]{9}$/
+    });
+
+    var smsVerify = null;
+    apiready = function() {
+
+      document.getElementById("name").innerHTML="Hi"+api.pageParam.nickname+"同学!";
+
+      //alert(api.pageParam.weichatsex);
+
+        var change = api.pageParam.photourl;
+        $api.attr($api.byId('touxiang'), 'src', change);
+
+        smsVerify = api.require('smsVerify');
+        //优化点击事件
+        api.parseTapmode();
+        // 初始化
+        register();
+    };
+
+    // 注册，初始化
+    function register() {
+        smsVerify.register(function(ret, err) {
+            if (ret.status) {
+                //api.alert({msg: '注册成功'});
+            } else {
+                //api.alert({msg: err.code+' 注册失败'});
+            }
+        });
+    }
+
+  //
+  function clickButton(obj) {
+      //var username = $api.val($api.dom('#username'));
+      var phone = document.getElementById("username").value;
+
+      if (phone=="") {
+          api.toast({
+              msg: '手机号不能为空',
+              duration: 2000,
+              location: 'middle'
+          });
+      } else {
+
+         console.log('1');
+         //查询手机号是否注册过
+         api.ajax({
+             url: 'http://125.124.148.148:81/App/usercheck2.php',
+             method: 'POST',
+             cache: 'false',
+             timeout: 30,
+             dataTpye: 'JSON',
+             data: {
+                 values: {
+                     username: phone
+                 }
+             }
+         }, function(ret, err) {
+             //api.hideProgress();
+             if (ret) {
+                 //alert(JSON.stringify(ret));
+                 api.toast({
+                     msg: '当前号码已注册',
+                     location: "middle"
+                 });
+
+             } else {
+                 console.log('2');
+                 clickButton1(obj);
+
+             }
+
+         });
+          //
+      }
+
+  }
+
+
+  // 发短信验证码
+  function clickButton1(obj) {
+
+    var obj = $(obj);
+    obj.attr("disabled", "disabled"); /*按钮倒计时*/
+    var time = 60;
+    var set = setInterval(function() {
+        obj.val(--time + "(s)");
+    }, 1000); /*等待时间*/
+    setTimeout(function() {
+        obj.attr("disabled", false).val("重获取"); /*倒计时*/
+        clearInterval(set);
+    }, 60000);
+    //
+
+    var phone = document.getElementById("username").value;
+    smsVerify.sms({
+        phone: phone,
+    }, function(ret, err) {
+        if (ret.status) {
+
+            api.toast({
+                msg: '发送成功！',
+                duration: 2000,
+                location: 'middle'
+            });
+
+        }else{
+          api.toast({
+              msg: '手机号不能为空！',
+              duration: 2000,
+              location: 'middle'
+          });
+        }
+    });
+
+
+}
+
+
+    // 校验验证码
+    function verify() {
+        var phone = document.getElementById("username").value;
+        var code = document.getElementById("code").value;
+        smsVerify.verify({
+            phone: phone,
+            code: code,
+        }, function(ret, err) {
+            if (ret.status) {
+                reg();
+            } else {
+                //api.alert({msg:' 验证码输入错误'});
+                api.toast({
+                    msg: '输入错误！',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            }
+        });
+    }
+
+    /* 用户注册后与token 关联. */
+    function reg() {
+
+        var photo = api.pageParam.photourl;
+        var username = $api.val($api.byId('username'));
+        var password = Math.floor(Math.random() * 1000000000);
+        var userIdIM = Math.floor(Math.random() * 1000000000);
+        var unionid = api.pageParam.unionid;
+        var weichatsex= api.pageParam.weichatsex;
+        var nickname = api.pageParam.nickname;
+
+
+        api.ajax({
+            url: 'http://125.124.148.148:81/App/user.php',
+            method: 'post',
+            data: {
+                values: {
+                    username: username,
+                    password: password,
+                    avatar: photo,
+                    nickname: nickname,
+                    userIdIM: userIdIM,
+                    identity: '未认证！',
+                    unionid: unionid,
+                    sex:api.pageParam.weichatsex
+                }
+            }
+        }, function(ret, err) {
+
+            api.ajax({
+                url: 'http://125.124.148.148:81/App/usercheck1.php',
+                method: 'POST',
+                cache: 'false',
+                timeout: 30,
+                dataTpye: 'JSON',
+                data: {
+                    values: {
+                        unionid: unionid
+                    }
+                }
+            }, function(ret, err) {
+
+                if (ret) {
+                    api.hideProgress();
+                    $api.setStorage('id', ret.id); // 数据库id
+                    $api.setStorage('lastUser', ret.username); //最后登录用户名
+                    $api.setStorage('nickname', ret.nickname); //用户昵称
+                    $api.setStorage('userIdIM', ret.userIdIM); //用户昵称 userID targetID
+                    $api.setStorage('phone', ret.username); //用户登录名 == 手机号
+                    $api.setStorage('photo', ret.avatar); //用户头像
+
+                    // 优化本地数据，简单加密
+                    _setPrefs(window.userKey, ret, function() {
+                        // 存储token到本地存储中
+                        _setStorage("rong_token", ret.imToken);
+                        // 存储用户信息到本地存储中
+                        _setStorage(window.userKey + "h5", ret);
+                    });
+
+                    api.sendEvent({
+                      name: 'login_success'
+                    });
+
+                } else {
+
+                }
+
+            });
+
+        });
+
+        api.hideProgress({});
+
+        api.openWin({
+            name: 'index',
+            url: '../../index.html',
+            bounces: false
+        });
+
+    }
+
+</script>
+</html>

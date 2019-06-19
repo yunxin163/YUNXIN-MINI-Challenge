@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<title>title</title>
+	<link rel="stylesheet" type="text/css" href="../../../css/aui.css" />
+	<style>
+		body {
+			background: #ffffff;
+		}
+
+		#aui-header {
+			display: block;
+		}
+
+		.custom-headers {
+			display: none;
+			height: 75px;
+		}
+
+		.custom-headers.active {
+			display: block;
+		}
+
+		.aui-list-view-cell {
+			line-height: 36px;
+		}
+
+		#title_tip {
+			line-height: 45px;
+			margin-left: 26px;
+		}
+
+		.aui-btn-block {
+			display: block;
+			width: 92%;
+			padding: 12px 12px;
+			margin-left: 10px;
+			margin-right: 10px;
+			font-size: 18px;
+		}
+
+		.aui-btn-info {
+			color: #ffffff;
+			background-color: #4faeff;
+			border: 1px solid #4faeff;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="aui-content">
+		<ul class="aui-list-view">
+			<li class="aui-list-view-cell">
+				<a class="aui-arrow-right" tapmode onclick="openpassword()"> 账号安全</a>
+			</li>
+			<li class="aui-list-view-cell">
+				<a class="aui-arrow-right" tapmode onclick="cleanCachein()"> 清除缓存 <span class="aui-badge aui-badge-danger" id="cleanCachein">36M</span> </a>
+			</li>
+			<li class="aui-list-view-cell" data-win="list_arrow" data-win="list_arrow" tapmode="hover" onclick="dialogBox_evaluation()">
+				<a class="aui-arrow-right">分享给好友</a>
+			</li>
+			<li class="aui-list-view-cell" tapmode data-win="list_arrow" data-win="list_arrow" data-id="about" onclick="commonOpenWin(this)">
+				<a class="aui-arrow-right"> 关于miko生活<span class="aui-badge aui-badge-danger aui-pull-left ">new</span> </a>
+			</li>
+		</ul>
+		<div class="aui-btn aui-btn-info aui-btn-block aui-btn-sm" tapmode="" data-win="list_thumb" onclick="oneKeyOut()">退出登录</div>
+
+		<script type="text/javascript" src="../../../script/api.js"></script>
+		<script type="text/javascript" src="../../../script/cleanCachein.js"></script>
+		<script type="text/javascript">
+			//公用打开用户各种设置的方法
+			var commonOpenWin = function(obj) {
+				var id = $api.attr(obj, 'data-id');
+				api.openWin({
+					name: 'common',
+					url: './' + id + '.html',
+					bounces: false,
+					opaque: false,
+					bgColor: '#fff',
+					vScrollBarEnabled: true,
+					hScrollBarEnabled: false,
+				});
+			}
+
+
+			//一键退出方法
+			var oneKeyOut = function() {
+				//清除缓存
+				api.clearCache();
+				//清除本地用户存储
+				$api.clearStorage();
+
+				api.closeWidget({
+					id: 'A6003229160857',
+					retData: {
+						name: 'closeWidget'
+					},
+					animation: {
+						type: 'flip',
+						subType: 'from_bottom',
+						duration: 500
+					}
+				});
+
+			}
+
+			var dialogBox;
+			apiready = function() {
+				dialogBox = api.require('dialogBox');
+			}
+
+			function dialogBox_evaluation() {
+				dialogBox.evaluation({
+					styles: {
+						bg: '#fff',
+						corner: 6,
+						w: 260,
+						title: {
+							marginT: 20,
+							size: 16,
+							color: '#000',
+							bold: true
+						},
+						content: {
+							marginT: 20,
+							color: '#111',
+							size: 14
+						},
+						buttons: [{
+							marginB: 0,
+							marginL: 0,
+							w: 260,
+							h: 35,
+							bg: '#fff',
+							color: '#007FFF',
+							size: 16
+						}, {
+							marginB: 10,
+							marginL: 0,
+							w: 260,
+							h: 35,
+							bg: '#fff',
+							color: '#007FFF',
+							size: 16
+						}]
+					},
+					texts: {
+						title: '百度手机助手',
+						content: '给个好评',
+						buttons: [{
+							text: '残忍的飘过~'
+						}, {
+							text: '前往应用商店给个好评'
+						}]
+					},
+					tapClose: true
+				}, function(ret, err) {
+					if (ret) {
+						//alert(JSON.stringify(ret));
+						if (ret.index == '1') {
+							api.openWin({
+								name: 'page1',
+								url: 'https://shouji.baidu.com/software/25129977.html',
+								pageParam: {
+									name: 'test'
+								}
+							});
+							dialogBox.close({
+								dialogName: 'dialogBox_evaluation'
+							});
+
+						}
+					} else {
+						alert(JSON.stringify(err));
+					}
+				});
+			}
+
+			function openpassword() {
+				api.openWin({
+				    name: 'win_pwd',
+				    url: './win_pwd.html'
+				});
+
+			}
+		</script>
+</body>
+
+</html>

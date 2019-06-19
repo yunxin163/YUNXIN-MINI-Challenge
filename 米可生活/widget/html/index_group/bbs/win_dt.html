@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css"/>
+	<style>
+
+
+	</style>
+</head>
+<body>
+	<header class="aui-bar aui-bar-nav" style="padding-top:25px;">
+		<a class="aui-btn aui-pull-left" id="back"> <span class="aui-iconfont aui-icon-left" onclick="api.closeWin({});"></span></a>
+		<div class="aui-title"></div>
+		<a class="aui-pull-right" id="back" tapmode="tap-active" onclick="dialogBox_actionMenu();">分享</a>
+	</header>
+
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+
+	function goback(){
+		api.closeWin();;
+	}
+
+	var id = "";
+	var title;
+	var img;
+	var dialogBox;
+
+	/*初始化*/
+	var   qq;
+	var wx;
+
+	apiready = function(){
+	   dialogBox = api.require('dialogBox');
+	   qq = api.require('qq');
+	   wx = api.require('wx');
+
+		id = api.pageParam.id;//活动id
+
+		api.openFrame({
+				name: 'frm_dt_info',
+				url: 'frm_dt_info.html',
+				pageParam:{id: id},
+				rect: {
+						x: 0,
+						y: 70,
+						w: 'auto',
+						h: 'auto'
+				},
+				bounces: true,
+				opaque: true,
+				vScrollBarEnabled: false
+		});
+
+
+		api.ajax({
+				url: 'http://125.124.148.148:81/App/pictureinfo.php',
+				method: 'POST',
+				dataTpye:'JSON',
+				data:{
+					values:{
+						aid:id
+					}
+				}
+		},function(ret, err){
+				if (ret) {
+						//alert( JSON.stringify( ret ) );
+							title=ret.title;
+							var pic=ret.img;
+							var picArr = pic.split(",");
+
+	            img=picArr[0];
+
+				} else {
+						//alert( JSON.stringify( err ) );
+				}
+		});
+
+
+
+
+
+	};
+
+	function dialogBox_actionMenu() {
+		dialogBox.actionMenu ({
+		    rect:{
+		        h: 150
+		    },
+		    texts:{
+		         cancel: '取消'
+		    },
+		    items:[
+		    {
+		        text: '微信',
+		        icon: 'widget://image/share/wx.png'
+		    },
+		    {
+		        text: 'QQ',
+		        icon: 'widget://image/share/qq.png'
+		    },
+		    {
+		        text: 'QQ空间',
+		        icon: 'widget://image/share/qzone.png'
+		    },
+		    {
+		        text: '朋友圈',
+		        icon: 'widget://image/share/wx-circle.png'
+		    }
+		    ],
+		    styles:{
+		        bg:'#FFF',
+		        column: 4,
+		        itemText: {
+		            color: '#000',
+		            size: 12,
+		            marginT:8
+		        },
+		        itemIcon:{
+		            size:60
+		        },
+		        cancel:{
+		            bg: 'fs://icon.png',
+		            color:'#000',
+		            h: 44 ,
+		            size: 14
+		        }
+		    },
+        tapClose: true
+		}, function(ret){
+		    //alert(JSON.stringify(ret));
+				if (ret.index == '0') {
+						//alert('模块开发中');
+						shareWechat('session');
+				} else if (ret.index == '1'){
+				    Qshare("QFriend");
+				        //shareVideo('session');
+				    }else if (ret.index == '2'){
+				      Qshare("QZone");
+				    }else{
+				       //alert('模块开发中');
+				       shareWechat('timeline');
+				    }
+		});
+	}
+
+
+	function shareWechat(Vscene) {
+		wx.isInstalled(function(ret, err) {
+			if (ret.installed) {
+				//alert(JSON.stringify(ret))
+				var wx = api.require('wx');
+					wx.shareWebpage({
+							apiKey: '',
+							scene: Vscene,
+							title: title,
+							description: '好看，好玩，尽在这里！！！',
+							thumb:'widget://image/icon150x150.jpg',
+							contentUrl: 'http://www.jkjr.art/bbs_detail1.html?id='+id
+					}, function(ret, err) {
+							if (ret.status) {
+
+								dialogBox.close({
+										dialogName: 'actionMenu'
+								});
+
+
+							} else {
+									//alert(err.code);
+							}
+					});
+			} else {
+				//alert(JSON.stringify(err))
+			}
+		});
+
+	}
+
+
+	function Qshare(typel) {
+		var qq = api.require('QQPlus');
+			qq.shareNews({
+				  type:typel,
+			    url: 'http://www.jkjr.art/bbs_detail.html?id='+id,
+			    title: title,
+			    description: '好看，好玩，尽在这里！！！',
+			    imgUrl: img
+	},function(ret,err){
+	  if (ret.status){
+	      //alert("分享成功！");
+	  } else {
+	    //api.alert({msg: JSON.stringify(err)});
+	  }
+  })
+};
+</script>
+</html>

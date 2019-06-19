@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mycommon.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-win.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+			body { background: #ffffff;}
+			 #aui-header{
+						display: block;
+				}
+				 .custom-headers{
+						display: none;
+						height: 75px;
+				}
+
+				#title_tip{
+				line-height:45px;
+				margin-left:40px;
+				}
+
+				 .custom-headers.active{
+						display: block;
+				}
+				.aui-bar-dark {
+				background-color:#4faeff;
+			 }
+
+			 .aui-bar .aui-btn {
+				position: relative;
+				z-index: 20;
+				font-size: 16px;
+				height: 75px;
+				line-height: 75px;
+				padding-top: 10px;
+				padding-bottom: 0;
+				margin: 0;
+				border-radius: 0;
+				border: none;
+			}
+
+    </style>
+</head>
+<body>
+	<header class="aui-bar aui-bar-nav aui-bar-dark" id="aui-header">
+			<div class="custom-headers active">
+				<a class="aui-btn aui-bar-dark aui-pull-left"  id="back" tapmode="tap-active" onclick="Close();" style="">
+				<span class="aui-iconfont aui-icon-pullleft"></span>
+				<span id="title_tip"></span>
+				</a>
+			</div>
+	</header>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mycommon.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		 window.imageClip = api.require('imageClip');
+	};
+	//关闭截图
+	function Close(){
+		api.closeWin({
+			name:'imageWin'
+        });
+
+	}
+	function select(){
+	api.getPicture({
+	    sourceType: 'album',
+	    encodingType: 'jpg',
+	    mediaValue: 'pic',
+	    destinationType: 'url'
+	}, function(ret, err){
+	    if (ret && ret.data!="") {
+
+			api.execScript({
+				name:'imageWin',
+                script: 'openImageClip("'+ ret.data +'");'
+            });
+
+	    } else{
+	        api.alert({msg:err.msg});
+	    }
+	});
+	return false;
+	}
+</script>
+</html>

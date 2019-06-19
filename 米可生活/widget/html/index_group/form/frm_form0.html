@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link type="text/css" rel="stylesheet" href="../../../css/aui/aui.css">
+    <style>
+    body{
+      background-color: #ffffff;
+    }
+
+    .empty{
+      padding-top: 50%;
+      background-color: #ffffff;
+      text-align: center;
+    }
+    .empty .logo img {height: 100px;margin: 0 auto;}
+    .empty .msg {height: 100px; line-height: 50px;opacity:0.3;}
+    </style>
+</head>
+<body>
+  <div id="act-content"></div>
+      <script  id="act-template" type="text/x-dot-template">
+        {{ for(var i=0; i < it.length; i++) { }}
+        <section class="aui-content">
+            <div class="aui-card-list"  style="box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05); margin:5px;">
+                <div class="aui-card-list-header aui-card-list-user">
+                    <div class="aui-card-list-user-name">
+                        <div class="aui-font-size-18">{{=it[it.length-i-1].createAt}}</div>
+                        <div class="aui-font-size-18 aui-text-danger">{{=it[it.length-i-1].status}}</div>
+                    </div>
+                </div>
+                <div class="aui-card-list-content-padded aui-padded-t-5 aui-padded-b-5" tapmode onclick="openDetail('{{=it[it.length-i-1].id}}');">
+                {{=it[it.length-i-1].content}}
+                </div>
+                <div class="aui-card-list-footer aui-font-size-14">
+                    <div class="aui-btn aui-btn-block aui-btn-outlined aui-btn-sm" style="margin:5px;">删除记录</div>
+                    <div class="aui-btn aui-btn-block aui-btn-outlined aui-btn-sm" style="margin:5px;">评价</div>
+                </div>
+            </div>
+        </section>
+
+          {{ }}}
+      </script>
+
+<div class="empty" id="empty1">
+  <div class="logo"><img src="../../../image/empty_page_nothing.png"></div>
+  <div class="msg" style="etter-spacing:22px;">当前没有任何订单</div>
+</div>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../../script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+apiready = function() {
+ //监听是否有新的单子
+  api.addEventListener({
+      name: 'pub_fresh'
+  }, function(ret) {
+    if (ret) {
+      getData();
+    }
+  });
+
+    getData();
+
+    //pull to refresh
+    api.setRefreshHeaderInfo({
+        visible: true,
+        // loadingImgae: 'wgt://image/refresh-white.png',
+        bgColor: '#ffffff',
+        textColor: '#4d4d4d',
+        textDown: '下拉刷新...',
+        textUp: '松开刷新...',
+        showTime: true
+    }, function (ret) {
+      /*
+        api.showProgress({
+            title: '加载中...',
+            modal: false
+        });
+        */
+        if (ret) {
+        getData();
+        }
+      api.hideProgress();
+      api.refreshHeaderLoadDone();
+
+});
+
+
+   api.addEventListener({
+    name: 'scrolltobottom'
+    }, function (ret, err) {
+
+      api.showProgress({
+          title: '加载中...',
+          modal: false
+      });
+
+      getData();
+
+      api.hideProgress();
+      api.refreshHeaderLoadDone();
+    });
+
+
+};
+
+
+
+    function getData() {
+      api.ajax({
+          url: 'http://106.14.137.42/App/psychologyinfo1.php',
+          method: 'POST',
+          dataTpye:'JSON',
+          data: {
+              values: {
+                aid : $api.getStorage('id'),
+                status:"进行中"
+              }
+          }
+      },function(ret, err){
+          if (ret) {
+         ee();
+         //alert( JSON.stringify( ret ) );
+         var content = $api.byId('act-content');
+         var tpl = $api.byId('act-template').text;
+         var tempFn = doT.template(tpl);
+         content.innerHTML = tempFn(ret);
+
+       } else {
+              //alert( JSON.stringify( err ) );
+        /*
+              api.toast({
+                  msg: '当前网络不给力',
+                  duration: 2000,
+                  location: 'middle'
+              });
+              */
+
+
+          }
+      });
+
+    }
+
+  function ee() {
+     document.getElementById('empty1').style.display="none";
+  }
+
+  function show() {
+     document.getElementById('empty1').style.display="block";
+  }
+
+  function openDetail(did) {
+        api.openWin({
+            name: 'dingdan',
+            url: './dingdan.html',
+  //		delay: 200,
+          pageParam: {dataId: did}
+      });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <style>
+    body{
+      background-color: #ffffff;
+    }
+
+    /*大层*/
+    .container{padding-top: 10px;width:95%;margin: 0 auto;}
+    /*瀑布流层*/
+    .waterfall{
+      -moz-column-count:2; /* Firefox */
+      -webkit-column-count:2; /* Safari 和 Chrome */
+      column-count:2; /* 用整数值来定义列数。不允许负值 */
+      -moz-column-gap: 1em;
+      -webkit-column-gap: 1em;
+      column-gap: 1em; /*用长度值来定义列与列之间的间隙。不允许负值*/
+    }
+    /*一个内容层*/
+    .item{
+    padding: 0em;
+    margin: 0 0 1em 0;
+    -moz-page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    break-inside: avoid;
+    border: 0px solid #000;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+    }
+    .item img{
+    width: 100%;
+    margin-bottom:10px;
+    }
+    .item p{
+      padding: 0.5em;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+
+    .empty{
+      padding-top: 50%;
+      background-color: #ffffff;
+      text-align: center;
+    }
+    .empty .logo img {height: 100px;margin: 0 auto;}
+    .empty .msg {height: 100px; line-height: 50px;opacity:0.3;}
+    </style>
+</head>
+<body>
+  <div class="container">
+        <div class="waterfall">
+               <div class="warp"></div>
+        </div>
+  </div>
+
+  <div class="empty" id="empty1">
+    <div class="logo"><img src="../../image/empty_page_nothing.png"></div>
+    <div class="msg" style="etter-spacing:22px;">当前没有任何动态</div>
+  </div>
+
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+  var page = 1;
+  /*初始化*/
+  apiready = function(){
+    setRefreshHeader();
+    api.addEventListener({
+      name: 'scrolltobottom'
+    }, function(ret, err) {
+      page = page + 1;
+      selectPageInfo();
+      api.parseTapmode();
+    });
+    funWinIni();
+  }
+
+  /*网络判断*/
+  function funWinIni(){
+    if( api.connectionType == 'none' ){
+      api.toast({
+          msg: '网络错误，请检查网络',
+          duration: 20,
+          location: 'bottom'
+      });
+    }else{
+      loadListInfo();
+    };
+  }
+
+  var listInfo;
+
+  function loadListInfo(){
+
+    api.ajax({
+        url: 'http://125.124.148.148:81/App/dtinfo.php',
+        method: 'POST',
+        cache:'false',
+        timeout:30,
+        dataTpye:'JSON',
+        data: {
+            values: {
+              aid :api.pageParam.id
+            }
+        }
+    },function(ret, err){
+        if (ret) {
+            //alert( JSON.stringify( ret ) );
+            ee();
+            listInfo = ret;
+            selectPageInfo();
+        } else {
+            //alert( JSON.stringify( err ) );
+        }
+    });
+
+
+
+  }
+
+  function selectPageInfo(){
+    var p = listInfo.length % 10;
+    var p_i = listInfo.length / 10;
+    var pages = 0;
+    if(p == 0) {
+      pages = p_i;
+    }
+    else {
+      pages = p_i + 1;
+    }
+    if(pages < page) {
+      api.toast({
+        msg: ('已经没有数据！')
+      });
+      page = page - 1;
+      return false;
+    }
+    for(var i=(page-1)*10; i<page*10; i++){
+      var lInfo = listInfo[i];
+      if(lInfo) {
+
+
+          var id = lInfo.id,
+          img = lInfo.img,
+          title = lInfo.title,
+          createdAt = lInfo.createdAt;
+
+          //console.log(img.split(",")[0]);
+
+          var img1=img.split(",")[0];
+
+          var html='';
+          html += '<div class="item">';
+          html += '    <img style="background-image: url(../../../image/pic.png);" src="'+img1+'" onclick="toDetail(' + id + ')">';
+          html += '        <p>'+title+'</p>';
+          html += '        <div class="aui-card-list-header aui-card-list-user" style="padding: 0.3rem 0.3rem;">';
+          html += '              <div class="aui-card-list-user-name" style="font-size:0.5rem;">';
+          html += '                 <div class="aui-text-info">ok</div>';
+          html += '                   <div class="aui-font-size-14 text-light">#</div>';
+          html += '              </div>';
+          html += '                <div class="aui-card-list-user-info text-light" style="font-size:0.3rem;"></div>';
+          html += '         </div>';
+          html += '</div>';
+
+          $(".warp").append(html);
+
+          }
+    }
+  }
+
+  /*打开详细页面*/
+  function toDetail(id) {
+    api.openWin({
+      name: 'win_dt' + id,
+      url: '../index_group/bbs/win_dt.html',
+      rect: {
+        x: 0,
+        y: 0,
+        w: api.winWidth,
+        h: api.winHeight
+      },
+      pageParam: {
+        id: id
+      },
+              animation:{
+                  type:"movein",                //动画类型（详见动画类型常量）
+                  subType:"from_right",       //动画子类型（详见动画子类型常量）
+                  duration:300                //动画过渡时间，默认300毫秒
+              },
+      bounces: false,
+      delay: 200
+    });
+  }
+
+  /*下拉刷新方法*/
+  function setRefreshHeader() {
+    api.setRefreshHeaderInfo({
+      visible: true,
+      bgColor: '#ffffff',
+      textColor: '#fff',
+      textDown: '下拉刷新...',
+      textUp: '松开刷新...',
+      showTime: true
+    }, function(ret, err) {
+      $(".warp").html("");
+      page = 1;
+      loadListInfo();
+      api.refreshHeaderLoadDone();
+      // 主动下拉
+      api.refreshHeaderLoading();
+    });
+  }
+
+  function ee() {
+     document.getElementById('empty1').style.display="none";
+  }
+
+  function show() {
+     document.getElementById('empty1').style.display="block";
+  }
+</script>
+</body>
+</html>
