@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css" />
+    <style type="text/css">
+    body{
+      background-color: #ffffff;
+    }
+      .text-light {
+        color: #999;
+      }
+      .text-dark {
+        color: #333 !important;
+      }
+      .bg-white {
+        background: #ffffff;
+      }
+      .aui-list .aui-list-item-label-icon.label-text {
+        line-height: 2.1rem;
+        align-items: baseline;
+        -webkit-align-items: baseline;
+      }
+      .aui-tab-item {
+        width: 2rem;
+        margin: 0 auto;
+      }
+      .aui-card-list {
+    	position: relative;
+    	margin-bottom:0rem;
+    	background: #ffffff;
+    }
+
+    </style>
+</head>
+<body>
+  <script id="news-template" type="text/x-dot-template">
+    <section class="aui-card-list">
+      <div class="aui-card-list-header aui-padded-b-0">
+        <div>
+          {{=it.job}}
+        </div>
+        <div class="aui-text-danger"><small>￥</small><big class="aui-font-size-20">{{=it.income}}</big></div>
+      </div>
+      <div class="aui-card-list-footer aui-text-danger aui-font-size-12 aui-padded-t-0 aui-padded-b-0" style="min-height:1.6rem;">{{=it.createAt}}</div>
+    </section>
+    <section class="aui-content aui-margin-b-15">
+      <ul class="aui-list aui-media-list">
+        <div class="aui-card-list-header aui-card-list-user">
+            <div class="aui-card-list-user-avatar">
+                <img src="../../../image/avatar.png" class="aui-img-round" />
+            </div>
+            <div class="aui-card-list-user-name">
+                <div>{{=it.danwei}}</div>
+            </div>
+            <div class="aui-card-list-user-info">负责人</div>
+        </div>
+      </ul>
+    </section>
+    <section class="aui-content aui-margin-15">
+      <div class="aui-list-item-text">
+          <div class="aui-list-item-title aui-font-size-18">职位要求：</div>
+            <span class="aui-margin-l-5">1、在读本科生，设计类相关专业，一周可提供最少3个工作日；</span></br>
+            <span class="aui-margin-l-5">2、精通PS、AI等设计软件，在指导下能独立完成设计；</span></br>
+            <span class="aui-margin-l-5">3、具有较强的美术功底，色彩把握能力；</span></br>
+            <span class="aui-margin-l-5">4、具有较强的责任心、学习能力和团队意识；</span></br>
+            <span class="aui-margin-l-5">5、能细致认真的完成交代的工作。</span></br>
+      </div>
+    </section>
+    <section class="aui-content aui-margin-15">
+      <div class="aui-list-item-text">
+          <div class="aui-list-item-title aui-font-size-18">岗位职责：</div>
+          <span class="aui-margin-l-5">1、配合设计师完成日常设计工作；</span></br>
+          <span class="aui-margin-l-5">2、完成视觉设计的表现与执行，如轮播banner，主题页面等；</span></br>
+          <span class="aui-margin-l-5">3、完成上级领导安排的日常任务。</span></br>
+      </div>
+    </section>
+</script>
+<div id="content"></div>
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/doT.min.js"></script>
+<script type="text/javascript">
+	/*初始化*/
+	apiready = function(){
+		id = api.pageParam.id;
+		funWinIni();
+	};
+
+	/*网络判断*/
+	function funWinIni(){
+		if( api.connectionType == 'none' ){
+			api.toast({
+			    msg: '网络错误，请检查网络',
+			    duration: 2000,
+			    location: 'bottom'
+			});
+		}else{
+			getContentInfo();
+		};
+	}
+
+	/*读取详细信息*/
+	function getContentInfo(){
+    api.ajax({
+        url: 'http://106.14.137.42/App/jobinfo.php',
+        method: 'POST',
+        dataTpye:'JSON',
+        data:{
+          values:{
+            aid:id
+          }
+        }
+    },function(ret, err){
+        if (ret) {
+            //alert( JSON.stringify( ret ) );
+            var interpolationData = {
+                'job': ret.job,
+                'income': ret.income,
+                'danwei':ret.danwei,
+                'createAt':ret.createAt
+            };
+            var interpolation = doT.template($api.dom('#news-template').innerHTML);
+            $api.dom('#content').innerHTML = interpolation(interpolationData);
+        } else {
+            //alert( JSON.stringify( err ) );
+        }
+    });
+
+	}
+</script>
+</html>
