@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui.css"/>
+	<style>
+	/*å¯¼èˆªæ */
+	.aui-bar {
+		position: relative;
+		top: 0;
+		right: 0;
+		left: 0;
+		z-index: 10;
+		width: 100%;
+		background-color: #ffffff;
+		color: #ffffff;
+		display: table;
+		min-height: 45px;
+		line-height: 45px;
+		font-size: 18px;
+		text-align: center;
+	}
+
+	.back-icon{
+			display: inline-block; width: 40px; height: 40px;
+			background: url(../../../image/back0.png) no-repeat center center;
+			-webkit-background-size: 14px 18px;
+			background-size: 26px 26px;
+			position: absolute; left: 0; bottom: 0;
+			padding-top: 25px;
+
+	}
+
+	.aui-user-view:after {
+	border-top: 0px solid #c8c7cc;
+	display: none;
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	-webkit-transform-origin: 0 0;
+	-webkit-transform: scale(1);
+	pointer-events: none;
+	margin-top:35px;
+	}
+
+
+.aui-tab-item.aui-active {
+color: #ffffff;
+background-color:#42b1ff;
+}
+
+.aui-tab {
+position: relative;
+	background-color: #ffffff;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-wrap: nowrap;
+					flex-wrap: nowrap;
+	-webkit-align-self: center;
+					align-self: center;
+}
+
+.aui-tab-item {
+	width: 100%;
+	height: 2.2rem;
+	line-height: 2.2rem;
+	position: relative;
+	font-size: 0.7rem;
+	text-align: center;
+	color: #212121;
+	margin-left: -1px;
+	-webkit-box-flex: 1;
+					box-flex: 1;
+					border-radius: 45px;
+					box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+					margin:5px;
+}
+
+	</style>
+</head>
+<body>
+	<header class="aui-bar aui-bar-nav" style="padding-top:45px;">
+
+	</header>
+	<div class="aui-tab" id="tab">
+			<div class="aui-tab-item aui-active">全部</div>
+			<div class="aui-tab-item">微电影</div>
+			<div class="aui-tab-item">短视频</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/aui-tab.js" ></script>
+<script type="text/javascript">
+
+	function goback(){
+		api.closeWin();;
+	}
+
+
+	/*初始化*/
+	apiready = function(){
+
+		api.openFrame({
+				name: 'video',
+				url: 'video.html',
+				rect: {
+						x: 0,
+						y: 90,
+						w: 'auto',
+						h: 'auto'
+				},
+				bounces: true,
+				opaque: true,
+				vScrollBarEnabled: false
+		});
+
+	};
+
+	var tab = new auiTab({
+	    element:document.getElementById("tab"),
+	},function(ret){
+	    //console.log(ret)
+			if (ret.index=='1') {
+				console.log(ret.index)
+				 searchByMcm();
+			}else if(ret.index=='2'){
+				console.log(ret.index)
+				 searchBy('生活');
+			}else{
+				console.log(ret.index)
+				 searchBy('club');
+			}
+
+	});
+
+
+	function searchByMcm(){
+
+  	}
+
+
+		function searchBy(typei){
+			console.log(typei);
+				api.execScript({
+					name:"win_video",
+					frameName:"video",
+					script: 'select("'+ typei +'");'
+				});
+	  	}
+</script>
+</html>

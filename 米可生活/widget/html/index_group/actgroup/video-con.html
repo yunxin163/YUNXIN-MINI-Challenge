@@ -1,0 +1,138 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/ZT/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/ZT/actDetail.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css" />
+   <style>
+body{
+	height:auto; min-height:100%;
+  background-color:#ffffff;
+}
+
+.moviePlayer {
+    width: 100%;
+    height: 225px;
+}
+
+.aui-bar-tab{
+    position:fixed;
+}
+.videoimg{
+  width:100%;
+  height:225px;
+  border-radius: 0px;
+}
+   </style>
+</head>
+<body>
+<div class="moviePlayer">
+  <img class="videoimg" src="../../../image/videoimg.png">
+</div>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../../script/doT.min.js"></script>
+<script type="text/javascript">
+    var vHeaderHeight;
+    apiready = function () {
+        var dataId = api.pageParam.dataId;
+        api.ajax({
+            url: 'http://125.124.148.148:81/App/video.php',
+            method: 'POST',
+            dataTpye:'JSON',
+            data:{
+              values:{
+                aid:dataId
+              }
+            }
+        },function(ret, err){
+            if (ret) {
+                //alert( JSON.stringify( ret ) );
+                var url=ret.video;   //视频url
+                var moviePlayer = api.require('moviePlayer');
+            moviePlayer.open({
+                      rect:{
+                      x: 0,
+                      y: 75,
+                      w:api.frameWidth,
+                      h:200
+                      },
+                      styles:{
+                      head:{
+                      bg: 'rgba(0,0,0,0)',
+                      height: 0,
+                      y:0,
+                      title:{
+                      size:20,
+                      color:'#fff',
+                      width:40,
+                      leftMargin:10
+                      },
+                      backSize: 0,
+                      backImg:'widget://image/back.png',
+                      customButtons:[{
+                      w:30,
+                      h:30,
+                      rightMagin:10,
+                      img:'widget://image/image/collect.png',
+                      imgSelected:'fs://image/collectSelected.png',
+                      }]},
+                      foot:{
+                      bg: 'rgba(0,0,0,0.5)',
+                      height: 35,
+                      palyBtn:{
+                      size: 20,
+                      playImg:'widget://image/play.png',
+                      pauseImg:'widget://image/pause.png',
+                      marginLeft:5
+                      },
+                      currentTimeLabel:{
+                      textSize:14,
+                      textColor:"#FFF",
+                      textWidth: 43,
+                      marginLeft:5
+                      },
+                      seekBar:{
+                      sliderImg:'widget://image/circle.png',
+                      sliderW : 20,
+                      sliderH : 20,
+                      progressColor: '#696969',
+                      progressSelected: '#76EE00',
+                      marginLeft:10,
+                      marginRight:10
+                      },
+                      totalTimeLabel:{
+                      textSize:14,
+                      textColor:"#FFF",
+                      textWidth: 43,
+                      marginRight:5
+                      },
+                      fullscreenBtn:{
+                      size:20,
+                      verticalImg:'widget://image/vertical.png',
+                      horizontalImg:'widget://image/horizontal.png',
+                      } }
+                    },
+                       path:url,
+                       autoPlay: true
+                        },function(ret, err){
+                            if(ret){
+                                //alert(JSON.stringify(ret));
+                             } else {
+                                 //alert(JSON.stringify(err));
+                            }
+            });
+
+
+            } else {
+                //alert( JSON.stringify( err ) );
+            }
+        });
+
+    };
+</script>
+</body>
+</html>
