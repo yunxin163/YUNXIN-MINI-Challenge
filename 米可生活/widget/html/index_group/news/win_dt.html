@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css"/>
+	<style>
+
+
+	</style>
+</head>
+<body>
+	<header class="aui-bar aui-bar-nav" style="padding-top:25px;">
+		<a class="aui-btn aui-pull-left" id="back"> <span class="aui-iconfont aui-icon-left" onclick="api.closeWin({});"></span></a>
+		<div class="aui-title"></div>
+		<!--a class="aui-pull-right" id="back" tapmode="tap-active" onclick="dialogBox_actionMenu();">分享</a-->
+	</header>
+
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+
+	function goback(){
+		api.closeWin();;
+	}
+
+	var id = "";
+	var dialogBox;
+
+	/*初始化*/
+	var   qq;
+	var wx;
+
+	    apiready = function(){
+	   dialogBox = api.require('dialogBox');
+	          qq = api.require('qq');
+	      wx = api.require('wx');
+
+		id = api.pageParam.id;//活动id
+
+		api.openFrame({
+				name: 'frm_dt_info',
+				url: 'frm_dt_info.html',
+				pageParam:{id: id},
+				rect: {
+						x: 0,
+						y: 70,
+						w: 'auto',
+						h: 'auto'
+				},
+				bounces: true,
+				opaque: true,
+				vScrollBarEnabled: false
+		});
+
+	};
+
+	function dialogBox_actionMenu() {
+		dialogBox.actionMenu ({
+		    rect:{
+		        h: 150
+		    },
+		    texts:{
+		         cancel: '取消'
+		    },
+		    items:[
+		    {
+		        text: '微信',
+		        icon: 'widget://image/share/wx.png'
+		    },
+		    {
+		        text: 'QQ',
+		        icon: 'widget://image/share/qq.png'
+		    },
+		    {
+		        text: 'QQ空间',
+		        icon: 'widget://image/share/qzone.png'
+		    },
+		    {
+		        text: '朋友圈',
+		        icon: 'widget://image/share/wx-circle.png'
+		    }
+		    ],
+		    styles:{
+		        bg:'#FFF',
+		        column: 4,
+		        itemText: {
+		            color: '#000',
+		            size: 12,
+		            marginT:8
+		        },
+		        itemIcon:{
+		            size:60
+		        },
+		        cancel:{
+		            bg: 'fs://icon.png',
+		            color:'#000',
+		            h: 44 ,
+		            size: 14
+		        }
+		    },
+        tapClose: true
+		}, function(ret){
+			if (ret.index == '0') {
+					//alert('模块开发中');
+			    	shareVideo('session');
+			} else if (ret.index == '1'){
+							alert('模块开发中');
+							//shareVideo('session');
+					}else if (ret.index == '2'){
+							alert('模块开发中');
+					}else{
+						 //alert('模块开发中');
+						 shareVideo('timeline');
+					}
+		});
+	}
+
+
+	function shareVideo(Vscene) {
+		wx.isInstalled(function(ret, err) {
+			if (ret.installed) {
+				//alert(JSON.stringify(ret))
+				var wx = api.require('wx');
+					wx.shareWebpage({
+							apiKey: '',
+							scene: Vscene,
+							title: '分享功能测试',
+							description: '分享内容的描述',
+							thumb: 'widget://icon/icon150x150.png',
+							contentUrl: 'http://www.jkjr.art/article_detail.html?id='+id
+					}, function(ret, err) {
+							if (ret.status) {
+
+								dialogBox.close({
+										dialogName: 'actionMenu'
+								});
+
+							} else {
+									alert(err.code);
+							}
+					});
+			} else {
+				alert(JSON.stringify(err))
+			}
+		});
+
+
+
+	}
+</script>
+</html>
