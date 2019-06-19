@@ -1,0 +1,817 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/aui-slide.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/aui_flex.css" />
+    <style>
+    *{
+    	margin: 0px;
+    	padding: 0px;
+    }
+
+    ul,ol{
+    	list-style: none;
+    }
+    .hide{
+    	display: none;
+    }
+    .show{
+    	display: block;
+    }
+    html,body{
+    	height: 100%;
+    	background-color: #ffffff;
+    }
+
+    .head-tab{
+    	height: 44px;
+    	display: block;
+    	overflow: hidden;
+    	background-color: #FFF;
+    }
+    .head-tab li{
+    	float: left;
+    	width: auto;
+    	line-height: 41px;
+      font-size: 0.8rem;
+    	border-bottom: 2px solid #FFF;
+      margin-left: 15px;
+      margin-right: 15px;
+    	text-align: center;
+      color: #bdbdbb;
+    }
+    .head-tab .active{
+      color: #039be5;
+      border-bottom: 2px solid #039be5;
+      font-size: 0.9rem;
+    }
+
+
+    /*大层*/
+    .container{width:95%;margin: 0 auto;}
+    /*瀑布流层*/
+    .waterfall{
+    -moz-column-count:2; /* Firefox */
+    -webkit-column-count:2; /* Safari 和 Chrome */
+    column-count:2; /* 用整数值来定义列数。不允许负值 */
+    -moz-column-gap: 1em;
+    -webkit-column-gap: 1em;
+    column-gap: 1em; /*用长度值来定义列与列之间的间隙。不允许负值*/
+    }
+    /*一个内容层*/
+    .item{
+    padding: 0em;
+    margin: 0 0 1em 0;
+    -moz-page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    break-inside: avoid;
+    border: 0px solid #000;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+    }
+    .item img{
+    width: 100%;
+    margin-bottom:10px;
+    }
+    .item p{
+      padding: 0.5em;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .figure-list{
+			  margin: 0;
+			  padding: 0;
+			}
+			.figure-list:after{
+			  content: "";
+			  display: block;
+			  clear: both;
+			  height: 0;
+			  overflow: hidden;
+			  visibility: hidden;
+			}
+			.figure-list li{
+			  list-style: none;
+			  float: left;
+			  width: 31.3%;
+			  margin: 2px;
+			}
+			.figure-list figure{
+			  border: 0px solid #000;
+			  position: relative;
+			  width: 100%;
+			  height: 0;
+			  overflow: hidden;
+			  margin: 0;
+			  padding-bottom: 100%; /* 关键就在这里 */
+			  background-position: center;
+			  background-repeat: no-repeat;
+			  background-size: cover;
+			  border-radius: 5px;
+			}
+			.figure-list figure a{
+			  display: block;
+			  position: absolute;
+			  width: 100%;
+			  top: 0;
+			  bottom: 0;
+			}
+
+
+      .activity .item{
+          padding-top:0px;
+      }
+      .activity .pic{
+        overflow: hidden;
+        text-align: center;
+        height: 200px; min-width: 260px; width:100%; margin:0 auto 20px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        background-repeat: no-repeat;
+        background-position: center top;
+        -webkit-background-size: cover;
+        background-size: cover;
+      }
+
+      .activity p{
+        font-size: 14px;
+        padding:1.3em; padding-top: 0; white-space: nowrap; text-overflow: ellipsis;
+        width: 100%; overflow: hidden; color: #212121;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      .activity .item{
+        background-color:#FFFFFF; margin-bottom: 5px;
+        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);
+      }
+
+      .activity .item a{
+        display: block;
+      }
+
+
+      .empty {
+        padding-top: 50%;
+        background-color: #ffffff;
+        text-align: center;
+      }
+
+      .empty .logo img {
+        height: 100px;
+        margin: 0 auto;
+      }
+
+      .empty .msg {
+        height: 100px;
+        line-height: 50px;
+        opacity: 0.3;
+      }
+    </style>
+</head>
+<body>
+    <ul class="head-tab ui-border-b" style="position:fixed;top:0px;left:0px;right:0px;z-index: 10;">
+        <li tapmode onclick="changeTab(0)" class="active">推荐</li>
+        <li tapmode onclick="changeTab(1)">最新</li>
+        <li tapmode onclick="changeTab(2)">附近</li>
+    </ul>
+    <div class="dianliang" id="tab0" style=" margin-top:45px;z-index: -10;">
+      <section class="aui-content">
+            <div id="txtNewsList"></div>
+      </section>
+    </div>
+
+    <div class="shishi hide" id="tab1" style="margin-top:45px;z-index: -30;">
+      <div class="container">
+
+        <div class="waterfall">
+          <div id="act-content">
+
+            <!--div id="act-content" class="item">
+                <img style="background-image: url(../../../image/pic.png);" src="http://seopic.699pic.com/photo/50030/5512.jpg_wh1200.jpg" onclick="openMovieDetail('{{=it[it.length-i-1].id}}');">
+                    <p>厦门旅行家的故事</p>
+                    <div class="aui-card-list-header aui-card-list-user" style="padding: 0.3rem 0.3rem;">
+                    <div class="aui-card-list-user-avatar">
+                             <img src="../../../image/avatar.png" class="aui-img-round">
+                          </div>
+                          <div class="aui-card-list-user-name">
+                             <div class="aui-text-info">摄影师</div>
+                               <div class="aui-font-size-14 text-light">#</div>
+                          </div>
+                           <div class="aui-card-list-user-info text-light" style="font-size:0.5rem;">OK</div>
+                     </div>
+            </div-->
+
+
+          </div>
+    </div>
+
+
+    <script  id="act-template" type="text/x-dot-template">
+          {{ for(var i=0; i < it.length; i++) { }}
+                  <div id="act-content" class="item">
+                      <img style="background-image: url(../../../image/pic.png);" src="{{=it[it.length-i-1].img.split(",")[0]}}" onclick="toDetail('{{=it[it.length-i-1].id}}');">
+                          <p>{{=it[it.length-i-1].title}}</p>
+                          <div class="aui-card-list-header aui-card-list-user" style="padding: 0.3rem 0.3rem;">
+                          <div class="aui-card-list-user-avatar" style="width:1.5rem;" onclick="toPersonal('{{=it[it.length-i-1].UserID}}');">
+                                   <img src="{{=it[it.length-i-1].avatar}}" class="aui-img-round">
+                                </div>
+                                <div class="aui-card-list-user-name" style="font-size:0.5rem;">
+                                   <div class="aui-text-info">{{=it[it.length-i-1].nickname}}</div>
+                                     <div class="aui-font-size-14 text-light">#</div>
+                                </div>
+                                  <div class="aui-card-list-user-info text-light" style="font-size:0.3rem;">发布时间</div>
+
+                           </div>
+                  </div>
+
+        {{ }}}
+    </script>
+
+    <div class="baozhuang hide" id="tab2" style="margin-top:45px;z-index: -10;">
+
+      <div class="empty" id="empty1">
+        <div class="logo"><img src="../../../image/empty_page_nothing.png"></div>
+        <div class="msg" style="etter-spacing:22px;">附近没有活动</div>
+      </div>
+
+      <section class="aui-content">
+          <div id="act-content" ></div>
+
+        <script id="act-template" type="text/x-dot-template">
+      		{{ for(var i=0; i< it.length; i++) { }}
+          <div class="aui-card-list" style="margin:5px;border-radius:15px;">
+              <div class="aui-card-list-header aui-card-list-user">
+                  <div class="aui-card-list-user-avatar">
+                      <img src="../../../image/1.jpg" class="aui-img-round">
+                  </div>
+                  <div class="aui-card-list-user-name">
+                      <div class="aui-text-info">主办方</div>
+                      <div class="aui-font-size-14 text-light">#房地产圈</div>
+                  </div>
+                  <div class="aui-card-list-user-info text-light">31分钟前</div>
+              </div>
+              <div class="aui-card-list-content">
+                  <div class="aui-row aui-row-padded">
+                      <div class="aui-col-xs-12" style="padding:15px;">
+                          <img src="../../../image/1.jpg">
+                      </div>
+                  </div>
+              </div>
+              <div class="aui-card-list-content-padded aui-padded-t-5 aui-padded-b-5">
+                  {{=it[i].obj.title}}
+              </div>
+              <div class="aui-card-list-footer text-light aui-font-size-14">
+                 {{=change(it[i].dis)}}M
+              </div>
+          </div>
+          {{ }}}
+    	</script>
+
+      </section>
+
+    </div>
+
+
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../../script/doT.min.js"></script>
+<script type="text/javascript">
+
+  apiready = function(){
+    init();
+      var dialogBox = api.require('dialogBox');
+
+
+  };
+    var changeTab = function(index){
+        var headTabDom = $api.domAll('.head-tab li');
+        for (var i = 0; i < headTabDom.length; i++) {
+            $api.removeCls(headTabDom[i], 'active');
+            $api.addCls($api.byId('tab' + i), 'hide');
+        };
+        $api.addCls(headTabDom[index], 'active');
+        $api.removeCls($api.byId('tab' + index), 'hide');
+        window.scrollTo(0,0);
+        $api.addCls($api.byId('res'), 'hide');
+
+        if (index=='0') {
+          console.log(0);
+          //status('未接单');
+        } else if(index=='1') {
+          console.log('1');
+          //status('进行中');
+
+        }else if(index=='2'){
+          console.log('2');
+          //status('已完成');
+           //getData1()
+        }else{
+          console.log('3');
+          //getData1();
+        }
+
+    }
+    var init = function(){
+        var opts = {
+            lines: 12, // The number of lines to draw
+            angle: 0, // The length of each line
+            lineWidth: 0.48, // The line thickness
+            pointer: {
+                length: 0.3, // The radius of the inner circle
+                strokeWidth: 0.03, // The rotation offset
+                color: '#00C8FF' // Fill color
+            },
+            limitMax: 'true', // If true, the pointer will not go past the end of the gauge
+            colorStart: '#0094FF',
+            colorStop: '#0094FF', // just experiment with them
+            strokeColor: '#E5E5E5',
+            generateGradient: true
+        };
+        var gauge = new Gauge($api.byId('chart-zdl')).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = 3000; // set max gauge value
+        gauge.animationSpeed = 32; // set animation speed (32 is default value)
+        gauge.set(1150);
+
+        var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+        var lineChartData = {
+            labels : ["01","02","03","04"],
+            datasets : [
+                {
+                    label: "01",
+                    fillColor : "rgba(5,159,178,1)",
+                    strokeColor : "rgba(5,159,178,1)",
+                    pointColor : "rgba(5,159,178,1)",
+                    pointStrokeColor : "rgba(5,159,178,1)",
+                    pointHighlightFill : "rgba(5,159,178,1)",
+                    pointHighlightStroke : "rgba(5,159,178,1)",
+                    data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                },
+                {
+                    label: "02",
+                    fillColor : "rgba(253,113,24,1)",
+                    strokeColor : "rgba(253,113,24,1)",
+                    pointColor : "rgba(253,113,24,1)",
+                    pointStrokeColor : "rgba(253,113,24,1)",
+                    pointHighlightFill : "rgba(253,113,24,1)",
+                    pointHighlightStroke : "rgba(253,113,24,1)",
+                    data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                },
+                {
+                    label: "03",
+                    fillColor : "rgba(31,91,162,1)",
+                    strokeColor : "rgba(31,91,162,1)",
+                    pointColor : "rgba(31,91,162,1)",
+                    pointStrokeColor : "rgba(31,91,162,1)",
+                    pointHighlightFill : "rgba(31,91,162,1)",
+                    pointHighlightStroke : "rgba(31,91,162,1)",
+                    data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                }
+            ]
+
+        }
+        var xxdl_ctx = $api.byId("xxdl-chart").getContext("2d");
+        window.xxdl_line = new Chart(xxdl_ctx).Line(lineChartData, {
+            scaleShowVerticalLines:false,
+            datasetStroke:false,
+            pointDot:false,
+            datasetStroke:false,
+        });
+        var ssqx_ctx = $api.byId("ssqx-chart").getContext("2d");
+        window.ssqx_line = new Chart(ssqx_ctx).Line(lineChartData, {
+            scaleShowVerticalLines:false,
+            datasetStroke:false,
+            pointDot:false,
+            datasetStroke:false,
+        });
+    }
+
+</script>
+<script type="text/javascript">
+var lon;
+var lat;
+var avatar; var nickname;var dialogBox;
+  apiready = function(){
+    var systemType = api.systemType;  // 比如： ios
+	  if (systemType=="ios") {
+	        api.startLocation({
+	         accuracy: '10m',
+	         filter: 1,
+	         autoStop: true
+	     }, function(ret, err){
+	         if(ret && ret.status){
+	              //获取位置信息成功
+	              //alert(JSON.stringify(ret));
+	         }else{
+	              //alert(JSON.stringify(err));
+	         }
+	     });
+	  } else {
+
+	    var aMapLBS = api.require('aMapLBS');
+	     aMapLBS.configManager({
+	         accuracy: 'tenMeters',
+	         filter: 1
+	     }, function(ret, err) {
+	         if (ret.status) {
+	             //alert('定位管理器初始化成功！');
+	             aMapLBS.singleLocation({
+	               timeout: 10
+	           }, function(ret, err) {
+	               if (ret.status) {
+	                   //alert(JSON.stringify(ret));
+										 lon=ret.lon;
+										 lat=ret.lat;
+                     searchByMcm(lon,lat);
+	               }
+	           });
+	           //
+
+	         }
+	     });
+	     //alert(2)
+	  }
+
+    dialogBox = api.require('dialogBox');
+      getData();
+      getData1();
+
+    api.addEventListener({
+          name: 'pub_fresh'
+      }, function(ret, err) {
+        if (ret) {
+           getData();
+           getData1();
+        }
+    });
+
+    api.addEventListener({
+          name: 'scrolltobottom'
+        }, function (ret, err) {
+          api.hideProgress();
+          getData();
+          getData1();
+        });
+  };
+
+
+    function getData() {
+
+      api.ajax({
+          url: 'http://125.124.148.148:81/App/picture.php',
+          method: 'GET'
+      },function(ret, err){
+          if (ret) {
+              //alert( JSON.stringify( ret) );
+              var html='';
+              var obj = $api.byId('txtNewsList');
+              for (var i = 0;  i < ret.length; i++) {
+                var id=ret[ret.length-i-1].id;
+                var title=ret[ret.length-i-1].title;
+                var pic =ret[ret.length-i-1].img;
+                var UserID =ret[ret.length-i-1].UserID;
+                var createAt=ret[ret.length-i-1].createAt;
+                var avatar=ret[ret.length-i-1].avatar;
+                var nickname=ret[ret.length-i-1].nickname;
+                //console.log(pic.toString())
+                //alert(pic.toString());
+
+               html += '<div class="aui-card-list" style="margin:5px;border-radius:15px;box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);">';
+               html += '<div class="aui-card-list-header aui-card-list-user">';
+               html += '<div class="aui-card-list-user-avatar" onclick="toPersonal('+UserID+');">';
+               html += '            <img src="'+avatar+'" class="aui-img-round">';
+               html += '        </div>';
+               html += '        <div class="aui-card-list-user-name">';
+               html += '            <div class="aui-text-info">'+nickname+'</div>';
+               html += '            <div class="aui-font-size-14 text-light">#</div>';
+               html += '        </div>';
+               html += '        <div class="aui-card-list-user-info text-light">'+ ret[ret.length-i-1].createAt+'</div>';
+               html += '    </div>';
+               html += '    <div class="aui-card-list-content-padded aui-padded-t-5 aui-padded-b-5">'+title+'</div>';
+               html += '    <div class="aui-card-list-content" onclick="toDetail('+ ret[ret.length-i-1].id+');">';
+               html += '        <div class="aui-row aui-row-padded"   style="margin:5px;">';
+               html += '<ul class="figure-list">';
+               var picArr = pic.split(",");
+
+               if (picArr.length==1) {
+
+                 //html += '  <div class="aui-col-xs-12"><img src="'+picArr[0]+'" style="background-color:#f2f2f2;width:65%;"/></div>';
+                 html += '   <li style="width:65%;"><figure style="background-image:url('+picArr[0]+')"></figure></li>';
+               }else if (picArr.length==2) {
+                 for (var j = 0; j <picArr.length; j++) {
+
+                   html += '   <li style="width:48.5%;"><figure style="background-image:url('+picArr[j]+')"></figure></li>';
+
+                 //html += '  <div class="aui-col-xs-6"><div class="di"><img src="'+picArr[j]+'" style="background-color:#f2f2f2;border-radius: 5px;"/></div></div>';
+                 }
+               }else{
+                 for (var j = 0; j <picArr.length; j++) {
+
+                   html += '   <li><figure style="background-image:url('+picArr[j]+')"></figure></li>';
+
+                 //html += '<div class="aui-list-view-cell aui-img aui-col-xs-4"><img class="aui-img-object" src="'+picArr[j]+'"></div>';
+                 }
+               }
+
+               html += '</ul>';
+               html += '        </div>';
+               html += '    </div>';
+
+
+               html += '<div class="aui-card-list-footer text-light aui-font-size-14" style="background-color:#ffffff;border-radius:15px;">';
+               html += '    <div><i class="aui-iconfont aui-icon-display"></i> 888</div>';
+               html += '    <div><i class="aui-iconfont aui-icon-comment"></i> 666</div>';
+               html += '    <div><i class="aui-iconfont aui-icon-laud"></i> 888 </div>';
+               html += '</div>';
+
+
+               html += '</div><div class="h1"></div>';
+
+
+               $api.html(obj, html);
+               //$(obj).append(html);
+               api.hideProgress();
+               api.parseTapmode();
+
+
+              }
+
+          } else {
+              //alert( JSON.stringify( err ) );
+          }
+      });
+    }
+
+
+
+    function getData1() {
+  	  api.ajax({
+  	      url: 'http://125.124.148.148:81/App/picture.php',
+  	      method: 'GET'
+  	  },function(ret, err){
+  	      if (ret) {
+  	     //alert( JSON.stringify( ret ) );
+  	     var content = $api.byId('act-content');
+  	     var tpl = $api.byId('act-template').text;
+  	     var tempFn = doT.template(tpl);
+  	     content.innerHTML = tempFn(ret);
+
+  	      } else {
+  	        //  alert( JSON.stringify( err ) );
+  	      }
+  	  });
+
+  	}
+
+    //时间差计算
+    function sj(date1) {
+        var date = new Date(date1);
+        var sj = date.valueOf();
+        var nowt = new Date().getTime();
+        var a = new Date(parseInt(sj));
+        var b = new Date(parseInt(nowt));
+        var date1 = Date.parse(format(a, 4));
+        var date2 = Date.parse(format(b, 4));
+        var xxsj = Math.ceil((date2 - date1) / (60 * 1000))
+        if (xxsj <= 1 && xxsj >= 0) {
+            return "就刚才";
+        } else if (xxsj <= 10 && xxsj > 1) {
+            return xxsj + "分钟前";
+        } else if (xxsj <= 60 && xxsj > 10) {
+            return format(a, 1);
+        } else if (xxsj <= 1440 && xxsj > 60) {
+            return format(a, 1);
+        } else if (xxsj <= 10080 && xxsj > 1440) {
+            return format(a, 2);
+        } else if (xxsj > 10080) {
+            return format(a, 3);
+        } else {
+            return format(a, 3);
+        }
+    }
+
+    //格式化时间
+    function format(now, type) {
+        var show_day = new Array('星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六');
+        var year = now.getFullYear().toString();
+        var month = (now.getMonth() + 1).toString();
+        var day = (now.getDate()).toString();
+        var tian = now.getDay().toString();
+        var hour = (now.getHours()).toString();
+        var minute = (now.getMinutes()).toString();
+        var second = (now.getSeconds()).toString();
+        if (hour.length == 1) {
+            hour = "0" + hour;
+        }
+        if (minute.length == 1) {
+            minute = "0" + minute;
+        }
+        if (second.length == 1) {
+            second = "0" + second;
+        }
+        if (type == 1) {
+            var dateTime = hour + ":" + minute;
+        } else if (type == 2) {
+            var dateTime = show_day[tian] + " " + hour + ":" + minute
+        } else if (type == 3) {
+            var dateTime = year + "-" + month + "-" + day
+        } else if (type == 4) {
+            var dateTime = year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
+        } else if (type == 5) {
+            var dateTime = show_day[tian];
+        }
+        return dateTime;
+    }
+
+
+    /*打开详细页面*/
+    function toPersonal(userID) {
+
+
+      api.addEventListener({
+        name: 'login_success'
+      }, function(ret,err){
+      });
+
+      //如果有登陆账号，执行相关函数
+      if ($api.getStorage('lastUser')) {
+        //打开发布模块
+        api.openWin({
+          name: 'win_friend_info' + userID,
+          url: '../../contact/win_friend_info.html',
+          rect: {
+            x: 0,
+            y: 0,
+            w: api.winWidth,
+            h: api.winHeight
+          },
+          pageParam: {
+            data_id: userID
+          },
+          animation: {
+            type: "movein", //动画类型（详见动画类型常量）
+            subType: "from_right", //动画子类型（详见动画子类型常量）
+            duration: 300 //动画过渡时间，默认300毫秒
+          },
+          bounces: false,
+          delay: 300
+        });
+
+      } else {
+        //弹出弹窗进行登陆事件
+        dialogBox_alert();
+      }
+
+    }
+
+
+    /*弹出功能模块*/
+    function dialogBox_alert() {
+        dialogBox.alert({
+        texts: {
+            title: '确认',
+            content: '您是游客状态，是否登录',
+            leftBtnTitle: '取消',
+            rightBtnTitle: '确认'
+        },
+        styles: {
+            bg: '#fff',
+            corner: 5,
+            w: 300,
+            title: {
+                marginT: 20,
+                icon: 'widget://res/ug_check_small.png',
+                iconSize: 20,
+                titleSize: 14,
+                titleColor: '#000'
+            },
+            content: {
+                color: '#000',
+                size: 16
+            },
+            left: {
+                marginB: 7,
+                marginL: 20,
+                w: 130,
+                h: 35,
+                corner: 2,
+                bg: '#ffffff',
+                size: 16
+            },
+            right: {
+                marginB: 7,
+                marginL: 10,
+                w: 130,
+                h: 35,
+                corner: 2,
+                bg: '#ffffff',
+                size: 16
+            }
+        }
+    }, function(ret) {
+        if (ret.eventType == 'left') {
+
+            var dialogBox = api.require('dialogBox');
+            dialogBox.close({
+                dialogName: 'alert'
+            });
+        }
+        if (ret.eventType == 'right') {
+
+          var dialogBox = api.require('dialogBox');
+          dialogBox.close({
+              dialogName: 'alert'
+          });
+          goPageLogin();
+        }
+    });
+    }
+
+
+    /*跳转到登陆页面功能模块*/
+    	function goPageLogin() {
+    		api.openWin({
+    			name : 'win_login',
+    			url : '../../user/win_login.html',
+          bounces: false,
+          delay: 200
+    		});
+    	};
+
+    /*打开详细页面*/
+    function toDetail(dt_id) {
+      api.openWin({
+        name: 'win_dt',
+        url: 'win_dt.html',
+        rect: {
+          x: 0,
+          y: 0,
+          w: api.winWidth,
+          h: api.winHeight
+        },
+        pageParam: {
+          id: dt_id
+        },
+        animation: {
+          type: "movein", //动画类型（详见动画类型常量）
+          subType: "from_right", //动画子类型（详见动画子类型常量）
+          duration: 300 //动画过渡时间，默认300毫秒
+        },
+        bounces: false,
+        delay: 300
+      });
+    }
+
+    function openVideoDetail(did) {
+        api.openWin({
+            name: 'VideoDetail',
+            url: '../video/videoDetail.html',
+    //		delay: 200,
+            pageParam: {dataId: did}
+        });
+    }
+
+
+
+    function searchByMcm() {
+      api.ajax({
+          url: 'http://125.124.148.148:81/mongo/query_location.php',
+          method: 'GET',
+          dataTpye: 'JSON'
+      }, function(ret, err) {
+          if (ret) {
+              alert(JSON.stringify(ret.results));
+              ee();
+              var content = $api.byId('act-content');
+              var tpl = $api.byId('act-template').text;
+              var tempFn = doT.template(tpl);
+              content.innerHTML = tempFn(ret.results);
+
+          } else {
+              //alert(JSON.stringify(err));
+          }
+      });
+
+  }
+
+
+    function ee() {
+  	    document.getElementById('empty1').style.display = "none";
+  	}
+
+
+  	function change(distance) {
+  		var dist=Math.floor(distance);
+  		return dist;
+  	}
+</script>
+</body>
+</html>
