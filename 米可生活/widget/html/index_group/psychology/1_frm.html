@@ -1,0 +1,353 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css" />
+    <style type="text/css">
+        .text-white {
+            color: #ffffff !important;
+        }
+        .aui-grid [class*=aui-col-] {
+            padding: 0.75rem 0;
+        }
+
+        .imglist {
+  				clear: both;
+  				margin:1rem;
+  			}
+  			.imglist img {
+  				width: 8rem;
+  				height: 8rem;
+  			}
+  			.add {
+  				width: 4rem;
+  				height: 4rem;
+  				background: url(../../../image/icon-img.png) no-repeat;
+  				background-size: 100% 100%;
+  				float: left;
+  				margin-right: 1rem;
+  			}
+  			.addimg {
+  				float: left;
+  				height: 4rem;
+  				width: 4rem;
+  				margin-right: 1rem;
+  				margin-bottom: 1rem;
+  			}
+  			.addimg img {
+  				width: 4rem;
+  				height: 4rem;
+  			}
+  			.addimg .x img {
+  				width: 0.8rem;
+  				height: 0.8rem;
+  				position: relative;
+  				top: -4.4rem;
+  				left: -0.5rem;
+  			}
+  			/*遮罩层*/
+  			.mask {
+  				width: 100%;
+  				height: 100%;
+  				background: rgba(0, 0, 0, .5);
+  				position: fixed;
+  				top: 0;
+  				left: 0;
+  				z-index: 999;
+  				display: none;
+  			}
+  			.alert {
+  				width: 12rem;
+  				height: 7.42rem;
+  				border-radius: 0.2rem;
+  				background: #fff;
+  				font-size: 0.75rem;
+  				text-align: center;
+  				position: absolute;
+  				left: 50%;
+  				top: 50%;
+  				margin-left: -6rem;
+  				margin-top: -4.2rem;
+  			}
+  			.alert p:nth-child(1) {
+  				line-height: 5rem;
+  				border-bottom: 1px solid #EBEBEB;
+  				font-size: 0.9rem;
+  			}
+  			.alert p:nth-child(2) span {
+  				display: inline-block;
+  				width: 49%;
+  				height: 2.4rem;
+  				line-height: 2.4rem;
+  				float: left;
+  				font-size: 0.8rem;
+  			}
+  			.cancel {
+  				border-right: 1px solid #EBEBEB;
+  				color: #00BB3D;
+  			}
+  			.sure {
+  				color: #F60;
+  			}
+
+        button, .aui-btn {
+
+          font-weight: 400;
+          font-family: inherit;
+          text-align: center;
+          margin-top: 15px;
+          color:#ffffff;
+          background: #4faeff;
+          text-overflow: ellipsis;
+          vertical-align: middle;
+          bottom: 0;
+          border-radius: 0;
+        }
+        .aui-btn:active {
+          color: #ffffff;
+          background-color: #bdbdbd;
+        }
+
+
+    </style>
+</head>
+<body>
+    <section class="aui-content">
+      <ul class="aui-list aui-list-in aui-margin-b-15">
+          <li class="aui-list-item">
+              <div class="aui-list-item-label-icon">
+                  <i class="aui-iconfont aui-icon-cart aui-text-info"></i>
+              </div>
+              <div class="aui-list-item-inner aui-list-item-arrow">
+                  <div class="aui-list-item-title">需求简介</div>
+                  <div class="aui-list-item-right"></div>
+              </div>
+          </li>
+
+          <li class="aui-list-item">
+              <div class="aui-list-item-input">
+                  <textarea id="content" placeholder="尽可能描述"></textarea>
+              </div>
+          </li>
+
+      </ul>
+
+
+        <ul class="aui-list aui-list-in aui-margin-b-15">
+          <li class="aui-list-item">
+              <div class="aui-list-item-label-icon">
+                  <i class="aui-iconfont aui-icon-location aui-text-info"></i>
+              </div>
+              <div class="aui-list-item-inner aui-list-item-arrow" onclick="type0()">
+                  <div class="aui-list-item-title">服务类型</div>
+                  <div class="aui-list-item-right" id="p0"></div>
+              </div>
+          </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-label-icon">
+                    <i class="aui-iconfont aui-icon-location aui-text-info"></i>
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-title">服务时间</div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-label-icon">
+                    <i class="aui-iconfont aui-icon-like aui-text-danger"></i>
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow" onclick="address()">
+                    <div class="aui-list-item-title">服务地点</div>
+                    <div class="aui-list-item-right" id="p2"></div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-label-icon">
+                    <i class="aui-iconfont aui-icon-image aui-text-info"></i>
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow" onclick="sex()">
+                    <div class="aui-list-item-title">性别要求</div>
+                    <div class="aui-list-item-right" id="p3"></div>
+                </div>
+            </li>
+        </ul>
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-item">
+                <div class="aui-list-item-label-icon">
+                    <i class="aui-iconfont aui-icon-cart aui-text-info"></i>
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow" onclick="topic();">
+                    <div class="aui-list-item-title">收费模式</div>
+                    <div class="aui-list-item-right" id="p1"></div>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <div class="aui-btn aui-btn-block" onclick="pub()">立即下单</div>
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+var img1,photourl;
+
+apiready = function() {
+
+};
+
+function type() {
+    api.actionSheet({
+      title : '服务类型',
+      cancelTitle : '取消',
+      buttons : ['付费', '免费']
+    }, function(ret, err) {
+      if (ret) {
+        //alert(JSON.stringify(ret.buttonIndex));
+        if (ret.buttonIndex==1) {
+        document.getElementById("p1").innerHTML="付费";
+        } else if (ret.buttonIndex==2) {
+        document.getElementById("p1").innerHTML="免费";
+        }else{}
+
+      }
+    });
+}
+
+
+function type0() {
+    api.actionSheet({
+      title : '服务类型',
+      cancelTitle : '取消',
+      buttons : ['跑腿', '陪玩']
+    }, function(ret, err) {
+      if (ret) {
+        //alert(JSON.stringify(ret.buttonIndex));
+        if (ret.buttonIndex==1) {
+        document.getElementById("p0").innerHTML="跑腿";
+        } else if (ret.buttonIndex==2) {
+        document.getElementById("p0").innerHTML="陪玩";
+        }else{}
+
+      }
+    });
+}
+
+
+  function topic() {
+			api.actionSheet({
+				title : '模式',
+				cancelTitle : '取消',
+				buttons : ['付费', '免费']
+			}, function(ret, err) {
+				if (ret) {
+					//alert(JSON.stringify(ret.buttonIndex));
+					if (ret.buttonIndex==1) {
+					document.getElementById("p1").innerHTML="付费";
+					} else if (ret.buttonIndex==2) {
+					document.getElementById("p1").innerHTML="免费";
+          }else{}
+
+				}
+			});
+	}
+
+
+  function address() {
+      api.actionSheet({
+        title : '帮助地点',
+        cancelTitle : '取消',
+        buttons : ['校园', '商圈']
+      }, function(ret, err) {
+        if (ret) {
+          //alert(JSON.stringify(ret.buttonIndex));
+          if (ret.buttonIndex==1) {
+          document.getElementById("p2").innerHTML="校园";
+          } else if (ret.buttonIndex==2) {
+          document.getElementById("p2").innerHTML="商圈";
+          }else{}
+
+        }
+      });
+  }
+
+
+  function sex() {
+      api.actionSheet({
+        title : '性别要求',
+        cancelTitle : '取消',
+        buttons : ['男生', '女生','不限']
+      }, function(ret, err) {
+        if (ret) {
+          //alert(JSON.stringify(ret.buttonIndex));
+          if (ret.buttonIndex==1) {
+          document.getElementById("p3").innerHTML="男生";
+          } else if (ret.buttonIndex==2) {
+          document.getElementById("p3").innerHTML="女生";
+          }else{
+          document.getElementById("p3").innerHTML="不限";
+          }
+
+        }
+      });
+  }
+
+
+
+  function pub() {
+
+  var content = $api.val($api.byId('content'));
+
+   if (content!=="") {
+
+     api.ajax({
+         url: 'http://106.14.137.42/insert_run.php',
+         method: 'post',
+         data: {
+           values: {
+               content: $("#content").val(),
+               UserID: $api.getStorage('id'),
+               identifier:new Date().getTime(),
+               topic:$("#p0").val(),
+               status:"未接单",
+               lon:'124',
+               lat:'865'
+           }
+         }
+     },function(ret, err){
+
+
+
+       api.toast({
+           msg: '发布成功',
+           duration: 2000,
+           location: 'middle'
+       });
+
+       //监听发布成功
+       api.sendEvent({
+           name: 'pub_fresh'
+       }, function(ret, err) {
+       });
+
+
+       api.closeWin({});
+
+     });
+
+
+
+   }else{
+     api.toast({
+         msg: '请完善信息',
+         duration: 2000,
+         location: 'middle'
+     });
+   }
+
+  }
+
+
+</script>
+</html>

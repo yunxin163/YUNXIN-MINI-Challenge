@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <link type="text/css" rel="stylesheet" href="../../../css/aui/aui.css">
+  <style>
+  html,body{
+    height: 100%;
+    background-color: #ffffff;
+  }
+
+  .aui-card-list-footer .aui-iconfont {
+  	font-size: 0.7rem;
+  }
+
+  .aui-bar-dark {
+	background-color: #4faeff;
+  color:#ffffff;
+}
+  </style>
+</head>
+<body>
+  <div id="act-content"></div>
+
+  <!--section class="aui-content">
+      <div class="aui-card-list" tapmode onclick="openMovieDetail('{{=it[it.length-i-1].id}}');" style="box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05); margin:5px;">
+          <div class="aui-card-list-header aui-card-list-user">
+              <div class="aui-card-list-user-name">
+                  <div class="aui-font-size-18">{{=it[it.length-i-1].title}}</div>
+                  <div class="aui-font-size-18 aui-text-danger">距离:1km</div>
+              </div>
+          </div>
+          <div class="aui-card-list-content-padded aui-padded-t-5 aui-padded-b-5">
+            {{=it[it.length-i-1].content}}
+          </div>
+          <div class="aui-card-list-footer aui-font-size-10" style="padding-bottom:0px;">
+              <div>
+                  <i class="aui-iconfont aui-icon-date">{{=it[it.length-i-1].type}}</i>
+              </div>
+              <div>
+                <i>{{=it[it.length-i-1].createAt}}</i>
+              </div>
+          </div>
+          <div class="aui-card-list-footer aui-font-size-14">
+              <div>
+                  <i class="aui-iconfont aui-icon-date">{{=it[it.length-i-1].createAt}}</i>
+              </div>
+          </div>
+      </div>
+  </section-->
+
+      <script  id="act-template" type="text/x-dot-template">
+        {{ for(var i=0; i < it.length; i++) { }}
+          <section class="aui-content">
+              <div class="aui-card-list" tapmode onclick="openMovieDetail('{{=it[it.length-i-1].id}}');" style="box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05); margin:5px;">
+                  <div class="aui-card-list-header aui-card-list-user">
+                      <div class="aui-card-list-user-name">
+                          <div class="aui-font-size-18">{{=it[it.length-i-1].topic}}</div>
+
+                          
+                      </div>
+                  </div>
+                  <div class="aui-card-list-content-padded aui-padded-t-5 aui-padded-b-5">
+                    {{=it[it.length-i-1].content}}
+                  </div>
+                  <div class="aui-card-list-footer aui-font-size-14">
+                      <div>
+                          <i class="aui-iconfont aui-icon-date">{{=it[it.length-i-1].createAt}}</i>
+                      </div>
+                  </div>
+              </div>
+          </section>
+          {{ }}}
+      </script>
+</body>
+    <script type="text/javascript" src="../../../script/api.js"></script>
+    <script type="text/javascript" src="../../../script/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../../../script/demo.js"></script>
+    <script type="text/javascript" src="../../../script/doT.min.js"></script>
+    <script type="text/javascript">
+    var mcm = null;
+    var query = null;
+    apiready = function() {
+     //监听是否有新的单子
+      api.addEventListener({
+          name: 'pub_fresh'
+      }, function(ret) {
+        if (ret) {
+          getData();
+        }
+      });
+
+        getData();
+
+        //pull to refresh
+        api.setRefreshHeaderInfo({
+            visible: true,
+            // loadingImgae: 'wgt://image/refresh-white.png',
+            bgColor: '#ffffff',
+            textColor: '#4d4d4d',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: true
+        }, function (ret) {
+            api.showProgress({
+                title: '加载中...',
+                modal: false
+            });
+            if (ret) {
+            getData();
+            }
+          api.hideProgress();
+          api.refreshHeaderLoadDone();
+    });
+
+
+       api.addEventListener({
+        name: 'scrolltobottom'
+        }, function (ret, err) {
+
+          api.showProgress({
+              title: '加载中...',
+              modal: false
+          });
+
+          getData();
+
+          api.hideProgress();
+          api.refreshHeaderLoadDone();
+        });
+  };
+
+
+        function getData() {
+          api.ajax({
+              url: 'http://106.14.137.42/App/psychology.php',
+              method: 'GET'
+          },function(ret, err){
+              if (ret) {
+             //alert( JSON.stringify( ret ) );
+             var content = $api.byId('act-content');
+             var tpl = $api.byId('act-template').text;
+             var tempFn = doT.template(tpl);
+             content.innerHTML = tempFn(ret);
+
+              } else {
+                  //alert( JSON.stringify( err ) );
+                  api.toast({
+                      msg: '当前网络不给力',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+
+              }
+          });
+
+        }
+
+
+
+          /*打开详细页面*/
+          function toPersonal(userID) {
+            api.openWin({
+              name: 'friend_info'+userID,
+              url: '../contact/friend_info.html',
+              rect: {
+                x: 0,
+                y: 0,
+                w: api.winWidth,
+                h: api.winHeight
+              },
+              pageParam: {
+                userID: userID
+              },
+                      animation:{
+                          type:"movein",                //动画类型（详见动画类型常量）
+                          subType:"from_right",       //动画子类型（详见动画子类型常量）
+                          duration:300                //动画过渡时间，默认300毫秒
+                      },
+              bounces: false,
+              delay: 200
+            });
+          }
+
+
+          /*打开详细页面*/
+
+          function openMovieDetail(did) {
+              api.openWin({
+                  name: 'win_dt',
+                  url: 'win_dt.html',
+                  delay: 400,
+                  pageParam: {
+                    id: did
+                  }
+              });
+          }
+    </script>
+</html>
