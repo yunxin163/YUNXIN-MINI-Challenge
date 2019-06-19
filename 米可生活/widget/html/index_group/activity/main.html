@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../css/aui/aui.css" />
+    <style>
+    	html,body {
+            height: 100%;
+            background-color: #ffffff;
+        }
+        #content{
+        	position:relative;
+        	height:250px;
+					width:100%;
+			    vertical-align: middle;
+					background-image: url('../../../image/backg.jpg');
+        }
+        .blank{
+        	margin-top: 20px;
+        	position:relative;
+        	width:100%;
+        	height:100%;
+        	background-color: #ffffff;
+        }
+
+
+				/*大层*/
+				.container{width:95%;margin: 0 auto;}
+				/*瀑布流层*/
+				.waterfall{
+				-moz-column-count:2; /* Firefox */
+				-webkit-column-count:2; /* Safari 和 Chrome */
+				column-count:1; /* 用整数值来定义列数。不允许负值 */
+				-moz-column-gap: 1em;
+				-webkit-column-gap: 1em;
+				column-gap: 1em; /*用长度值来定义列与列之间的间隙。不允许负值*/
+				}
+				/*一个内容层*/
+				.item{
+				padding: 0em;
+				margin: 0 0 1em 0;
+				-moz-page-break-inside: avoid;
+				-webkit-column-break-inside: avoid;
+				break-inside: avoid;
+				border: 0px solid #000;
+				box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+				}
+				.item img{
+				width: 100%;
+				margin-bottom:10px;
+				}
+				.item p{
+					padding: 0.5em;
+					width: 100%;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+
+
+    </style>
+</head>
+<body>
+	<div class="container">
+
+		<div class="waterfall">
+			<div id="act-content"></div>
+		</div>
+
+			<script  id="act-template" type="text/x-dot-template">
+						{{ for(var i=0; i < it.length; i++) { }}
+										<div id="act-content" class="item">
+												<img style="background-image: url(../../../image/pic.png);" src="{{=it[it.length-i-1].pic}}" onclick="openMovieDetail('{{=it[it.length-i-1].id}}');">
+														<p>{{=it[it.length-i-1].title}}</p>
+														<p>{{=it[it.length-i-1].summary}}</p>
+										</div>
+					{{ }}}
+			</script>
+
+	</div>
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../../script/doT.min.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+
+
+
+				api.addEventListener({
+			      name: 'pub_fresh'
+			  }, function(ret, err) {
+			    if (ret) {
+			      getData();
+			    } else {
+
+			    }
+			  });
+
+			getData();
+
+			//pull to refresh
+			api.setRefreshHeaderInfo({
+			    visible: true,
+			    // loadingImgae: 'wgt://image/refresh-white.png',
+			    bgColor: '#ffffff',
+			    textColor: '#4d4d4d',
+			    textDown: '下拉刷新...',
+			    textUp: '松开刷新...',
+			    showTime: true
+			}, function (ret, err) {
+			  api.showProgress({
+			      title: '加载中...',
+			      modal: false
+			  });
+
+			    if (ret) {
+
+			    getData();
+
+			    }
+
+			  api.hideProgress();
+			  api.refreshHeaderLoadDone();
+
+			});
+
+
+			    api.addEventListener({
+			            name: 'scrolltobottom'
+			        }, function (ret, err) {
+			          api.showProgress({
+			              title: '加载中...',
+			              modal: false
+			          });
+
+			          getData();
+
+			          api.hideProgress();
+			          api.refreshHeaderLoadDone();
+
+			        });
+
+	};
+
+
+
+	function like(){
+	    document.getElementById("like").style.color='red';
+	}
+
+	function getData() {
+	  api.ajax({
+	      url: 'http://106.14.137.42/App/photograph.php',
+	      method: 'GET'
+	  },function(ret, err){
+	      if (ret) {
+	     //alert( JSON.stringify( ret ) );
+	     var content = $api.byId('act-content');
+	     var tpl = $api.byId('act-template').text;
+	     var tempFn = doT.template(tpl);
+	     content.innerHTML = tempFn(ret);
+
+	      } else {
+	          alert( JSON.stringify( err ) );
+	      }
+	  });
+
+
+	}
+
+
+	function openMovieDetail(id) {
+		  api.openWin({
+		      name: 'info',
+		      url: 'info.html',
+		      pageParam: {
+		          id: id
+		      },
+					animation: {
+	          type: "movein", //动画类型（详见动画类型常量）
+	          subType: "from_right", //动画子类型（详见动画子类型常量）
+	          duration: 300 //动画过渡时间，默认300毫秒
+	        },
+	        bounces: false,
+	        delay: 300
+
+		  });
+
+
+  }
+</script>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<title>title</title>
+	<link rel="stylesheet" type="text/css" href="../../../css/api.css" />
+	<style>
+		body {}
+
+		.common_image {
+			width: 30px;
+			height: 30px;
+			background-image: url(../../../image/about_log.png);
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+	</style>
+	<!-- imageCache之后会在下方插入标签 -->
+	<style>
+		.id_00001 {
+			background-image: url(../../../image/demo3.png);
+			/*这样会覆盖掉默认图片*/
+		}
+	</style>
+</head>
+
+<body>
+	<div class="id_00001 common_image"></div>
+	<div class="common_image"></div>
+	<div class="id_00001 common_image"></div>
+	<div class="id_00001 common_image"></div>
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function() {
+		// imageCache('id_00001', '//远程地址')
+		/* 调用imageCache的时候，在for循环messageList的时候，根据targetId区分自己还是对方
+		可以把双方的信息存在extra中，已自己的id为key，存入性别，可以用来做区分性别的默认图片
+		*/
+
+	};
+	// 图片缓存，background-image 多张图片缓存  存在于手机应用缓存文件夹
+	var head = $api.dom('head');
+	var cacheImgCount = {
+
+	};
+	// cacheImgCount当前页面是否成功缓存过图片
+	function imageCache(tag, src) {
+		if (cacheImgCount[tag]) {
+
+		} else {
+			api.imageCache({
+				url: src,
+				thumbnail: false
+			}, function(ret, err) {
+				var str = '';
+				if (ret) {
+					str += '<style>';
+					str += tag + '{';
+					str += 'background-image: url(' + ret.url + ');';
+					str += '}';
+					str += '</style>';
+					$api.append(head, str);
+					if (ret.status) {
+						cacheImgCount[tag] = true;
+					}
+				}
+				if (err) {}
+			});
+		}
+
+	};
+	// 图片缓存，img-src  单张图片缓存
+	function imgCache(src, fn) {
+		api.imageCache({
+			url: src,
+			thumbnail: false
+		}, function(ret, err) {
+			var str = '';
+			if (ret && ret.status) {
+				fn && fn(ret.url);
+			}
+			if (err) {}
+		});
+	};
+</script>
+
+</html>
