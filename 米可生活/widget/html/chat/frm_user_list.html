@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<title>title</title>
+	<link rel="stylesheet" type="text/css" href="../../../css/aui.css" />
+	<style>
+		body {
+			background-color: #ffffff;
+		}
+
+		.aui-user-view:after {
+			border-top: 0px solid #c8c7cc;
+			display: block;
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			-webkit-transform-origin: 0 0;
+			-webkit-transform: scale(1);
+			pointer-events: none;
+		}
+
+		.aui-user-view-cell:after {
+			border-bottom: 0px solid #c8c7cc;
+			display: block;
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			-webkit-transform-origin: 0 0;
+			-webkit-transform: scale(1);
+			pointer-events: none;
+		}
+
+		.aui-user-view-cell:last-child:after {
+			border-bottom: 0px solid #c8c7cc;
+		}
+
+		.aui-btn {
+			margin-top: -40px;
+		}
+
+		.empty {
+			padding-top: 50%;
+			background-color: #ffffff;
+			text-align: center;
+		}
+
+		.empty .logo img {
+			height: 100px;
+			margin: 0 auto;
+		}
+
+		.empty .msg {
+			height: 100px;
+			line-height: 50px;
+			opacity: 0.3;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="aui-content">
+		<ul id="act-content" class="aui-user-view" style="margin-bottom: 0px;"></ul>
+	</div>
+
+	<div class="empty" id="empty1">
+		<div class="logo"><img src="../../../image/empty_page_nothing.png"></div>
+		<div class="msg" style="etter-spacing:22px;">当前并未添加好友</div>
+	</div>
+
+	<script id="act-template" type="text/x-dot-template">
+		{{ for(var i=0; i< it.length; i++) { }}
+		<li class="aui-user-view-cell" style="box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.05);" tapmode="tap-active" data-id="{{=itI.id}}" data-conversationType="PRIVATE" data-targetId="{{=itI.UserID}}" data-avatar="{{=itI.avatar}}"
+						data-createAt="{{=itI.createAt}}">
+			<img class="aui-img-object aui-pull-left" src="{{=it[it.length-i-1].avatar}}">
+			<div class="aui-img-body">
+				<span>{{=it[it.length-i-1].UserNickname}}<em></em></span>
+				<p class="aui-ellipsis-1">{{=it[it.length-i-1].creatAt}}</p>
+			</div>
+		</li>
+		{{ }}}
+</script>
+
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../../script/winu-base.js"></script>
+<script type="text/javascript" src="../../../script/linq.min.js"></script>
+<script type="text/javascript" src="../../../script/mycommon.js"></script>
+<script type="text/javascript">
+	var dialogBox;
+	var userList = $api.dom('#userList');
+	var page = 1,userJson = null;
+	var targetId;
+
+	apiready = function() {
+
+		dialogBox = api.require('dialogBox');
+
+		api.setRefreshHeaderInfo({
+			visible: false,
+			// loadingImgae: 'wgt://image/refresh-white.png',
+			bgColor: '#ffffff',
+			textColor: '#4d4d4d',
+			textDown: '',
+			textUp: '',
+			showTime: false
+		}, function(ret, err) {
+			page = 1;
+			getUserList(page, true);
+		});
+
+		// 上拉加载
+		_scrolltobottom(function() {
+			page = page + 1;
+			getUserList(page, true);
+		});
+
+		getUserList(page, true);
+
+		// 监听是否需要更新
+		_addEventListener("updateContact", function(ret) {
+		 //api.refreshHeaderLoading();
+		 getUserList(page);
+
+		});
+
+		// 监听
+		_addEventListener("delete", function(ret) {
+			getUserList(page);
+		});
+	};
+
+
+	function getUserList(page) {
+		api.ajax({
+			url: 'http://125.124.148.148:81/App/userlist.php',
+			method: 'POST',
+			dataTpye: 'JSON',
+			data: {
+				values: {
+					uid: $api.getStorage('userIdIM')
+				}
+			}
+		}, function(ret, err) {
+			if (ret) {
+				ee();
+				//alert( JSON.stringify( ret ) );
+
+				// 渲染模板
+				var content = $api.byId('act-content');
+				var tpl = $api.byId('act-template').text;
+				var tempFn = doT.template(tpl);
+				content.innerHTML = tempFn(ret);
+
+				api.hideProgress();
+				api.refreshHeaderLoadDone();
+
+			} else {
+				//alert( JSON.stringify( err ) );
+				api.hideProgress();
+			}
+		});
+
+	}
+
+
+
+	Zepto(function($) {
+		// 绑定会话点击事件
+		$("#userList").on("tap", "li", function() {
+			// 获取会话类型
+			var conversationType = $(this).attr("data-conversationType");
+
+			// 获取目标ID
+			var targetId = $(this).attr("data-targetId");
+
+			// 获取目标名称
+			var targetName = $(this).attr("data-targetName");
+
+			// 获取目标名称
+			var targetPhoto = $(this).attr("data-avatar");
+
+			// 打开会话页面
+			_openWin("chat_win", "../../chat/chat_page/chat_win.html", {
+				conversationType: conversationType,
+				targetId: targetId,
+				targetName: targetName,
+				targetPhoto: targetPhoto
+			});
+
+		});
+	});
+
+
+
+	//弹出框模块
+	function rong_remove(targetId) {
+
+		dialogBox.alert({
+			texts: {
+				title: '',
+				content: '移除当前好友',
+				leftBtnTitle: '取消',
+				rightBtnTitle: '确认'
+			},
+			styles: {
+				bg: '#fff',
+				corner: 5,
+				w: 300,
+				title: {
+					marginT: 20,
+					icon: 'widget://res/ug_check_small.png',
+					iconSize: 20,
+					titleSize: 14,
+					titleColor: '#000'
+				},
+				content: {
+					color: '#000',
+					size: 16
+				},
+				left: {
+					marginB: 7,
+					marginL: 20,
+					w: 130,
+					h: 35,
+					corner: 2,
+					bg: '#ffffff',
+					size: 16
+				},
+				right: {
+					marginB: 7,
+					marginL: 10,
+					w: 130,
+					h: 35,
+					corner: 2,
+					bg: '#ffffff',
+					size: 16
+				}
+			}
+		}, function(ret) {
+			if (ret.eventType == 'left') {
+				var dialogBox = api.require('dialogBox');
+				dialogBox.close({
+					dialogName: 'alert'
+				});
+			}
+			if (ret.eventType == 'right') {
+				var dialogBox = api.require('dialogBox');
+				dialogBox.close({
+					dialogName: 'alert'
+				});
+
+				toDelete(targetId);
+				//alert(targetId);
+
+			}
+		});
+	}
+
+
+	function toDelete(targetId) {
+		api.ajax({
+			url: 'http://106.14.137.42/App/friendsdelete.php',
+			method: 'POST',
+			cache: 'false',
+			timeout: 30,
+			dataTpye: 'JSON',
+			data: {
+				values: {
+					UserID: targetId,
+					uid: $api.getStorage('userIdIM')
+				}
+			}
+		}, function(ret, err) {
+			if (ret) {
+				//alert( JSON.stringify( ret ) );
+
+
+			} else {
+				//alert( JSON.stringify( err ) );
+			}
+
+			api.toast({
+				msg: '删除成功',
+				location: "middle"
+			});
+
+			page = 1;
+			getUserList(page, true);
+
+			//api.refreshHeaderLoading();
+			api.refreshHeaderLoadDone();
+			/*
+			api.toast({
+				msg: '删除成功',
+				location: "middle"
+			});
+			*/
+
+			//getUserList(page, true);
+			//api.refreshHeaderLoading();
+
+		});
+
+	};
+
+
+	function ee() {
+		document.getElementById('empty1').style.display = "none";
+	}
+</script>
+
+</html>
