@@ -1,0 +1,277 @@
+
+
+/*整个屏幕*/
+#wrap{
+    height: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+
+}
+/*头部*/
+#header{
+	width: 100%;
+}
+/*头部左边图标*/
+#ico_hl{
+	height:44px;
+    line-height:44px;
+}
+/*头部标题*/
+#ui_ht{
+	height:44px;
+    line-height:44px;
+
+}
+/*头部右边图标*/
+#ico_hr{
+	height:44px;
+    line-height:44px;
+}
+
+
+/* 内容 */
+#main{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+}
+
+/*底部*/
+#footer{
+    height: 30px;
+    line-height: 30px;
+    background-color: #81a9c3;
+    width: 100%;
+    text-align: center;
+}
+
+/*
+ * 弹性盒子
+ */
+.boxf_h{
+	display:-webkit-box;
+	-webkit-box-orient:horizontal ;
+}
+.boxf_s{
+	display:-webkit-box;
+	-webkit-box-orient:vertical ;
+}
+.boxc_f1{
+	-webkit-box-flex: 1;
+	width: 0;
+}
+.boxc_f2{
+	-webkit-box-flex: 2;
+	width: 0;
+}
+.boxc_f3{
+	-webkit-box-flex: 3;
+	width: 0;
+}
+.boxc_f4{
+	-webkit-box-flex: 4;
+	width: 0;
+}
+.boxc_f5{
+	-webkit-box-flex: 5;
+	width: 0;
+}
+.boxc_f6{
+	-webkit-box-flex: 6;
+	width: 0;
+}
+.boxc_f7{
+	-webkit-box-flex: 7;
+	width: 0;
+}
+
+
+
+/*
+ * 文字布局css 前缀tx-
+ */
+
+/* 文字居中 */
+.tx_c{
+	text-align: center;
+}
+
+/*文字居左*/
+.tx_l{
+	text-align: left;
+}
+
+/*文字居右*/
+.tx_r{
+	text-align: right;
+}
+
+/*
+ * 文字大小  前缀txs-
+ */
+
+/*大*/
+.txs_b{
+	font-size: 24px;
+	letter-spacing: 4px;
+}
+/*中*/
+.txs_m{
+	font-size: 20px;
+	letter-spacing: 3px;
+}
+/*小*/
+.txs_s{
+	font-size: 14px;
+	letter-spacing: 2px;
+}
+/*
+ * 文字颜色  前缀txc-
+ */
+
+/*白*/
+.txc_w{
+	color: #FFFFFF;
+}
+.txc_blu{
+	color: #19B4FF;
+}
+.txc_hui{
+	color: #C0C0C0;
+}
+.txc_red{
+	color: #FF0000;
+}
+/*
+ * 字体
+ */
+.yahei{
+	font-family: "微软雅黑";
+}
+
+/*
+ * 颜色
+ */
+.c_blu{
+	background-color: #fff;
+}
+.c_cen{
+	background-color: #F99D1C;
+}
+.c_rubai{
+	background-color: #F6F6F6;
+}
+.c_red{
+	background-color: #FF0000;
+}
+.c_bai{
+	background-color: #FFFFFF;
+}
+/*
+ * 按钮
+ */
+.bt_big{
+	width: 95%;
+	height: 38px;
+	line-height: 38px;
+	margin: 0 auto;
+}
+
+/*
+ * 图片形状
+ */
+.img_y img{
+	border:0px solid;
+	border-radius:500px;
+	width: 60px;
+	height: 60px;
+}
+/*矩形圆角*/
+.img_fy img{
+	border:1px solid;
+	border-radius:7px;
+	border-color:#fff;
+	width: 90px;
+	height: 70px;
+	margin-top: 5px;
+}
+/*红框*/
+.k_jy{
+	border:1px solid;
+	border-radius:3px;
+	border-color: #FF0000;
+}
+/*灰框*/
+.k_huijy{
+	border:1px solid;
+	border-radius:3px;
+	border-color: #BEBEBE;
+}
+/*红框*/
+.k_blujy{
+	border:1px solid;
+	border-radius:3px;
+	border-color: #19B4FF;
+}
+/*圆角*/
+.yuanjiao{
+	border:0px solid;
+	border-radius:5px;
+}
+/*错误信息*/
+#err{
+	font-size: 12px;
+	color: red;
+}
+/*auicss 头像处理部分*/
+.my-header {
+	background: url('../image/register_bg.jpg') no-repeat;
+	background-size: cover;
+	min-height: 220px;
+	position: relative;
+}
+.my-info {
+	position: relative;
+	padding: 20px 0;
+	width: 100%;
+	bottom: 0;
+	text-align: center;
+	vertical-align: center;
+}
+.my-info img {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+}
+.my-info p.nickname {
+	margin-top: 5px;
+	color: #ffffff;
+	font-size: 18px;
+}
+.my-menu {
+	position: absolute;
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+	left: 0;
+	bottom: 0;
+	text-align: center;
+	background: #ffffff;
+	filter: Alpha(opacity=50);
+	background: rgba(255, 255, 255, 0.2) none repeat scroll 0 0 !important;
+	color: #ffffff;
+	font-size: 14px;
+}
+.my-menu .aui-col-xs-3 {
+	border-right: 1px solid #9bd6d5;
+}
+.my-menu .aui-col-xs-3:last-child {
+	border-right: none;
+}
+.my-menu > div:active {
+	background: #ffffff;
+	filter: Alpha(opacity=50);
+	background: rgba(255, 255, 255, 0.2) none repeat scroll 0 0 !important;
+}
+.aui-list-view-cell {
+	line-height: 26px;
+}
