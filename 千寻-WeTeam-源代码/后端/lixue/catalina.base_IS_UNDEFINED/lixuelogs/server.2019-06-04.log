@@ -1,0 +1,180 @@
+2019-06-04 15:37:30.066 [restartedMain] INFO  xyh.LixueApplication - Starting LixueApplication on DESKTOP-P1GCRLJ with PID 3892 (D:\lixue\target\classes started by XiangYida in D:\lixue)
+2019-06-04 15:37:30.069 [restartedMain] INFO  xyh.LixueApplication - No active profile set, falling back to default profiles: default
+2019-06-04 15:37:30.311 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-06-04 15:37:30.312 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-06-04 15:37:32.395 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-04 15:37:32.397 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-04 15:37:32.491 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 90ms. Found 1 repository interfaces.
+2019-06-04 15:37:32.548 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-04 15:37:32.549 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-04 15:37:32.560 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-06-04 15:37:32.560 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11ms. Found 0 repository interfaces.
+2019-06-04 15:37:32.602 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-04 15:37:32.603 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-04 15:37:32.652 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-06-04 15:37:32.652 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 28ms. Found 0 repository interfaces.
+2019-06-04 15:37:33.321 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$1ac90d44] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-04 15:37:34.339 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2019-06-04 15:37:34.367 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2019-06-04 15:37:34.394 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2019-06-04 15:37:34.395 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-06-04 15:37:34.594 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring embedded WebApplicationContext
+2019-06-04 15:37:34.594 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 4281 ms
+2019-06-04 15:37:36.294 [restartedMain] INFO  org.mongodb.driver.cluster - Cluster created with settings {hosts=[127.0.0.1:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-06-04 15:37:36.294 [restartedMain] INFO  org.mongodb.driver.cluster - Adding discovered server 127.0.0.1:27017 to client view of cluster
+2019-06-04 15:37:36.441 [cluster-ClusterId{value='5cf61fc06940a70f341090fe', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:1, serverValue:1}] to 127.0.0.1:27017
+2019-06-04 15:37:36.446 [cluster-ClusterId{value='5cf61fc06940a70f341090fe', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=127.0.0.1:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 9]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=3366852}
+2019-06-04 15:37:36.448 [cluster-ClusterId{value='5cf61fc06940a70f341090fe', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Discovered cluster type of STANDALONE
+2019-06-04 15:37:36.832 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2019-06-04 15:37:37.806 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - no modules loaded
+2019-06-04 15:37:37.807 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+2019-06-04 15:37:37.807 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.join.ParentJoinPlugin]
+2019-06-04 15:37:37.807 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+2019-06-04 15:37:37.807 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+2019-06-04 15:37:37.807 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+2019-06-04 15:37:40.313 [restartedMain] INFO  o.s.d.e.client.TransportClientFactoryBean - Adding transport node : 123.207.11.229:9300
+2019-06-04 15:37:42.417 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-04 15:37:43.257 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2019-06-04 15:37:43.280 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/lixue'
+2019-06-04 15:37:43.284 [restartedMain] INFO  xyh.LixueApplication - Started LixueApplication in 15.388 seconds (JVM running for 18.902)
+2019-06-04 15:37:43.391 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2019-06-04 15:37:44.264 [restartedMain] DEBUG xyh.lixue.user.mapper.UserMapper.getAllUser - ==>  Preparing: select * from user 
+2019-06-04 15:37:44.347 [restartedMain] DEBUG xyh.lixue.user.mapper.UserMapper.getAllUser - ==> Parameters: 
+2019-06-04 15:37:44.437 [restartedMain] DEBUG xyh.lixue.user.mapper.UserMapper.getAllUser - <==      Total: 4
+2019-06-04 15:38:56.467 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-06-04 15:38:56.467 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2019-06-04 15:38:56.490 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 23 ms
+2019-06-04 15:38:56.567 [http-nio-8080-exec-1] INFO  xyh.lixue.common.aspect.WebAspect - URL----> http://127.0.0.1:8080/lixue/user/login/061mMQ7N1S1qr71hDC6N1mZW7N1mMQ7o
+2019-06-04 15:38:56.567 [http-nio-8080-exec-1] INFO  xyh.lixue.common.aspect.WebAspect - IP----> 127.0.0.1
+2019-06-04 15:38:57.232 [http-nio-8080-exec-1] INFO  xyh.lixue.common.aspect.WebAspect - RequestTimeConsuming----> 666 ms
+2019-06-04 15:38:57.234 [http-nio-8080-exec-1] ERROR xyh.lixue.common.exception.LixueException - JSONObject["openid"] not found.
+2019-06-04 15:38:57.241 [http-nio-8080-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.json.JSONException: JSONObject["openid"] not found.]
+2019-06-04 15:40:36.756 [http-nio-8080-exec-3] INFO  xyh.lixue.common.aspect.WebAspect - URL----> http://127.0.0.1:8080/lixue/user/login/021Z9yp81I7bmO1S4Op81yTyp81Z9ypA
+2019-06-04 15:40:36.757 [http-nio-8080-exec-3] INFO  xyh.lixue.common.aspect.WebAspect - IP----> 127.0.0.1
+2019-06-04 15:40:37.271 [http-nio-8080-exec-3] DEBUG xyh.lixue.user.mapper.UserMapper.insertUser - ==>  Preparing: insert into `user` (id, name) VALUES (?, ?) 
+2019-06-04 15:40:37.339 [http-nio-8080-exec-3] DEBUG xyh.lixue.user.mapper.UserMapper.insertUser - ==> Parameters: op-T54sfy6kA7RSpeaOE4a0duXQY(String), null
+2019-06-04 15:40:37.543 [http-nio-8080-exec-3] INFO  xyh.lixue.common.aspect.WebAspect - RequestTimeConsuming----> 787 ms
+2019-06-04 15:40:37.544 [http-nio-8080-exec-3] ERROR xyh.lixue.common.exception.LixueException - 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Column 'name' cannot be null
+### The error may exist in xyh/lixue/user/mapper/UserMapper.xml
+### The error may involve xyh.lixue.user.mapper.UserMapper.insertUser-Inline
+### The error occurred while setting parameters
+### SQL: insert into `user` (id, name)         VALUES (?, ?)
+### Cause: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Column 'name' cannot be null
+; Column 'name' cannot be null; nested exception is com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Column 'name' cannot be null
+2019-06-04 15:40:37.544 [http-nio-8080-exec-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Column 'name' cannot be null
+### The error may exist in xyh/lixue/user/mapper/UserMapper.xml
+### The error may involve xyh.lixue.user.mapper.UserMapper.insertUser-Inline
+### The error occurred while setting parameters
+### SQL: insert into `user` (id, name)         VALUES (?, ?)
+### Cause: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Column 'name' cannot be null
+; Column 'name' cannot be null; nested exception is com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Column 'name' cannot be null]
+2019-06-04 15:42:26.332 [http-nio-8080-exec-5] INFO  xyh.lixue.common.aspect.WebAspect - URL----> http://127.0.0.1:8080/lixue/user/login/0216gBgE0B7TLk2HW1iE0D8ogE06gBgM
+2019-06-04 15:42:26.332 [http-nio-8080-exec-5] INFO  xyh.lixue.common.aspect.WebAspect - IP----> 127.0.0.1
+2019-06-04 15:42:26.855 [http-nio-8080-exec-5] DEBUG x.lixue.user.mapper.UserMapper.insertLoginRecords - ==>  Preparing: insert into login_records (user_id) values (?) 
+2019-06-04 15:42:26.937 [http-nio-8080-exec-5] DEBUG x.lixue.user.mapper.UserMapper.insertLoginRecords - ==> Parameters: op-T54sfy6kA7RSpeaOE4a0duXQY(String)
+2019-06-04 15:42:27.024 [http-nio-8080-exec-5] INFO  xyh.lixue.common.aspect.WebAspect - RequestTimeConsuming----> 692 ms
+2019-06-04 15:42:27.024 [http-nio-8080-exec-5] ERROR xyh.lixue.common.exception.LixueException - 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+### The error may exist in xyh/lixue/user/mapper/UserMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: insert into login_records (user_id)         values (?)
+### Cause: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+; Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE); nested exception is com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+2019-06-04 15:42:27.025 [http-nio-8080-exec-5] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+### The error may exist in xyh/lixue/user/mapper/UserMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: insert into login_records (user_id)         values (?)
+### Cause: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+; Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE); nested exception is com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)]
+2019-06-04 15:43:22.077 [restartedMain] INFO  xyh.LixueApplication - Starting LixueApplication on DESKTOP-P1GCRLJ with PID 5388 (D:\lixue\target\classes started by XiangYida in D:\lixue)
+2019-06-04 15:43:22.082 [restartedMain] INFO  xyh.LixueApplication - No active profile set, falling back to default profiles: default
+2019-06-04 15:43:22.345 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-06-04 15:43:22.345 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-06-04 15:43:24.420 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-04 15:43:24.426 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-04 15:43:24.546 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 116ms. Found 1 repository interfaces.
+2019-06-04 15:43:24.596 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-04 15:43:24.599 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-04 15:43:24.658 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-06-04 15:43:24.659 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 59ms. Found 0 repository interfaces.
+2019-06-04 15:43:24.679 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-04 15:43:24.680 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-04 15:43:24.726 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface xyh.lixue.searchProblem.service.ProblemRepository.
+2019-06-04 15:43:24.726 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 27ms. Found 0 repository interfaces.
+2019-06-04 15:43:25.405 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$892f15b4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-04 15:43:26.566 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2019-06-04 15:43:26.594 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2019-06-04 15:43:26.611 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2019-06-04 15:43:26.611 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-06-04 15:43:26.898 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring embedded WebApplicationContext
+2019-06-04 15:43:26.898 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 4553 ms
+2019-06-04 15:43:29.288 [restartedMain] INFO  org.mongodb.driver.cluster - Cluster created with settings {hosts=[127.0.0.1:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-06-04 15:43:29.288 [restartedMain] INFO  org.mongodb.driver.cluster - Adding discovered server 127.0.0.1:27017 to client view of cluster
+2019-06-04 15:43:29.396 [cluster-ClusterId{value='5cf621216940a7150c1b1c04', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.connection - Opened connection [connectionId{localValue:1, serverValue:2}] to 127.0.0.1:27017
+2019-06-04 15:43:29.406 [cluster-ClusterId{value='5cf621216940a7150c1b1c04', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Monitor thread successfully connected to server with description ServerDescription{address=127.0.0.1:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 9]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=7828984}
+2019-06-04 15:43:29.408 [cluster-ClusterId{value='5cf621216940a7150c1b1c04', description='null'}-127.0.0.1:27017] INFO  org.mongodb.driver.cluster - Discovered cluster type of STANDALONE
+2019-06-04 15:43:29.773 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2019-06-04 15:43:30.843 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - no modules loaded
+2019-06-04 15:43:30.844 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+2019-06-04 15:43:30.844 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.join.ParentJoinPlugin]
+2019-06-04 15:43:30.844 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+2019-06-04 15:43:30.844 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+2019-06-04 15:43:30.845 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+2019-06-04 15:43:33.411 [restartedMain] INFO  o.s.d.e.client.TransportClientFactoryBean - Adding transport node : 123.207.11.229:9300
+2019-06-04 15:43:36.086 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-04 15:43:37.239 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2019-06-04 15:43:37.285 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/lixue'
+2019-06-04 15:43:37.289 [restartedMain] INFO  xyh.LixueApplication - Started LixueApplication in 16.637 seconds (JVM running for 19.624)
+2019-06-04 15:43:37.383 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2019-06-04 15:43:37.503 [restartedMain] DEBUG xyh.lixue.user.mapper.UserMapper.getAllUser - ==>  Preparing: select * from user 
+2019-06-04 15:43:37.538 [restartedMain] DEBUG xyh.lixue.user.mapper.UserMapper.getAllUser - ==> Parameters: 
+2019-06-04 15:43:37.556 [restartedMain] DEBUG xyh.lixue.user.mapper.UserMapper.getAllUser - <==      Total: 4
+2019-06-04 15:43:38.981 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-06-04 15:43:38.982 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2019-06-04 15:43:39.019 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 36 ms
+2019-06-04 15:43:39.132 [http-nio-8080-exec-1] INFO  xyh.lixue.common.aspect.WebAspect - URL----> http://127.0.0.1:8080/lixue/user/login/0216gBgE0B7TLk2HW1iE0D8ogE06gBgM
+2019-06-04 15:43:39.132 [http-nio-8080-exec-1] INFO  xyh.lixue.common.aspect.WebAspect - IP----> 127.0.0.1
+2019-06-04 15:43:39.700 [http-nio-8080-exec-1] INFO  xyh.lixue.common.aspect.WebAspect - RequestTimeConsuming----> 569 ms
+2019-06-04 15:43:39.702 [http-nio-8080-exec-1] ERROR xyh.lixue.common.exception.LixueException - JSONObject["openid"] not found.
+2019-06-04 15:43:39.705 [http-nio-8080-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.json.JSONException: JSONObject["openid"] not found.]
+2019-06-04 15:44:32.947 [http-nio-8080-exec-2] INFO  xyh.lixue.common.aspect.WebAspect - URL----> http://127.0.0.1:8080/lixue/user/login/001OzDXE11ZBc70OPsWE1ppFXE1OzDXv
+2019-06-04 15:44:32.947 [http-nio-8080-exec-2] INFO  xyh.lixue.common.aspect.WebAspect - IP----> 127.0.0.1
+2019-06-04 15:44:33.401 [http-nio-8080-exec-2] DEBUG x.lixue.user.mapper.UserMapper.insertLoginRecords - ==>  Preparing: insert into login_records (user_id) values (?) 
+2019-06-04 15:44:33.413 [http-nio-8080-exec-2] DEBUG x.lixue.user.mapper.UserMapper.insertLoginRecords - ==> Parameters: op-T54sfy6kA7RSpeaOE4a0duXQY(String)
+2019-06-04 15:44:33.486 [http-nio-8080-exec-2] INFO  xyh.lixue.common.aspect.WebAspect - RequestTimeConsuming----> 540 ms
+2019-06-04 15:44:33.487 [http-nio-8080-exec-2] ERROR xyh.lixue.common.exception.LixueException - 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+### The error may exist in xyh/lixue/user/mapper/UserMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: insert into login_records (user_id)         values (?)
+### Cause: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+; Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE); nested exception is com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+2019-06-04 15:44:33.487 [http-nio-8080-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+### The error may exist in xyh/lixue/user/mapper/UserMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: insert into login_records (user_id)         values (?)
+### Cause: com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+; Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE); nested exception is com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`lixue`.`login_records`, CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)]
+2019-06-04 15:52:50.951 [http-nio-8080-exec-4] INFO  xyh.lixue.common.aspect.WebAspect - URL----> http://127.0.0.1:8080/lixue/user/login/001QvtZ41Rcp2U1MYD251aowZ41QvtZA
+2019-06-04 15:52:50.952 [http-nio-8080-exec-4] INFO  xyh.lixue.common.aspect.WebAspect - IP----> 127.0.0.1
+2019-06-04 15:52:51.417 [http-nio-8080-exec-4] DEBUG xyh.lixue.user.mapper.UserMapper.insertUser - ==>  Preparing: insert into `user` (id, name) VALUES (?, ?) 
+2019-06-04 15:52:51.422 [http-nio-8080-exec-4] DEBUG xyh.lixue.user.mapper.UserMapper.insertUser - ==> Parameters: op-T54sfy6kA7RSpeaOE4a0duXQY(String), null
+2019-06-04 15:52:51.427 [http-nio-8080-exec-4] DEBUG xyh.lixue.user.mapper.UserMapper.insertUser - <==    Updates: 1
+2019-06-04 15:52:51.427 [http-nio-8080-exec-4] DEBUG x.lixue.user.mapper.UserMapper.insertLoginRecords - ==>  Preparing: insert into login_records (user_id) values (?) 
+2019-06-04 15:52:51.428 [http-nio-8080-exec-4] DEBUG x.lixue.user.mapper.UserMapper.insertLoginRecords - ==> Parameters: op-T54sfy6kA7RSpeaOE4a0duXQY(String)
+2019-06-04 15:52:51.430 [http-nio-8080-exec-4] DEBUG x.lixue.user.mapper.UserMapper.insertLoginRecords - <==    Updates: 1
+2019-06-04 15:52:51.431 [http-nio-8080-exec-4] INFO  xyh.lixue.common.aspect.WebAspect - RequestTimeConsuming----> 480 ms
+2019-06-04 15:57:41.464 [http-nio-8080-exec-6] INFO  xyh.lixue.common.aspect.WebAspect - URL----> http://127.0.0.1:8080/lixue/user/login/081SaTCS1qGS841tYbES1HGMCS1SaTC0
+2019-06-04 15:57:41.465 [http-nio-8080-exec-6] INFO  xyh.lixue.common.aspect.WebAspect - IP----> 127.0.0.1
+2019-06-04 15:57:41.898 [http-nio-8080-exec-6] DEBUG x.lixue.user.mapper.UserMapper.insertLoginRecords - ==>  Preparing: insert into login_records (user_id) values (?) 
+2019-06-04 15:57:41.898 [http-nio-8080-exec-6] DEBUG x.lixue.user.mapper.UserMapper.insertLoginRecords - ==> Parameters: op-T54sfy6kA7RSpeaOE4a0duXQY(String)
+2019-06-04 15:57:41.900 [http-nio-8080-exec-6] DEBUG x.lixue.user.mapper.UserMapper.insertLoginRecords - <==    Updates: 1
+2019-06-04 15:57:41.901 [http-nio-8080-exec-6] INFO  xyh.lixue.common.aspect.WebAspect - RequestTimeConsuming----> 437 ms

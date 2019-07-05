@@ -1,0 +1,70 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "crb";
+$dbname = "myDB";
+session_start();
+// 创建连接
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("连接失败: " . $conn->connect_error);
+} 
+ 
+
+if (isset($_POST['username']) && isset($_POST['password'])
+    && !empty($_POST['username']) && !empty($_POST['password'])
+) {
+	echo $_POST['username'];
+	echo "\r\n";
+	
+	echo $_POST['password'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+	$_SESSION['views']=$username;
+	echo "wcaonidaye";
+
+	echo $_SESSION['views'];
+	$sql = "SELECT * FROM mima WHERE (username='$username') AND (password='$password')";
+	echo $sql;
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()){
+			echo "id: " . $row["username"]. " - Name: " . $row["password"].  "<br>";
+			header("location: add event/index.php");
+			echo "<a href='4get4.php'>4<a>";
+
+			}
+			
+	}
+	else {
+		echo "666666";
+	}
+	
+
+			
+		 
+  
+ //执行上面的sql语句并将结果集赋给result。
+}
+   /* $rs = $config[mima]->getUserByName($username);
+    $arr = mysql_fetch_array($rs);
+    if ($arr && $arr['password'] == generateUserPassword($password)) {
+        $_SESSION[SESSIONUSER] = $username;
+        header("Location: 4get4.php");
+        exit(0);
+    }else {
+        $errorMsg = '请检查用户名和密码是否输入正确！';
+    }
+}
+ 
+if ($result->num_rows > 0) {
+    // 输出数据
+    while($row = $result->fetch_assoc()) {
+        echo "id: " . $row["username"]. " - Name: " . $row["password"]."<br>";
+    }
+} else {
+    echo "0 结果";
+}
+$conn->close();
+?>*/

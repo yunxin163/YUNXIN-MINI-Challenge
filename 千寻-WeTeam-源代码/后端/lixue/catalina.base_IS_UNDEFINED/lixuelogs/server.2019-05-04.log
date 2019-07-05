@@ -1,0 +1,45 @@
+2019-05-04 14:56:13.293 [restartedMain] INFO  xyh.LixueApplication - Starting LixueApplication on DESKTOP-P1GCRLJ with PID 10376 (D:\lixue\target\classes started by XiangYida in D:\lixue)
+2019-05-04 14:56:13.296 [restartedMain] INFO  xyh.LixueApplication - No active profile set, falling back to default profiles: default
+2019-05-04 14:56:13.464 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-05-04 14:56:13.465 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-05-04 14:56:14.171 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-04 14:56:14.172 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-04 14:56:14.232 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 57ms. Found 1 repository interfaces.
+2019-05-04 14:56:14.240 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-04 14:56:14.241 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-05-04 14:56:14.254 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface xyh.lixue.service.ProblemRepository.
+2019-05-04 14:56:14.255 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 7ms. Found 0 repository interfaces.
+2019-05-04 14:56:14.609 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$19b75f37] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-04 14:56:15.200 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2019-05-04 14:56:15.212 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2019-05-04 14:56:15.220 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2019-05-04 14:56:15.220 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-05-04 14:56:15.379 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring embedded WebApplicationContext
+2019-05-04 14:56:15.379 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1914 ms
+2019-05-04 14:56:16.277 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - no modules loaded
+2019-05-04 14:56:16.278 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+2019-05-04 14:56:16.278 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.join.ParentJoinPlugin]
+2019-05-04 14:56:16.278 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+2019-05-04 14:56:16.278 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+2019-05-04 14:56:16.278 [restartedMain] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+2019-05-04 14:56:17.456 [restartedMain] INFO  o.s.d.e.client.TransportClientFactoryBean - Adding transport node : 123.207.11.229:9300
+2019-05-04 14:56:18.712 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2019-05-04 14:56:19.448 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2019-05-04 14:56:20.421 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2019-05-04 14:56:20.442 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/lixue'
+2019-05-04 14:56:20.445 [restartedMain] INFO  xyh.LixueApplication - Started LixueApplication in 8.04 seconds (JVM running for 10.09)
+2019-05-04 14:56:32.233 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/lixue] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-05-04 14:56:32.233 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2019-05-04 14:56:32.245 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 11 ms
+2019-05-04 14:56:32.317 [http-nio-8080-exec-2] INFO  xyh.common.aspect.WebAspect - URL----> http://localhost:8080/lixue/problem/search1/%E6%9D%A0%E6%9D%86
+2019-05-04 14:56:32.317 [http-nio-8080-exec-2] INFO  xyh.common.aspect.WebAspect - IP----> 0:0:0:0:0:0:0:1
+2019-05-04 14:56:32.585 [http-nio-8080-exec-2] INFO  xyh.common.aspect.WebAspect - RequestTimeConsuming----> 268 ms
+2019-05-04 14:56:45.870 [http-nio-8080-exec-3] INFO  xyh.common.aspect.WebAspect - URL----> http://localhost:8080/lixue/problem/search1/%E6%9D%A0%E6%9D%86
+2019-05-04 14:56:45.870 [http-nio-8080-exec-3] INFO  xyh.common.aspect.WebAspect - IP----> 0:0:0:0:0:0:0:1
+2019-05-04 14:56:46.053 [http-nio-8080-exec-3] INFO  xyh.common.aspect.WebAspect - RequestTimeConsuming----> 184 ms
+2019-05-04 14:56:46.518 [http-nio-8080-exec-4] INFO  xyh.common.aspect.WebAspect - URL----> http://localhost:8080/lixue/problem/search1/%E6%9D%A0%E6%9D%86
+2019-05-04 14:56:46.519 [http-nio-8080-exec-4] INFO  xyh.common.aspect.WebAspect - IP----> 0:0:0:0:0:0:0:1
+2019-05-04 14:56:46.669 [http-nio-8080-exec-4] INFO  xyh.common.aspect.WebAspect - RequestTimeConsuming----> 151 ms
+2019-05-04 14:56:46.946 [http-nio-8080-exec-5] INFO  xyh.common.aspect.WebAspect - URL----> http://localhost:8080/lixue/problem/search1/%E6%9D%A0%E6%9D%86
+2019-05-04 14:56:46.946 [http-nio-8080-exec-5] INFO  xyh.common.aspect.WebAspect - IP----> 0:0:0:0:0:0:0:1
+2019-05-04 14:56:47.440 [http-nio-8080-exec-5] INFO  xyh.common.aspect.WebAspect - RequestTimeConsuming----> 494 ms
