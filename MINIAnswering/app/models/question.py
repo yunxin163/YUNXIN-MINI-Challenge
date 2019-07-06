@@ -28,6 +28,7 @@ class Question(db.Model):
     publisher = db.Column(db.Integer)
     publish_time = db.Column(db.DateTime(), default=datetime.utcnow)
     viewed = db.Column(db.Integer, default=0)
+    chatroom_id = db.Column(db.String(25))
 
     def __init__(self, **kwargs):
         super(Question, self).__init__(**kwargs)
@@ -70,6 +71,7 @@ class Question(db.Model):
             'is_question_solve': is_question_solve,
             'publisher': publisher_dict,
             'fields': fields,
+            'chatroom_id': self.chatroom_id,
         }
         return info_dict
 

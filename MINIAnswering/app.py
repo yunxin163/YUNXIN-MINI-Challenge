@@ -5,6 +5,10 @@ from app import create_app, db
 from flask_compress import Compress
 from flask_htmlmin import HTMLMIN
 
+# import sys
+# reload(sys)
+# sys.setdefaultencoding('utf8')
+
 app = create_app('default')
 Compress(app)
 HTMLMIN(app)
@@ -24,7 +28,7 @@ if __name__ == '__main__':
 
     app.run(
         port=5005,
-        host='0.0.0.0'
+        host='0.0.0.0',
     )
 
 

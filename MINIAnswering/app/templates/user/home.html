@@ -7,9 +7,9 @@
 	<link rel="shortcut icon" href="/static/img/favicon.ico"/>
 	<link href="/static/css/global.css" rel="stylesheet" />
 	<link href="/static/css/user.css" rel="stylesheet" />
-    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;lang=en" rel="stylesheet">
+    <!-- <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;lang=en" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Roboto+Slab:300,400,500&amp;lang=en" rel="stylesheet">
-    <link href="http://fonts.googleapis.com/css?family=Product+Sans:400&amp;lang=en" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Product+Sans:400&amp;lang=en" rel="stylesheet"> -->
 
     <link rel="stylesheet" href="/static/css/quill.snow.css" />
 	<link rel="stylesheet" href="/static/css/katex.min.css" />
@@ -30,6 +30,11 @@
 
     <!-- 网易云信 IM SDK -->
     <script src="/static/js/sdk/NIM_Web_NIM_v6.5.0.js"></script>
+    <!-- <script src="/static/js/sdk/NIM_Web_Chatroom_v6.5.0.js"></script>
+    <script src="/static/js/sdk/NIM_Web_WebRTC_v6.5.0.js"></script>
+    <script src="/static/js/sdk/NIM_Web_WhiteBoard_v6.5.0.js"></script> -->
+
+    <!-- <script>NIM.use(WhiteBoard);</script> -->
     <script src="/static/js/nim.js"></script>
 
 {% autoescape false %}
@@ -215,6 +220,8 @@
 			        		</a>
 			        	</template>
 	        		</div>
+
+	        		<a href="../question/ask/" title="发布问题"><button class="float" type="button">发布问题</button></a>
 
 	        	</section>
 	        	<section sectionID="1" id="user_information_section">
@@ -521,6 +528,138 @@
 			},
 		},
 	});
+	</script>
+	<script>
+	// nim init
+	var nim = NIM.getInstance({
+	    // 初始化SDK
+	    debug: true,
+	    appKey: '1ee5a51b7d008254cd73b1d4369a9494',
+	    account: $.cookie('nim_uid'),
+	    token: $.cookie('nim_token'),
+	    customTag: 'USER',
+	    onconnect: onConnect,
+	    onerror: onError,
+	    onwillreconnect: onWillReconnect,
+	    ondisconnect: onDisconnect,
+	    // 多端登录
+	    onloginportschange: onLoginPortsChange,
+	    // 用户关系
+	    onblacklist: onBlacklist,
+	    onsyncmarkinblacklist: onMarkInBlacklist,
+	    onmutelist: onMutelist,
+	    onsyncmarkinmutelist: onMarkInMutelist,
+	    // 好友关系
+	    onfriends: onFriends,
+	    onsyncfriendaction: onSyncFriendAction,
+	    // 用户名片
+	    onmyinfo: onMyInfo,
+	    onupdatemyinfo: onUpdateMyInfo,
+	    onusers: onUsers,
+	    onupdateuser: onUpdateUser,
+	    // 机器人列表的回调
+	    onrobots: onRobots,
+	    // 群组
+	    onteams: onTeams,
+	    onsynccreateteam: onCreateTeam,
+	    onUpdateTeam: onUpdateTeam,
+	    onteammembers: onTeamMembers,
+	    // onsyncteammembersdone: onSyncTeamMembersDone,
+	    onupdateteammember: onUpdateTeamMember,
+	    // 群消息业务已读通知
+	    onTeamMsgReceipt: onTeamMsgReceipt,
+	    // 会话
+	    onsessions: onSessions,
+	    onupdatesession: onUpdateSession,
+	    // 消息
+	    onroamingmsgs: onRoamingMsgs,
+	    onofflinemsgs: onOfflineMsgs,
+	    onmsg: onMsg,
+	    // 系统通知
+	    onofflinesysmsgs: onOfflineSysMsgs,
+	    onsysmsg: onSysMsg,
+	    onupdatesysmsg: onUpdateSysMsg,
+	    onsysmsgunread: onSysMsgUnread,
+	    onupdatesysmsgunread: onUpdateSysMsgUnread,
+	    onofflinecustomsysmsgs: onOfflineCustomSysMsgs,
+	    oncustomsysmsg: onCustomSysMsg,
+	    // 收到广播消息
+	    onbroadcastmsg: onBroadcastMsg,
+	    onbroadcastmsgs: onBroadcastMsgs,
+	    // 同步完成
+	    onsyncdone: onSyncDone
+	});
+
+	// // Init Whiteboard
+ //    whiteboard = WhiteBoard.getInstance({
+ //        nim: nim,
+ //        debug: true,
+ //    });
+
+	// // Set account state
+	// // 是否被叫中
+	// let beCalling = false
+	// // 呼叫类型
+	// let type = null
+	// // 被叫信息
+	// let beCalledInfo = null
+	// // 是否正忙
+	// let busy = false
+
+	// const sessionConfig = {
+ //    	record: false
+	// }
+
+	// // 开启监听
+	// whiteboard.on('beCalling', function(obj) {
+	//   console.log('on beCalling', obj)
+	//   const channelId = obj.channelId
+	//   // 被叫回应主叫自己已经收到了通话请求
+	//   whiteboard.control({
+	//     channelId,
+	//     command: WebRTC.NETCALL_CONTROL_COMMAND_START_NOTIFY_RECEIVED
+	//   })
+	//   type = obj.type;
+ //      beCalledInfo = obj;
+	//   // 只有在没有通话并且没有被叫的时候才记录被叫信息, 否则通知对方忙并拒绝通话
+	//   if (!whiteboard.calling && !beCalling) {
+
+	//   	console.log('接到通话请求');
+
+	//   	beCalling = true;
+
+	//     var callingResponse = confirm(`是否接听 ${beCalledInfo.account} 发起的白板通话 ？`);
+
+	//     if (callingResponse) {
+	//     	window.location.href = `/question/${beCalledInfo.custom}/whiteboard/`;
+	//      	// whiteboard.response({
+	// 		//   accepted: true,
+	// 		//   beCalledInfo: beCalledInfo,
+	// 		//   sessionConfig: sessionConfig
+	// 		// }).catch(function(err) {
+	// 		//   console.log('接听失败', err)
+	// 		// })
+	//     }
+
+	//   } else {
+	//     if (whiteboard.calling) {
+	//       busy = whiteboard.notCurrentChannelId(obj)
+	//     } else if (beCalling) {
+	//       busy = beCalledInfo.channelId !== channelId
+	//     }
+	//     if (busy) {
+	//       whiteboard.control({
+	//         channelId,
+	//         command: WebRTC.NETCALL_CONTROL_COMMAND_BUSY
+	//       })
+	//       // 拒绝通话
+	//       whiteboard.response({
+	//         accepted: false,
+	//         beCalledInfo: obj
+	//       })
+	//     }
+	//   }
+	// })
 	</script>
 
 

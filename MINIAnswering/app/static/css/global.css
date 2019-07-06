@@ -667,5 +667,13 @@ ul.chips {
     color: #1eac4a;
     border-color: #1eac4a;
 }
-
+.user-info .user-name {
+    position: absolute;
+    color: #fff;
+    right: 35px;
+    margin-top: 3px;
+}
+.user-avatar {
+    border-radius: 50%;
+}
 

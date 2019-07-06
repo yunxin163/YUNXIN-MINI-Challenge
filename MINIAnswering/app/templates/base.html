@@ -45,3 +45,30 @@
 	{% block bottom_resources %}{% endblock %}
 </body>
 </html>
+<script>
+if (typeof($.cookie('token')) != 'undefined' && $.cookie('token') != null) {
+	$(document).ready(function(){
+		$.ajax({
+	        url: '/user/api/get_user_info/',
+	        type: 'POST',
+	        data: {
+	        	token: $.cookie('token'),
+	        },
+	        dataType: 'json',          
+	        success: function (data) {
+				if(data.states == 200){
+					$('#home-top-signup-container').html(`
+				 		<a href="/user/" title="个人中心">
+				 		    <div class="user-info" style="position: absolute">
+				        	    <div class="user-name">${data.data.username}</div>
+				                <img src="${data.data.avatar_uri}" height="25" width="25" class="user-avatar">
+				            </div>
+				        </a>
+					`);
+				} 
+	        },
+	        
+	   });		
+	});
+}
+</script>

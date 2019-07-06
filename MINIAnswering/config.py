@@ -13,9 +13,9 @@ class Config:
     # 邮件相关
     # TODO: 更新邮件地址
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
-    MAIL_PORT = int(os.environ.get('MAIL_PORT'))
+    MAIL_PORT = int(os.environ.get('MAIL_PORT')) or 25
     MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS').lower() in \
-                   ['true', 'on', '1']
+                   ['true', 'on', '1'] or True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     MAIL_SUBJECT_PREFIX = '[Mini 答疑]'
@@ -29,8 +29,9 @@ class Config:
     SQLALCHEMY_POOL_RECYCLE = 27000
 
     # 网易云信 NIM
-    NIM_APPKEY = '3bd40ad8bfaf925815be99a7479adace'
-    NIM_SECRET = 'a664ed1c220b'
+    NIM_URL = 'https://app.netease.im'
+    NIM_APPKEY = '1ee5a51b7d008254cd73b1d4369a9494'
+    # NIM_SECRET = ''
 
     WEBSITE_KEYWORDS = u'MINI答疑,MINI,答疑,Mini Answering'
     WEBSITE_DESCRIPTION = u'云在线答疑平台'
