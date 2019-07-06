@@ -1,13 +1,38 @@
 # -*- coding: utf-8 -*-
-import os
-import time
-import datetime
+import hashlib
 from flask import render_template, session, request, redirect, url_for, abort, send_from_directory, current_app
 from . import users
 from .. import db
 from ..utils import *
 from ..models import User
 from json import dumps
+
+
+def create_demo_user(username, nickname, password):
+
+    # 对 password 进行 MD5 加密
+    m2 = hashlib.md5()
+    m2.update(password.encode('utf-8'))
+
+    url = '%s/api/createDemoUser' % current_app.config['NIM_URL']
+    headers = {
+        'content-type': 'application/x-www-form-urlencoded',
+        'appkey': current_app.config['NIM_APPKEY'],
+        'Origin': 'https://app.yunxin.163.com',
+        'Referer': 'https://app.yunxin.163.com/webdemo/education/',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) App'
+                      'leWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
+    }
+    data = {
+        'username': username,
+        'password': m2.hexdigest(),
+        'nickname': nickname[0:9],
+    }
+    result = requests.post(url, data=data, headers=headers)
+
+    print(result.json())
+
+    return result.json()['res'] == 200
 
 
 @users.route('/')
@@ -66,10 +91,17 @@ def login():
     data = user.to_dict()
     data['token'] = token
 
+    data['nim_uid'] = user.username.lower()
+
+    _md5 = hashlib.md5()
+    _md5.update(user.username.lower().encode('utf-8'))
+
+    data['nim_token'] = _md5.hexdigest()
+
     # 更新 NIM Token
-    if update_nim_token(user, token) is not True:
-        if create_nim_token(user, token) is not True:
-            return response_json(states=8002, message='无法向 NIM 新增 Token')
+    # if update_nim_token(user, token) is not True:
+    #     if create_nim_token(user, token) is not True:
+    #         return response_json(states=8002, message='无法向 NIM 新增 Token')
 
     return response_json(message='success', token=token, data=data)
 
@@ -129,8 +161,11 @@ def signup():
                'auth/email/confirm', user=new_user, token=token)
 
     # 新建 NIM Token
-    if create_nim_token(new_user, token) is not True:
-        return response_json(states=8002, message='无法向 NIM 新增 Token')
+    # if create_nim_token(new_user, token) is not True:
+    #     return response_json(states=8002, message='无法向 NIM 新增 Token')
+
+    if create_demo_user(username.lower(), username.lower(), password) is not True:
+        return response_json(states=8003, message='无法向创建 Demo 账号')
 
     return response_json(message='激活邮件已发送')
 
@@ -154,6 +189,21 @@ def confirm():
     db.session.commit()
 
     return response_json(message='激活成功')
+
+
+@users.route('/api/get_user_info/', methods=['POST'])
+def api_user_info():
+    try:
+        token = request.form['token']
+    except KeyError:
+        return response_json(states=1001, message='信息不完整')
+
+    user = User.verify_auth_token(token)
+
+    if user is None:
+        return response_json(states=2001, message='token 已过期')
+
+    return response_json(message='success', data=user.to_dict())
 
 
 @users.route('/api/modify/', methods=['POST'])
@@ -204,21 +254,17 @@ def api_modify():
     return response_json(message='success')
 
 
-
-
 @users.route('/search/', methods=['POST'])
 def search():
     try:
         query = request.form['query']
         token = request.cookies['token']
 
-
     except KeyError:
         return response_json(states=1001, message='信息不完整')
 
     # 判断用户合法性
     user = User.verify_auth_token(token)
-
 
     if user is None:
         return response_json(states=1002, message='token 不正确或已过期')

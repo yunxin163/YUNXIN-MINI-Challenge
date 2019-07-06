@@ -49,7 +49,7 @@ $(document).ready(function() {
         }, function(d) {
             if (d.states == 200) {
                 // success
-                alert('Success');
+                window.location.href = '../' + d.data.id + '/';
             } else {
                 // failed
                 $('#ask-error').text(d.message);

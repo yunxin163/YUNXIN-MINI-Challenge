@@ -25,6 +25,8 @@ $(document).ready(function(){
 					$('#login-error').hide();
 					$.cookie('token', data.token, {expires: 1, path: '/'});
 					$.cookie('user_id', data.data.id, {expires: 1, path: '/'});
+					$.cookie('nim_uid', data.data.nim_uid, {expires: 1, path: '/'});
+					$.cookie('nim_token', data.data.nim_token, {expires: 1, path: '/'});
 					window.location.href = '/user/';
 				}else if(data.states == 800){
 					$('#login-error').text('您已登录');

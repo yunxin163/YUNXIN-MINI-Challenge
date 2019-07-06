@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 from flask import render_template, session, request, redirect, url_for, abort, send_from_directory
 from . import question
 from .. import db
@@ -6,6 +7,55 @@ from json import dumps
 from ..utils import *
 from ..models import User, Field, Question, QuestionField, FollowQuestion, Answer
 from sqlalchemy.sql import or_, and_, func, desc
+
+
+# 获取 chatroom 房间号
+def chatroom_create(creator, name):
+
+    url = '%s/api/chatroom/create' % current_app.config['NIM_URL']
+    headers = {
+        'content-type': 'application/json;charset=UTF-8',
+        'appkey': current_app.config['NIM_APPKEY'],
+        'Origin': 'https://app.yunxin.163.com',
+        'Referer': 'https://app.yunxin.163.com/webdemo/education/',
+        'sec-ch-ua': 'Google Chrome 75',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'cross-site',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) App'
+                      'leWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
+    }
+    payload_data = {
+        'creator': creator,
+        'name': name,
+    }
+    result = requests.post(url, data=json.dumps(payload_data), headers=headers)
+
+    return result.json()
+
+
+@question.route('/create_chatroom/', methods=['POST'])
+def create_chatroom():
+    try:
+        question_id = request.form['question_id']
+    except KeyError:
+        return response_json(states=1001, message='信息不完整')
+
+    question = Question.query.filter_by(id=question_id).first()
+
+    if question is None:
+        return response_json(states=1002, message='问题不存在')
+
+    publisher = User.query.filter_by(id=question.publisher).first()
+
+    chatroom_data = chatroom_create(publisher.username.lower(), 'MA_CR_{}'.format(question.id))
+
+    question.chatroom_id = chatroom_data['msg']
+
+    db.session.add(question)
+    db.session.commit()
+
+    return response_json(message='success', data=chatroom_data)
 
 
 @question.route('/ask/')
@@ -20,6 +70,38 @@ def ask():
     return render_template('question/ask.html',
                            title='迷你答疑 | 提问',
                            fields_data='<script>var fields_data = %s;</script>' % dumps(fields_data))
+
+
+# 获取 chatroom 服务器地址 (unused)
+@question.route('/chatroom/getAddress/', methods=['POST'])
+def chatroom_get_address():
+
+    try:
+        uid = request.form['uid']
+        roomid = request.form['roomid']
+    except KeyError:
+        return {'res': -1}
+
+    url = '%s/api/chatroom/getAddress' % current_app.config['NIM_URL']
+    headers = {
+        'content-type': 'application/x-www-form-urlencoded',
+        'appkey': current_app.config['NIM_APPKEY'],
+        'Origin': 'https://app.yunxin.163.com',
+        'Referer': 'https://app.yunxin.163.com/webdemo/education/',
+        'sec-ch-ua': 'Google Chrome 75',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'cross-site',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) App'
+                      'leWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
+    }
+    data = {
+        'uid': uid,
+        'roomid': roomid,
+    }
+    result = requests.post(url, data=data, headers=headers)
+
+    return result.text
 
 
 @question.route('/ask/action/', methods=['POST'])
@@ -60,6 +142,17 @@ def ask_action():
         )
         db.session.add(new_question_field)
         db.session.commit()
+
+    # 创建 chatroom 房间
+    chatroom_data = chatroom_create(user.username.lower(), 'MA_CR_{}'.format(new_question.id))
+
+    if chatroom_data['res'] != 200:
+        return response_json(states=1101, message='无法创建房间')
+
+    new_question.chatroom_id = chatroom_data['msg']
+
+    db.session.add(new_question)
+    db.session.commit()
 
     return response_json(message='success', data={
         'id': new_question.id,
@@ -214,9 +307,14 @@ def whiteboard(question_id):
     if answer is not None:
         return response_json(states=3003, message='问题已被回答')
 
+    # 取提问者信息
+    publisher = User.query.filter_by(id=this_question.publisher).first()
+
     return render_template('question/whiteboard.html',
                            title=this_question.title,
                            question=this_question,
+                           publisher=safe_user_dict(publisher),
+                           user=user,
                            meta_data='<script>var questionData = %s;</script>' % dumps(question_data))
 
 

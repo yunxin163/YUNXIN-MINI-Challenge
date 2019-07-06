@@ -139,7 +139,7 @@
                 <div class="question-bottom-btns">
                     <button class="second-btn small" type="button" id="invite-btn">邀请回答</button>
                     <button class="second-btn small" type="button" style="margin-left: 15px" id="follow-btn" @click="question_data.is_user_followed? unfollowQuestion() : followQuestion()">{[ question_data.is_user_followed? '取消关注' : '关注问题' ]}</button>
-                    <button class="submit-btn small" type="button" style="margin-left: 15px" id="ask-btn"><a>回答问题</a></button>
+                    <button class="submit-btn small" type="button" style="margin-left: 15px" id="ask-btn" @click="ask_question();"><a>回答问题</a></button>
                 </div>
             </footer>
 		</div>
@@ -176,6 +176,9 @@ var app = new Vue({
                     alert('操作失败');
                 }
             });
+        },
+        ask_question() {
+            window.location.href = 'whiteboard/';
         },
     },
 });
